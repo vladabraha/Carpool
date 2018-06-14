@@ -92,43 +92,49 @@ public class CarProfile extends AppCompatActivity {
         });
 
         //TODO OPRAVIT TAHANI Z DATABAZE - JE TO POKUS JAK CIST HASMAPU???
-        myRef = FirebaseDatabase.getInstance().getReference("user")
-                .child(userID).child("carProfile").child("Auto 3").child("carType");
-
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                showText(dataSnapshot.getValue(String.class));
-                // ...
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                showText("nejde");
-                // ...
-            }
-        };
-        myRef.addValueEventListener(postListener);
-
-
-        //TODO TAKHLE BY TO MELO JIT ALE NEJDE - PROC????
-//        myRef = database.getReference();
-//        myRef.addValueEventListener(new ValueEventListener() {
+//        myRef = FirebaseDatabase.getInstance().getReference("user")
+//                .child(userID).child("carProfile").child("Auto 1");
+//
+//        ValueEventListener postListener = new ValueEventListener() {
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
-//                showData(dataSnapshot);
+//                // Get Post object and use the values to update the UI
+//                Log.d("TAG", dataSnapshot.toString());
+//
+//                //showText(dataSnapshot.getValue(Car.class));
+//                // ...
 //            }
 //
 //            @Override
 //            public void onCancelled(DatabaseError databaseError) {
-//
+//                // Getting Post failed, log a message
+//               // showText("nejde");
+//                // ...
 //            }
-//        });
+//        };
+//        myRef.addValueEventListener(postListener);
+
+
+        //TODO TAKHLE BY TO MELO JIT ALE NEJDE - PROC????
+        myRef = database.getReference();
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //showData(dataSnapshot);
+                Log.d("TAG", dataSnapshot.toString());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
     }
+
+
 
     private void showData(DataSnapshot dataSnapshot) {
         for(DataSnapshot ds : dataSnapshot.getChildren()){
@@ -136,13 +142,14 @@ public class CarProfile extends AppCompatActivity {
             car.setCarType(ds.child(userID).getValue(Car.class).getCarType()); //tohle kombo vytahne typ auta
             car.setFuelConsuption(ds.child(userID).getValue(Car.class).getFuelConsuption());
             car.setName(ds.child(userID).getValue(Car.class).getName());
-            showText(car.getName());
+            //showText(car.getName());
 
         }
     }
 
-    private void showText(String text){
-        Toast.makeText(this, text,Toast.LENGTH_SHORT).show();
+    private void showText(Car car){
+
+        Toast.makeText(this, car.getName(),Toast.LENGTH_SHORT).show();
     }
 
     private void updateData(int progress) {

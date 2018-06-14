@@ -43,10 +43,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationFragment.onButtonInterface {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationFragment.onButtonInterface, LocationFragmentBottom.onButtonSaveInterface {
 
     private GoogleMap mMap;
     private LocationFragment locationFragment;
+    private LocationFragmentBottom locationFragmentBottom;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private Boolean mRequestingLocationUpdates;
     private LocationRequest locationRequest;
@@ -84,7 +85,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             locationFragment.setOnLocationUpdateInterface(this);
 
             getSupportFragmentManager().beginTransaction().add(R.id.fragmentLocation, locationFragment).commit(); //vlozi fragment do Map activity
-            Toast.makeText(this, "vklada se fragment", Toast.LENGTH_SHORT).show();
+        }
+
+        if (findViewById(R.id.fragmentLocationBottom) != null) { //kdyby otaceni, ale nebude
+            locationFragmentBottom = new LocationFragmentBottom(); //vytvori fragment
+            locationFragmentBottom.setOnLocationUpdateInterface(this);
+
+            getSupportFragmentManager().beginTransaction().add(R.id.fragmentLocationBottom, locationFragmentBottom).commit(); //vlozi fragment do Map activity
         }
 
 
@@ -250,8 +257,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        mRequestingLocationUpdates = false;
-                        System.out.println(mRequestingLocationUpdates + "mel by byt false?");
+                        mRequestingLocationUpdates = false;;
                     }
                 });
     }
@@ -485,11 +491,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+//    @Override
+//    public void onButtonClickStop() {
+//       stopLocationUpdates();
+//       //locationFragment.stopChronometr();
+//    }
+
     @Override
-    public void onButtonClickStop() {
-       stopLocationUpdates();
-       //locationFragment.stopChronometr();
+    public void onButtonClickStop(String distance, long base) {
+        stopLocationUpdates();
+        Toast.makeText(this, "Stop location updates", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, distance + " " + String.valueOf(base),Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onButtonClickSave() {
+        Toast.makeText(this,"Ahoj z Maps Activity",Toast.LENGTH_SHORT).show();
 
+    }
 }

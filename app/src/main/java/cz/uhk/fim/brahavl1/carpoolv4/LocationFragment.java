@@ -73,11 +73,19 @@ public class LocationFragment extends Fragment {
 
         btnStopTracking = view.findViewById(R.id.btnStopTracking);
 
+        //akce po zmacknuti tlacitka stop
         btnStopTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //tohle predame do mapsActivity - zastavi to update polohy, slo by i tam, ale...
                 mRequestingLocationUpdates = false;
-                onLocationUpdateInterface.onButtonClickStop();
+
+                //predame pri zastaveni trackovani
+                String distance = editKilometres.getText().toString();
+                long base= chronometer.getBase(); // vrátí čas z chronometru
+
+                //predani prislusnych parametru
+                onLocationUpdateInterface.onButtonClickStop(distance,base);
                 chronometer.stop();
             }
         });
@@ -90,19 +98,20 @@ public class LocationFragment extends Fragment {
     //slouuzi pro komunikaci mezi fragmentem a aktivitou
     public interface onButtonInterface{
         void onButtonClickStart(Boolean mRequestingLocationUpdates);
-        void onButtonClickStop();
+        void onButtonClickStop(String distance, long base);
 
     }
 
-    public void startChronometr(){
-       chronometer.start(); // stop a chronometer
-    }
-
-    public void stopChronometr(){
-        chronometer.stop(); // stop a chronometer
-        String formatType = chronometer.getFormat();
-
-    }
+//    public void startChronometr(){
+//        chronometer.setBase(SystemClock.elapsedRealtime());
+//       chronometer.start(); // stop a chronometer
+//    }
+//
+//    public void stopChronometr(){
+//        chronometer.stop(); // stop a chronometer
+//        String formatType = chronometer.getFormat();
+//
+//    }
 
     //pro mapovou aktivitu nastavi location interface
     public void setOnLocationUpdateInterface(onButtonInterface onLocationUpdateInterface) {

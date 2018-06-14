@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.EditText;
 
 
@@ -17,10 +18,11 @@ import android.widget.EditText;
  */
 public class LocationFragment extends Fragment {
 
-    Button btnStartTracking;
-    Button btnStopTracking;
-    Boolean mRequestingLocationUpdates = false;
-    EditText editKilometres;
+    private Button btnStartTracking;
+    private Button btnStopTracking;
+    private Boolean mRequestingLocationUpdates = false;
+    private EditText editKilometres;
+    private Chronometer chronometer;
 
     private onButtonInterface onLocationUpdateInterface;
 
@@ -52,6 +54,8 @@ public class LocationFragment extends Fragment {
 
         editKilometres = view.findViewById(R.id.editKilometres);
 
+        chronometer = view.findViewById(R.id.chronometer);
+
         btnStartTracking = view.findViewById(R.id.btnStartTracking);
 
         btnStartTracking.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +85,15 @@ public class LocationFragment extends Fragment {
     public interface onButtonInterface{
         void onButtonClickStart(Boolean mRequestingLocationUpdates);
         void onButtonClickStop();
+
+    }
+
+    public void startChronometr(){
+       chronometer.start(); // stop a chronometer
+    }
+
+    public void stopChronometr(){
+        chronometer.stop(); // stop a chronometer
     }
 
     //pro mapovou aktivitu nastavi location interface

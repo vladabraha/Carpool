@@ -2,10 +2,12 @@ package cz.uhk.fim.brahavl1.carpoolv4;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -14,6 +16,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -55,7 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private final static String KEY_REQUESTING_LOCATION_UPDATES = "requesting-location-updates";
     private final static String KEY_LOCATION = "location";
 
-    private static  final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
     private static final String TAG = MapsActivity.class.getSimpleName();
     protected static final int REQUEST_CHECK_SETTINGS = 0x1;
 
@@ -76,14 +79,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        if(findViewById(R.id.fragmentLocation) != null){ //kdyby otaceni, ale nebude
+        if (findViewById(R.id.fragmentLocation) != null) { //kdyby otaceni, ale nebude
             locationFragment = new LocationFragment(); //vytvori fragment
             locationFragment.setOnLocationUpdateInterface(this);
 
             getSupportFragmentManager().beginTransaction().add(R.id.fragmentLocation, locationFragment).commit(); //vlozi fragment do Map activity
             Toast.makeText(this, "vklada se fragment", Toast.LENGTH_SHORT).show();
         }
-
 
 
         //inicializace
@@ -278,10 +280,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void updateLocation() {
-        if (mCurrentLocation == null){
+        if (mCurrentLocation == null) {
 //            Toast.makeText(this,mCurrentLocation.toString(), Toast.LENGTH_SHORT).show();
             return;
-        }else{
+        } else {
 
             prevLat = lat;
             prevLon = lon;
@@ -292,10 +294,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             myLocation = new LatLng(lat, lon);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
 
-            if(prevLon != 0){
+            if (prevLon != 0) {
                 mMap.addPolyline(new PolylineOptions().clickable(false).add(
-                   new LatLng(prevLat, prevLon), //pridavam body, puvodni lokace a nova prichozi
-                   new LatLng(lat, lon)
+                        new LatLng(prevLat, prevLon), //pridavam body, puvodni lokace a nova prichozi
+                        new LatLng(lat, lon)
                 ));
 
                 float[] distanceList = new float[2];
@@ -305,10 +307,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 locationFragment.updateDistance(distance);
 
+
             }
         }
-
-
 
 
     }
@@ -402,6 +403,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Snackbar.LENGTH_INDEFINITE)
                 .setAction(getString(actionStringId), listener).show();
     }
+
     /**
      * Řekne jestli je k dispozici povoleni na polohu, jinak v elsu on resume vyskočí dotazník
      *
@@ -425,11 +427,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+           //LatLng sydney = new LatLng(-34, 151);
+        if (getLastKnownPosition() != null){
+            Location loc = new Location(getLastKnownPosition());
+            LatLng position = new LatLng(loc.getLatitude(), loc.getLongitude());
+//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//            mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 12.0f));
+        }
+
     }
+
+    //posledni znama pozice stack
+    private Location getLastKnownPosition() {
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager != null) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return null;
+            }
+            Location lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (lastKnownLocationGPS != null) {
+                return lastKnownLocationGPS;
+            } else {
+                Location loc =  locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+//                System.out.println("1::"+loc);----getting null over here
+//                System.out.println("2::"+loc.getLatitude());
+                return loc;
+            }
+        } else {
+            return null;
+        }
+    }
+
 
     @Override
     public void onButtonClickStart(Boolean mRequestingLocationUpdates) {
@@ -445,13 +481,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         updateLocation();
+        locationFragment.startChronometr();
 
     }
 
     @Override
     public void onButtonClickStop() {
-        Toast.makeText(this, "stuuuj",Toast.LENGTH_SHORT).show();
-
-        stopLocationUpdates();
+       stopLocationUpdates();
+       locationFragment.stopChronometr();
     }
+
+
 }

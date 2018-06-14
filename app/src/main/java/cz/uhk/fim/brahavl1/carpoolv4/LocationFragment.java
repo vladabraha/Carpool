@@ -3,6 +3,7 @@ package cz.uhk.fim.brahavl1.carpoolv4;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 /**
@@ -63,6 +65,9 @@ public class LocationFragment extends Fragment {
             public void onClick(View v) {
                 mRequestingLocationUpdates = true;
                 onLocationUpdateInterface.onButtonClickStart(mRequestingLocationUpdates);
+
+                chronometer.setBase(SystemClock.elapsedRealtime());
+                chronometer.start();
             }
         });
 
@@ -73,6 +78,7 @@ public class LocationFragment extends Fragment {
             public void onClick(View v) {
                 mRequestingLocationUpdates = false;
                 onLocationUpdateInterface.onButtonClickStop();
+                chronometer.stop();
             }
         });
 
@@ -81,7 +87,7 @@ public class LocationFragment extends Fragment {
 
     }
 
-    //slouuzi pro komunikaci mezi framentem a aktivitou
+    //slouuzi pro komunikaci mezi fragmentem a aktivitou
     public interface onButtonInterface{
         void onButtonClickStart(Boolean mRequestingLocationUpdates);
         void onButtonClickStop();
@@ -94,6 +100,8 @@ public class LocationFragment extends Fragment {
 
     public void stopChronometr(){
         chronometer.stop(); // stop a chronometer
+        String formatType = chronometer.getFormat();
+
     }
 
     //pro mapovou aktivitu nastavi location interface

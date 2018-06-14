@@ -481,14 +481,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         updateLocation();
-        locationFragment.startChronometr();
+        //locationFragment.startChronometr();
 
     }
 
     @Override
     public void onButtonClickStop() {
        stopLocationUpdates();
-       locationFragment.stopChronometr();
+       //locationFragment.stopChronometr();
     }
 
 

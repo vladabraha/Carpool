@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CarProfile">
+
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/rdGroup">
+        <RadioButton android:id="@+id/radio_petrol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="petrol"
+            android:onClick="onRadioButtonClicked"
+            />
+        <RadioButton android:id="@+id/radio_diesel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="diesel"
+            />
+        <RadioButton android:id="@+id/radio_cng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cng"
+            android:onClick="onRadioButtonClicked"
+            />
+    </RadioGroup>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="name_of_car"
+        android:id="@+id/editTextCarName"
+        android:layout_marginTop="8dp"/>
+
+    <SeekBar
+        android:id="@+id/seekBarfuelConsuption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        />
+
+    <TextView
+        android:id="@+id/textProgress"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:layout_marginStart="10dp"
+         />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Profile"
+        android:id="@+id/btnSaveCarProfile"/>
+</LinearLayout>

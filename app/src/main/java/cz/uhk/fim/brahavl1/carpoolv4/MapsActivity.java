@@ -42,6 +42,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -58,6 +62,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationCallback mLocationCallback;
     private Location mCurrentLocation;
     private LocationSettingsRequest mLocationSettingsRequest;
+
+    private FirebaseUser currentFirebaseUser;
+    private FirebaseDatabase database;
+
+    private Ride ride;
 
     private final static String KEY_REQUESTING_LOCATION_UPDATES = "requesting-location-updates";
     private final static String KEY_LOCATION = "location";
@@ -113,6 +122,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         buildLocationSettingrequest();
+
+        //inicializace pro ukladani do databaze
+        database = FirebaseDatabase.getInstance();
+        currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
     }
 
@@ -509,11 +522,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d("TAG", time);
         Toast.makeText(this, "Stop location updates", Toast.LENGTH_SHORT).show();
         Toast.makeText(this, time + " " + distance + " " + String.valueOf(base),Toast.LENGTH_SHORT).show();
+
+        ride = new Ride(time, distance, base);
     }
 
     @Override
     public void onButtonClickSave() {
         Toast.makeText(this,"Ahoj z Maps Activity",Toast.LENGTH_SHORT).show();
+        Date currentTime = Calendar.getInstance().getTime();
+
+        //tyhle 2 radky vloží něco do databaze
+        DatabaseReference myRef = database.getReference("user");
+        //jednotlive zanorovani se provadi pomoci .child
+        myRef.child(currentFirebaseUser.getUid())
+                .child("Ride")
+                .child(String.valueOf(currentTime))
+                .setValue(ride); //profil auta
 
     }
 }

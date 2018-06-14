@@ -135,7 +135,6 @@ public class CarProfile extends AppCompatActivity {
     }
 
 
-
     private void showData(DataSnapshot dataSnapshot) {
         for(DataSnapshot ds : dataSnapshot.getChildren()){
             Car car = new Car();
@@ -162,12 +161,6 @@ public class CarProfile extends AppCompatActivity {
     }
 
     private void saveCarProfile() {
-//        Toast.makeText(this, carType + " " + editTextCarName.getText().toString() + " " + fuelConsuption,Toast.LENGTH_SHORT).show();
-
-
-//        Toast.makeText(this, "" + currentFirebaseUser.getUid(), Toast.LENGTH_SHORT).show();
-
-
         //vytvoreni objektu auta
         if (rg.getCheckedRadioButtonId()==-1 || editTextCarName.getText().toString().trim().length() <= 0 || fuelConsuption == null){
             Toast.makeText(this, "Missing car details",Toast.LENGTH_SHORT).show();

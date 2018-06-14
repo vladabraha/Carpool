@@ -43,6 +43,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationFragment.onButtonInterface, LocationFragmentBottom.onButtonSaveInterface {
 
     private GoogleMap mMap;
@@ -500,8 +503,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onButtonClickStop(String distance, long base) {
         stopLocationUpdates();
+
+        Date currentTime = Calendar.getInstance().getTime();
+        String time = String.valueOf(currentTime);
+        Log.d("TAG", time);
         Toast.makeText(this, "Stop location updates", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, distance + " " + String.valueOf(base),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, time + " " + distance + " " + String.valueOf(base),Toast.LENGTH_SHORT).show();
     }
 
     @Override

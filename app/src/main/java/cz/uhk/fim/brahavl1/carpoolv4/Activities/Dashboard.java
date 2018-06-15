@@ -65,10 +65,10 @@ public class Dashboard extends AppCompatActivity {
         switch (resultCode){
             //Vraceni z CarChooser
             case 100:
-                String choosedOption = data.getStringExtra("car");
+                String fuelConsuption = data.getStringExtra("car");
 
-                Log.d("TAG",choosedOption );
-                Toast.makeText(this, choosedOption, Toast.LENGTH_SHORT).show();
+                Log.d("TAG",fuelConsuption );
+                Toast.makeText(this, fuelConsuption, Toast.LENGTH_SHORT).show();
                 break;
         }
 

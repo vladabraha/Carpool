@@ -127,7 +127,7 @@ public class CarChooser extends AppCompatActivity implements CarChooserRecyclerV
 
         //tohle posle zpátky - v tomhle pripade zvoleny auto
         Intent resultIntent = new Intent();
-        resultIntent.putExtra("car", listCar.get(position).getName());
+        resultIntent.putExtra("car", String.valueOf(listCar.get(position).getFuelConsuption()));
         setResult(100, resultIntent);
         finish();
 

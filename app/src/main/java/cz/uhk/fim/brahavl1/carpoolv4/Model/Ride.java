@@ -1,4 +1,4 @@
-package cz.uhk.fim.brahavl1.carpoolv4;
+package cz.uhk.fim.brahavl1.carpoolv4.Model;
 
 import java.util.List;
 

@@ -1,6 +1,5 @@
-package cz.uhk.fim.brahavl1.carpoolv4;
+package cz.uhk.fim.brahavl1.carpoolv4.Activities;
 
-import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
+import cz.uhk.fim.brahavl1.carpoolv4.Model.Car;
+import cz.uhk.fim.brahavl1.carpoolv4.R;
 
 public class CarProfile extends AppCompatActivity {
 
@@ -91,7 +90,7 @@ public class CarProfile extends AppCompatActivity {
             }
         });
 
-        //TODO OPRAVIT TAHANI Z DATABAZE - JE TO POKUS JAK CIST HASMAPU???
+        //TODO CTENI Z DATABAZE
         myRef = FirebaseDatabase.getInstance().getReference("user")
                 .child(userID).child("carProfile");
 

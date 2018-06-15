@@ -5,7 +5,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:orientation="vertical"
-tools:context=".MapsActivity">
+tools:context=".Activities.MapsActivity">
 
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -14,17 +14,17 @@ tools:context=".MapsActivity">
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="400dp"
-    tools:context=".MapsActivity" />
+    tools:context=".Activities.MapsActivity" />
 
 <fragment
     android:id="@+id/fragmentLocation"
-    android:name="cz.uhk.fim.brahavl1.carpoolv4.LocationFragment"
+    android:name="cz.uhk.fim.brahavl1.carpoolv4.Fragments.LocationFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"></fragment>
 
     <fragment
         android:id="@+id/fragmentLocationBottom"
-        android:name="cz.uhk.fim.brahavl1.carpoolv4.LocationFragmentBottom"
+        android:name="cz.uhk.fim.brahavl1.carpoolv4.Fragments.LocationFragmentBottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></fragment>
 

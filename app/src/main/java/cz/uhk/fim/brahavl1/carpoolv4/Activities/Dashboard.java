@@ -1,4 +1,4 @@
-package cz.uhk.fim.brahavl1.carpoolv4;
+package cz.uhk.fim.brahavl1.carpoolv4.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,11 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import cz.uhk.fim.brahavl1.carpoolv4.R;
+
 public class Dashboard extends AppCompatActivity {
 
     Button btnCarProfile;
     Button btnStartCarPool;
+    Button btnSelectCar;
     int resultCode;
+    int resultCode2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,18 @@ public class Dashboard extends AppCompatActivity {
                 startActivityForResult(intentStartPool, resultCode);
             }
         });
+
+        btnSelectCar = (Button) findViewById(R.id.btnSelectCar);
+
+        btnSelectCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentChooseCar = new Intent(Dashboard.this, CarChooser.class);
+                startActivityForResult(intentChooseCar,resultCode2);
+            }
+        });
+
+
 
     }
 

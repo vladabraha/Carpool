@@ -1,17 +1,14 @@
-package cz.uhk.fim.brahavl1.carpoolv4;
+package cz.uhk.fim.brahavl1.carpoolv4.Fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Chronometer;
-import android.widget.EditText;
-import android.widget.Toast;
+
+import cz.uhk.fim.brahavl1.carpoolv4.R;
 
 
 public class LocationFragmentBottom extends Fragment {

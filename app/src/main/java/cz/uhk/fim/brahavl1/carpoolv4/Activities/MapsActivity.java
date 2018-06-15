@@ -1,4 +1,4 @@
-package cz.uhk.fim.brahavl1.carpoolv4;
+package cz.uhk.fim.brahavl1.carpoolv4.Activities;
 
 import android.Manifest;
 import android.app.Activity;
@@ -16,7 +16,6 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Chronometer;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -30,13 +29,11 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -49,6 +46,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 import java.util.Date;
+
+import cz.uhk.fim.brahavl1.carpoolv4.Fragments.LocationFragment;
+import cz.uhk.fim.brahavl1.carpoolv4.Fragments.LocationFragmentBottom;
+import cz.uhk.fim.brahavl1.carpoolv4.R;
+import cz.uhk.fim.brahavl1.carpoolv4.Model.Ride;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationFragment.onButtonInterface, LocationFragmentBottom.onButtonSaveInterface {
 
@@ -528,7 +530,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onButtonClickSave() {
-        Toast.makeText(this,"Ahoj z Maps Activity",Toast.LENGTH_SHORT).show();
+
         Date currentTime = Calendar.getInstance().getTime();
 
         //tyhle 2 radky vloží něco do databaze
@@ -538,6 +540,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .child("Ride")
                 .child(String.valueOf(currentTime))
                 .setValue(ride); //profil auta
+
+        Toast.makeText(this,"Saved",Toast.LENGTH_SHORT).show();
 
     }
 }

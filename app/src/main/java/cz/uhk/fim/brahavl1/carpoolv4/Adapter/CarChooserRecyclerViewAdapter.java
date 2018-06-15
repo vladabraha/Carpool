@@ -1,5 +1,6 @@
 package cz.uhk.fim.brahavl1.carpoolv4.Adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -16,9 +19,12 @@ import cz.uhk.fim.brahavl1.carpoolv4.R;
 
 public class CarChooserRecyclerViewAdapter extends RecyclerView.Adapter<CarChooserRecyclerViewAdapter.CarViewHolder>{ //tady extendovat viewholder dole
 
-    private onButtonCarChooseInterface onButtonChooseInterface; //nazev interfacu pro komunikaci s aktivitou - zatím to tady nemám, bude
-
     private ArrayList<Car> carList; //list toho co sem bude chodt
+
+    private onButtonCarChooseInterface OnButtonCarChooseListener;
+
+    private Context context;
+
 
 
     // Konstruktor  vlozi data, ktera se budou zobrazovat (vola se z aktivity)
@@ -57,6 +63,7 @@ public class CarChooserRecyclerViewAdapter extends RecyclerView.Adapter<CarChoos
         return carList.size();
     }
 
+
     public class CarViewHolder extends RecyclerView.ViewHolder{
 
         //tady si vytahnout id z layoutu a nasetovat je podle toho jak to co se v nich ma zobrazit
@@ -66,8 +73,6 @@ public class CarChooserRecyclerViewAdapter extends RecyclerView.Adapter<CarChoos
         private TextView textViewCarType;
 
         private Button buttonChooseCar;
-
-        private onButtonCarChooseInterface onButtonCarChooseInterface;
 
 
         public CarViewHolder(View itemView) {
@@ -79,6 +84,23 @@ public class CarChooserRecyclerViewAdapter extends RecyclerView.Adapter<CarChoos
             textViewCarFuelConsuption = itemView.findViewById(R.id.textViewCarFuelConsuption);
             textViewCarType = itemView.findViewById(R.id.textViewCarType);
             buttonChooseCar = itemView.findViewById(R.id.btnChooseCar);
+
+
+
+            buttonChooseCar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //tohle zkontroluje jestli je něco vybrany a zavola metodu dole
+                    if (OnButtonCarChooseListener != null){ //nutne pro to aby to nehodilo nullpointer
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){ //nutne pro to aby to nehodilo nullpointer
+                            OnButtonCarChooseListener.onButtonChoose(position);
+                        };
+
+                    }
+
+                }
+            });
 
 
         }
@@ -97,14 +119,6 @@ public class CarChooserRecyclerViewAdapter extends RecyclerView.Adapter<CarChoos
 //                viewGender.setBackgroundResource(R.color.colorFemale);
 //            }
 
-            //tohle zatim neni rozjety, ale melo by to vrace pozici, kde se kliklo na cudlik v recycleru zpet do tridy car choooser, bagr z komunikace skrz interface z mapActivity
-            buttonChooseCar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //onItemDeleteClickListener.onItemDelete(getAdapterPosition()); //tohle by smazalo celej řádek, když by se na to kliklo
-                    onButtonChooseInterface.onButtonChoose(getAdapterPosition());
-                }
-            });
 
 
             //kdyby byl potreba seekbar zmena, tak to tu jeste necham
@@ -120,9 +134,15 @@ public class CarChooserRecyclerViewAdapter extends RecyclerView.Adapter<CarChoos
 
     }
 
+    //interface na komunikaci s aktivitou
     public interface onButtonCarChooseInterface{
         void onButtonChoose(int position);
 
+
+    }
+
+    public void setOnButtonChooseListener(onButtonCarChooseInterface listener){
+        this.OnButtonCarChooseListener = listener;
 
     }
 }

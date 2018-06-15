@@ -18,19 +18,22 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import cz.uhk.fim.brahavl1.carpoolv4.Adapter.CarChooserRecyclerViewAdapter;
+
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Car;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
 public class CarChooser extends AppCompatActivity implements CarChooserRecyclerViewAdapter.onButtonCarChooseInterface {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private CarChooserRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private String userID;
     private FirebaseUser currentFirebaseUser;
+
+
 
     //seznam, ktery budeme posilat do recycler view
     private ArrayList<Car> listCar;
@@ -62,6 +65,8 @@ public class CarChooser extends AppCompatActivity implements CarChooserRecyclerV
 
         listCar = getCarsFromDatabase();
 
+
+
         //---------------
 
 
@@ -74,11 +79,6 @@ public class CarChooser extends AppCompatActivity implements CarChooserRecyclerV
 //        mRecyclerView.setAdapter(mAdapter);
     }
 
-
-    @Override
-    public void onButtonChoose(int position) {
-        Toast.makeText(this,"copak asi prijde " + position, Toast.LENGTH_SHORT ).show();
-    }
 
     private ArrayList<Car> getCarsFromDatabase(){
         //TODO CTENI Z DATABAZE
@@ -102,8 +102,10 @@ public class CarChooser extends AppCompatActivity implements CarChooserRecyclerV
                 Log.d("TAG","velikost je " + String.valueOf(listCar.size()));
 
                 //TODO TADY TO MUSI BYT, ALE NEMELO BY TO TU BYT
+//                mAdapter = new CarChooserRecyclerViewAdapter(CarChooser.this,listCar);
                 mAdapter = new CarChooserRecyclerViewAdapter(listCar);
                 mRecyclerView.setAdapter(mAdapter);
+                mAdapter.setOnButtonChooseListener(CarChooser.this);
             }
 
             @Override
@@ -115,5 +117,14 @@ public class CarChooser extends AppCompatActivity implements CarChooserRecyclerV
         };
         myRef.addValueEventListener(postListener);
         return listCar;
+    }
+
+    //sem chodi pozice z recyclerview
+    @Override
+    public void onButtonChoose(int position) {
+        Toast.makeText(this, listCar.get(position).getName(), Toast.LENGTH_SHORT).show();
+
+
+
     }
 }

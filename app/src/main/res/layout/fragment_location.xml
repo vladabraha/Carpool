@@ -37,15 +37,17 @@
                 android:orientation="vertical">
 
 
-                <EditText
+                <TextView
+                    android:id="@+id/textKilometres"
+                    android:textSize="14dp"
+                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:id="@+id/editKilometres"
-                    />
+                    android:textColor="@color/colorDarkBlack"/>
                 <Chronometer
                     android:id="@+id/chronometer"
                     android:layout_width="wrap_content"
+                    android:layout_margin="2dp"
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>

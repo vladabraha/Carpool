@@ -23,8 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.Dashboard"/>
-
+        <activity android:name=".Activities.Dashboard" />
         <activity android:name=".Activities.CarProfile" />
         <activity android:name=".Activities.CarChooser" />
         <!--
@@ -42,7 +41,8 @@
         <activity
             android:name=".Activities.MapsActivity"
             android:label="@string/title_activity_maps"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activities.CarDelete"></activity>
     </application>
 
 </manifest>

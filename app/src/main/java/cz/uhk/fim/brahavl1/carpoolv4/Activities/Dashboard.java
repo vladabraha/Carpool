@@ -15,6 +15,7 @@ public class Dashboard extends AppCompatActivity {
     Button btnCarProfile;
     Button btnStartCarPool;
     Button btnSelectCar;
+    Button btnDeleteCar;
     int resultCode;
     int resultCode2 = 1;
 
@@ -54,7 +55,15 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
+        btnDeleteCar = (Button) findViewById(R.id.btnDeleteCar);
 
+        btnDeleteCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentDelCar = new Intent(Dashboard.this, CarDelete.class);
+                startActivity(intentDelCar);
+            }
+        });
     }
 
     @Override

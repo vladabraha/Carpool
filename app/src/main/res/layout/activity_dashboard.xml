@@ -7,47 +7,37 @@
     android:orientation="vertical"
     tools:context=".Activities.Dashboard">
 
-
-    <LinearLayout
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-       >
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set car profile"
+        android:text="Manage car profiles"
         android:id="@+id/btnCarProfile"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Start Car pool"
         android:id="@+id/btnStartCarPool"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Select car"
         android:id="@+id/btnSelectCar"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         />
 
-
-    </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete car profile"
+            android:id="@+id/btnDeleteCar"
+            android:layout_marginTop="8dp"
+            />
 
 
 </LinearLayout>

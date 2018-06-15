@@ -1,7 +1,10 @@
 package cz.uhk.fim.brahavl1.carpoolv4.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,10 +23,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
+import cz.uhk.fim.brahavl1.carpoolv4.Adapter.CarChooserRecyclerViewAdapter;
+import cz.uhk.fim.brahavl1.carpoolv4.Adapter.CarManageRecyclerViewAdapter;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Car;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
-public class CarProfile extends AppCompatActivity {
+public class CarProfile extends AppCompatActivity implements CarManageRecyclerViewAdapter.onButtonCarDeleteInterface{
 
     private String carType;
     private Button btnSaveCarProfile;
@@ -36,8 +43,16 @@ public class CarProfile extends AppCompatActivity {
     private Car car;
     private RadioGroup rg;
 
+    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView mRecyclerView;
+
+
+    //seznam, ktery budeme posilat do recycler view
+    private ArrayList<Car> listCar;
+
     private DatabaseReference myRef;
     private String userID;
+    private CarManageRecyclerViewAdapter mAdapter;
 
     final int max = 100;
 
@@ -57,6 +72,14 @@ public class CarProfile extends AppCompatActivity {
         //do currentFirebaseUser se vloží uid prihlaseneho uzivatele
         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         userID = currentFirebaseUser.getUid();
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_manage_car); //sem hodit z tyhle aktivity id recycler view
+        mLayoutManager = new LinearLayoutManager(this); //nechat
+        mRecyclerView.setLayoutManager(mLayoutManager); //nechat
+
+
+        listCar =  new ArrayList<>();
+        listCar = getCarsFromDatabase();
 
 
         seekBarfuelConsuption.setMax(max);
@@ -186,6 +209,45 @@ public class CarProfile extends AppCompatActivity {
         }
     }
 
+    private ArrayList<Car> getCarsFromDatabase(){
+        //TODO CTENI Z DATABAZE
+        myRef = FirebaseDatabase.getInstance().getReference("user")
+                .child(userID).child("carProfile");
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                listCar.clear();
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+
+                    Car car = postSnapshot.getValue(Car.class);
+                    Log.d("TAG","nyni se vklada " + car.toString());
+                    listCar.add(car);
+                    Log.d("TAG", "v seznamu tedka je " + listCar.toString());
+                    Log.d("TAG","v seznamu je " + String.valueOf(listCar.size() + " hodnot"));
+
+
+                }
+                Log.d("TAG","velikost je " + String.valueOf(listCar.size()));
+
+                //TODO TADY TO MUSI BYT, ALE NEMELO BY TO TU BYT
+//                mAdapter = new CarChooserRecyclerViewAdapter(CarChooser.this,listCar);
+                mAdapter = new CarManageRecyclerViewAdapter(listCar);
+                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.setOnButtonChooseListener(CarProfile.this);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                // showText("nejde");
+                // ...
+            }
+        };
+        myRef.addValueEventListener(postListener);
+        return listCar;
+    }
 
 
     public void onRadioButtonClicked(View view) {
@@ -207,5 +269,31 @@ public class CarProfile extends AppCompatActivity {
                     carType = "cng";
                     break;
         }
+    }
+
+
+    @Override
+    public void onButtonDelete(int position) {
+
+        String carName = listCar.get(position).getName().toString();
+
+        Log.d("TAG", carName);
+
+        //TODO predelat ukladani do samostane metoddy
+        //tyhle 2 radky vloží něco do databaze
+        DatabaseReference myRef = database.getReference("user");
+        //jednotlive zanorovani se provadi pomoci .child
+        myRef.child(currentFirebaseUser.getUid())
+                .child("carProfile")
+                .child(carName) //pokud by bylo vice aut, tak se pak bude moct vybirat
+                .setValue(null); //profil auta
+
+        Toast.makeText(this, "CarDetails Succesfully saved",Toast.LENGTH_SHORT).show();
+
+        //tohle posle zpátky - v tomhle pripade zvoleny auto
+//        Intent resultIntent = new Intent();
+//        resultIntent.putExtra("car", String.valueOf(listCar.get(position).getFuelConsuption()));
+//        setResult(100, resultIntent);
+//        finish();
     }
 }

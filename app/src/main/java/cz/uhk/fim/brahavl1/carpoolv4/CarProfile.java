@@ -92,44 +92,49 @@ public class CarProfile extends AppCompatActivity {
         });
 
         //TODO OPRAVIT TAHANI Z DATABAZE - JE TO POKUS JAK CIST HASMAPU???
-//        myRef = FirebaseDatabase.getInstance().getReference("user")
-//                .child(userID).child("carProfile").child("Auto 1");
-//
-//        ValueEventListener postListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // Get Post object and use the values to update the UI
-//                Log.d("TAG", dataSnapshot.toString());
-//
-//                //showText(dataSnapshot.getValue(Car.class));
-//                // ...
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//               // showText("nejde");
-//                // ...
-//            }
-//        };
-//        myRef.addValueEventListener(postListener);
+        myRef = FirebaseDatabase.getInstance().getReference("user")
+                .child(userID).child("carProfile");
 
-
-        //TODO TAKHLE BY TO MELO JIT ALE NEJDE - PROC????
-        myRef = database.getReference();
-        myRef.addValueEventListener(new ValueEventListener() {
+        ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //showData(dataSnapshot);
-                Log.d("TAG", dataSnapshot.toString());
+                // Get Post object and use the values to update the UI
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
 
+                    Car car = postSnapshot.getValue(Car.class);
+                    Log.d("TAG", car.toString());
+
+                    showText(car.getName());
+                }
+
+                // ...
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                // Getting Post failed, log a message
+               // showText("nejde");
+                // ...
             }
-        });
+        };
+        myRef.addValueEventListener(postListener);
+
+
+        //TODO TAKHLE BY TO MELO JIT ALE NEJDE - PROC????
+//        myRef = database.getReference();
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                //showData(dataSnapshot);
+//                Log.d("TAG", dataSnapshot.toString());
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
 
     }
@@ -146,9 +151,9 @@ public class CarProfile extends AppCompatActivity {
         }
     }
 
-    private void showText(Car car){
+    private void showText(String text){
 
-        Toast.makeText(this, car.getName(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
     }
 
     private void updateData(int progress) {

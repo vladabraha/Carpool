@@ -1,5 +1,6 @@
 package cz.uhk.fim.brahavl1.carpoolv4.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -72,7 +73,7 @@ public class CarChooser extends AppCompatActivity implements CarChooserRecyclerV
 
         // specify an adapter (see also next example)
         // sem se do konstruktoru recycler view předá list toho co budeme zobrazovat (mit kontruktor aby prijimal list)
-        Log.d("TAG","velikost je " + String.valueOf(listCar.size()));
+
 
         //TODO NEJDE TO TU ZPROVOZNIT?
 //        mAdapter = new CarChooserRecyclerViewAdapter(listCar);
@@ -122,7 +123,13 @@ public class CarChooser extends AppCompatActivity implements CarChooserRecyclerV
     //sem chodi pozice z recyclerview
     @Override
     public void onButtonChoose(int position) {
-        Toast.makeText(this, listCar.get(position).getName(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, listCar.get(position).getName(), Toast.LENGTH_SHORT).show();
+
+        //tohle posle zpátky - v tomhle pripade zvoleny auto
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("car", listCar.get(position).getName());
+        setResult(100, resultIntent);
+        finish();
 
 
 

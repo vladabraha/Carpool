@@ -42,7 +42,6 @@
             android:name=".Activities.MapsActivity"
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.CarDelete" />
         <activity android:name=".Activities.PassengerProfile" />
     </application>
 

@@ -56,15 +56,6 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
-//        btnDeleteCar = (Button) findViewById(R.id.btnDeleteCar);
-//
-//        btnDeleteCar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intentDelCar = new Intent(Dashboard.this, CarDelete.class);
-//                startActivity(intentDelCar);
-//            }
-//        });
 
         btnManageProfiles = findViewById(R.id.btnManagePassengers);
 

@@ -15,7 +15,8 @@ public class Dashboard extends AppCompatActivity {
     Button btnCarProfile;
     Button btnStartCarPool;
     Button btnSelectCar;
-    Button btnDeleteCar;
+//    Button btnDeleteCar;
+    Button btnManageProfiles;
     int resultCode;
     int resultCode2 = 1;
 
@@ -55,13 +56,23 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
-        btnDeleteCar = (Button) findViewById(R.id.btnDeleteCar);
+//        btnDeleteCar = (Button) findViewById(R.id.btnDeleteCar);
+//
+//        btnDeleteCar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intentDelCar = new Intent(Dashboard.this, CarDelete.class);
+//                startActivity(intentDelCar);
+//            }
+//        });
 
-        btnDeleteCar.setOnClickListener(new View.OnClickListener() {
+        btnManageProfiles = findViewById(R.id.btnManagePassengers);
+
+        btnManageProfiles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentDelCar = new Intent(Dashboard.this, CarDelete.class);
-                startActivity(intentDelCar);
+                Intent intentManageProfiles = new Intent(Dashboard.this, PassengerProfile.class);
+                startActivity(intentManageProfiles);
             }
         });
     }

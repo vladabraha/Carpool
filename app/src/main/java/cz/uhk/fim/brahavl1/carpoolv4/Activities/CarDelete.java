@@ -21,7 +21,7 @@ import cz.uhk.fim.brahavl1.carpoolv4.Model.Car;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
 public class CarDelete extends AppCompatActivity implements CarManageRecyclerViewAdapter.onButtonCarDeleteInterface {
-
+//todo SMAZAT VCETNE CAR DELETE AKTIVITY NEMAZAT RECYCLER!!!
     //seznam, ktery budeme posilat do recycler view
     private ArrayList<Car> listCar;
 

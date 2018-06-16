@@ -1,7 +1,6 @@
 package cz.uhk.fim.brahavl1.carpoolv4.Model;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -12,7 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 /**
- * Database connector for saving data into database
+ * Database connector for saving data into database and deleting data in database
  */
 public class DatabaseConnector {
 
@@ -33,9 +32,6 @@ public class DatabaseConnector {
 
 
     public void saveCarProfile(Car car) {
-        //vytvoreni objektu auta
-        //TODO predelat ukladani do samostane metoddy
-        //tyhle 2 radky vloží něco do databaze
         String carName = car.getName();
         DatabaseReference myRef = database.getReference("user");
         //jednotlive zanorovani se provadi pomoci .child
@@ -47,15 +43,24 @@ public class DatabaseConnector {
     }
 
     public void deleteCarProfile(String carName) {
-
-        //TODO predelat ukladani do samostane metoddy
-        //tyhle 2 radky vloží něco do databaze
         DatabaseReference myRef = database.getReference("user");
         //jednotlive zanorovani se provadi pomoci .child
         myRef.child(currentFirebaseUser.getUid())
                 .child("carProfile")
-                .child(carName) //pokud by bylo vice aut, tak se pak bude moct vybirat
-                .setValue(null); //profil auta
+                .child(carName)
+                .setValue(null); //null vymaze danou hodnotu
+    }
+
+    public void savePassenger(Passenger passenger) {
+
+        DatabaseReference myRef = database.getReference("user");
+        String passengerName = passenger.getPassengerName();
+
+        myRef.child(currentFirebaseUser.getUid())
+                .child("passengers")
+                .child(passengerName)
+                .setValue(passenger);
+
     }
 
 }

@@ -43,7 +43,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="name_of_car"
+        android:hint="enter car name"
         android:id="@+id/editTextCarName"
         android:layout_marginTop="8dp"/>
 

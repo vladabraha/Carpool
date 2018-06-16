@@ -7,6 +7,13 @@
     android:orientation="vertical"
     tools:context=".Activities.CarProfile">
 
+    <TextView
+        android:id="@+id/textViewCreateCarInformation"
+        android:text="Create new profile"
+        android:textSize="14dp"
+        android:layout_margin="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
@@ -60,6 +67,14 @@
         android:layout_height="wrap_content"
         android:text="Save Profile"
         android:id="@+id/btnSaveCarProfile"/>
+
+    <TextView
+        android:id="@+id/textViewManageCarInformation"
+        android:text="Delete car profile"
+        android:textSize="14dp"
+        android:layout_margin="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_manage_car"

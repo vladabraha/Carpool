@@ -63,4 +63,16 @@ public class DatabaseConnector {
 
     }
 
+    public void deletePassenger(Passenger passenger) {
+
+        DatabaseReference myRef = database.getReference("user");
+        String passengerName = passenger.getPassengerName();
+
+        myRef.child(currentFirebaseUser.getUid())
+                .child("passengers")
+                .child(passengerName)
+                .setValue(null);
+
+    }
+
 }

@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import cz.uhk.fim.brahavl1.carpoolv4.Adapter.CarChooserRecyclerViewAdapter;
 import cz.uhk.fim.brahavl1.carpoolv4.Adapter.CarManageRecyclerViewAdapter;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Car;
+import cz.uhk.fim.brahavl1.carpoolv4.Model.DatabaseConnector;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
 public class CarProfile extends AppCompatActivity implements CarManageRecyclerViewAdapter.onButtonCarDeleteInterface{
@@ -53,6 +54,8 @@ public class CarProfile extends AppCompatActivity implements CarManageRecyclerVi
     private DatabaseReference myRef;
     private String userID;
     private CarManageRecyclerViewAdapter mAdapter;
+
+    private DatabaseConnector databaseConnector;
 
     final int max = 100;
 
@@ -81,6 +84,7 @@ public class CarProfile extends AppCompatActivity implements CarManageRecyclerVi
         listCar =  new ArrayList<>();
         listCar = getCarsFromDatabase();
 
+        databaseConnector = new DatabaseConnector();
 
         seekBarfuelConsuption.setMax(max);
         seekBarfuelConsuption.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -113,33 +117,33 @@ public class CarProfile extends AppCompatActivity implements CarManageRecyclerVi
             }
         });
 
-        //TODO CTENI Z DATABAZE
-        myRef = FirebaseDatabase.getInstance().getReference("user")
-                .child(userID).child("carProfile");
-
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-
-                    Car car = postSnapshot.getValue(Car.class);
-                    Log.d("TAG", car.toString());
-
-                    showText(car.getName());
-                }
-
-                // ...
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-               // showText("nejde");
-                // ...
-            }
-        };
-        myRef.addValueEventListener(postListener);
+//        //TODO CTENI Z DATABAZE
+//        myRef = FirebaseDatabase.getInstance().getReference("user")
+//                .child(userID).child("carProfile");
+//
+//        ValueEventListener postListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // Get Post object and use the values to update the UI
+//                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+//
+//                    Car car = postSnapshot.getValue(Car.class);
+//                    Log.d("TAG", car.toString());
+//
+//                    showText(car.getName());
+//                }
+//
+//                // ...
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                // Getting Post failed, log a message
+//               // showText("nejde");
+//                // ...
+//            }
+//        };
+//        myRef.addValueEventListener(postListener);
 
 
         //TODO TAKHLE BY TO MELO JIT ALE NEJDE - PROC????
@@ -162,21 +166,21 @@ public class CarProfile extends AppCompatActivity implements CarManageRecyclerVi
     }
 
 
-    private void showData(DataSnapshot dataSnapshot) {
-        for(DataSnapshot ds : dataSnapshot.getChildren()){
-            Car car = new Car();
-            car.setCarType(ds.child(userID).getValue(Car.class).getCarType()); //tohle kombo vytahne typ auta
-            car.setFuelConsuption(ds.child(userID).getValue(Car.class).getFuelConsuption());
-            car.setName(ds.child(userID).getValue(Car.class).getName());
-            //showText(car.getName());
-
-        }
-    }
-
-    private void showText(String text){
-
-        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
-    }
+//    private void showData(DataSnapshot dataSnapshot) {
+//        for(DataSnapshot ds : dataSnapshot.getChildren()){
+//            Car car = new Car();
+//            car.setCarType(ds.child(userID).getValue(Car.class).getCarType()); //tohle kombo vytahne typ auta
+//            car.setFuelConsuption(ds.child(userID).getValue(Car.class).getFuelConsuption());
+//            car.setName(ds.child(userID).getValue(Car.class).getName());
+//            //showText(car.getName());
+//
+//        }
+//    }
+//
+//    private void showText(String text){
+//
+//        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+//    }
 
     private void updateData(int progress) {
 
@@ -194,14 +198,16 @@ public class CarProfile extends AppCompatActivity implements CarManageRecyclerVi
         }else{
             car = new Car(editTextCarName.getText().toString(), Float.parseFloat(fuelConsuption), carType);
 
-            //TODO predelat ukladani do samostane metoddy
-            //tyhle 2 radky vloží něco do databaze
-            DatabaseReference myRef = database.getReference("user");
-            //jednotlive zanorovani se provadi pomoci .child
-            myRef.child(currentFirebaseUser.getUid())
-                    .child("carProfile")
-                    .child(editTextCarName.getText().toString()) //pokud by bylo vice aut, tak se pak bude moct vybirat
-                    .setValue(car); //profil auta
+//            //TODO predelat ukladani do samostane metoddy
+//            //tyhle 2 radky vloží něco do databaze
+//            DatabaseReference myRef = database.getReference("user");
+//            //jednotlive zanorovani se provadi pomoci .child
+//            myRef.child(currentFirebaseUser.getUid())
+//                    .child("carProfile")
+//                    .child(editTextCarName.getText().toString()) //pokud by bylo vice aut, tak se pak bude moct vybirat
+//                    .setValue(car); //profil auta
+
+            databaseConnector.saveCarProfile(car);
 
             Toast.makeText(this, "CarDetails Succesfully saved",Toast.LENGTH_SHORT).show();
 
@@ -277,23 +283,17 @@ public class CarProfile extends AppCompatActivity implements CarManageRecyclerVi
 
         String carName = listCar.get(position).getName().toString();
 
-        Log.d("TAG", carName);
+//        //TODO predelat ukladani do samostane metoddy
+//        //tyhle 2 radky vloží něco do databaze
+//        DatabaseReference myRef = database.getReference("user");
+//        //jednotlive zanorovani se provadi pomoci .child
+//        myRef.child(currentFirebaseUser.getUid())
+//                .child("carProfile")
+//                .child(carName) //pokud by bylo vice aut, tak se pak bude moct vybirat
+//                .setValue(null); //profil auta
 
-        //TODO predelat ukladani do samostane metoddy
-        //tyhle 2 radky vloží něco do databaze
-        DatabaseReference myRef = database.getReference("user");
-        //jednotlive zanorovani se provadi pomoci .child
-        myRef.child(currentFirebaseUser.getUid())
-                .child("carProfile")
-                .child(carName) //pokud by bylo vice aut, tak se pak bude moct vybirat
-                .setValue(null); //profil auta
+        databaseConnector.deleteCarProfile(carName);
 
         Toast.makeText(this, "CarDetails Succesfully saved",Toast.LENGTH_SHORT).show();
-
-        //tohle posle zpátky - v tomhle pripade zvoleny auto
-//        Intent resultIntent = new Intent();
-//        resultIntent.putExtra("car", String.valueOf(listCar.get(position).getFuelConsuption()));
-//        setResult(100, resultIntent);
-//        finish();
     }
 }

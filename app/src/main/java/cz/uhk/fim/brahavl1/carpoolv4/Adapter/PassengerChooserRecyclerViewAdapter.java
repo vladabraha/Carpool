@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import cz.uhk.fim.brahavl1.carpoolv4.R;
 public class PassengerChooserRecyclerViewAdapter extends  RecyclerView.Adapter<PassengerChooserRecyclerViewAdapter.PassengerViewHolder> {
 
     private ArrayList<Passenger> passengerList; //list toho co sem bude chodit
+    private ArrayList<Passenger> passengerCheckedList; //list toho co sem bude chodit
 
     private PassengerChooserRecyclerViewAdapter.onButtonPassengerChooseInterface OnButtonPassengerChooseListener;
 
@@ -25,6 +27,7 @@ public class PassengerChooserRecyclerViewAdapter extends  RecyclerView.Adapter<P
     // Konstruktor  vlozi data, ktera se budou zobrazovat (vola se z aktivity)
     public PassengerChooserRecyclerViewAdapter( ArrayList<Passenger> passengerList) {
         this.passengerList = passengerList;
+        passengerCheckedList = new ArrayList<>();
 //        Log.d("TAG",String.valueOf(passengerList.size()));
     }
 
@@ -71,20 +74,37 @@ public class PassengerChooserRecyclerViewAdapter extends  RecyclerView.Adapter<P
             checkBoxChoosePassenger = itemView.findViewById(R.id.checkBoxPassenger);
 
 
-            checkBoxChoosePassenger.setOnClickListener(new View.OnClickListener() {
+//            checkBoxChoosePassenger.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    //tohle zkontroluje jestli je něco vybrany a zavola metodu dole
+//                    if (OnButtonPassengerChooseListener != null) { //nutne pro to aby to nehodilo nullpointer
+//                        int position = getAdapterPosition();
+//                        if (position != RecyclerView.NO_POSITION) { //nutne pro to aby to nehodilo nullpointer
+//                            OnButtonPassengerChooseListener.onButtonChoose(position);
+//                        }
+//                        ;
+//                    }
+//                }
+//            });
+
+            //Pri zmene zaskrtnuti checkboxu se zavola bude isChecked, nebo else
+            checkBoxChoosePassenger.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
-                public void onClick(View v) {
-                    //tohle zkontroluje jestli je něco vybrany a zavola metodu dole
-                    if (OnButtonPassengerChooseListener != null) { //nutne pro to aby to nehodilo nullpointer
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) { //nutne pro to aby to nehodilo nullpointer
-                            OnButtonPassengerChooseListener.onButtonChoose(position);
-                        }
-                        ;
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(buttonView.isChecked()){
+                        Log.i("TAGS", "vola se ischecked");
+                        Log.i("TAGS", "pozice seznamu je " + String.valueOf(getAdapterPosition()));
+                        passengerCheckedList.add(passengerList.get(getAdapterPosition()));
+                        OnButtonPassengerChooseListener.onCheckboxChange(passengerCheckedList);
+
+                    }else{
+                        Log.i("TAGS", "vola se unchecked");
+                        passengerCheckedList.remove(passengerList.get(getAdapterPosition()));
+                        OnButtonPassengerChooseListener.onCheckboxChange(passengerCheckedList);
                     }
                 }
             });
-
 
         }
 
@@ -99,7 +119,7 @@ public class PassengerChooserRecyclerViewAdapter extends  RecyclerView.Adapter<P
     //interface na komunikaci s aktivitou
     public interface onButtonPassengerChooseInterface{
         void onButtonChoose(int position);
-
+        void onCheckboxChange(ArrayList<Passenger> passengerCheckedList);
 
     }
 

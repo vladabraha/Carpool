@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -92,6 +93,14 @@ public class PassengerChooser extends AppCompatActivity implements PassengerChoo
 
     @Override
     public void onButtonChoose(int position) {
+
+    }
+
+    @Override
+    public void onCheckboxChange(ArrayList<Passenger> passengerCheckedList) {
+        for (Passenger passenger : passengerCheckedList){
+            Toast.makeText(this, passenger.getPassengerName(),Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

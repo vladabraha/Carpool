@@ -19,11 +19,6 @@ public class Passenger implements Parcelable{ //prida se Parcalable a umozni si 
         this.debt = debt;
     }
 
-    public Passenger(double debt, String passengerName) {
-        this.passengerName = passengerName;
-        this.debt = debt;
-    }
-
     //sem prepsat co se bude predavat v jakym typu
     protected Passenger(Parcel in) {
         passengerName = in.readString();

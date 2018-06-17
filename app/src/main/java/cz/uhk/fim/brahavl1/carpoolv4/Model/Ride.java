@@ -1,58 +1,73 @@
 package cz.uhk.fim.brahavl1.carpoolv4.Model;
 
+import android.annotation.SuppressLint;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Class for Ride record - Date (string), List<String> passenger, String distance, long time
  */
-public class Ride {
+@SuppressLint("ParcelCreator")
+public class Ride implements Parcelable {
     private String date;
-    private List<String> passengers;
+    private List<Passenger> passengers;
     private String distance;
-    private long time;
+    private long rideTime;
 
-    public Ride(String date, List<String> passengers, String distance, long time) {
+    public Ride(String date, List<Passenger> passengers, String distance, long rideTime) {
         this.date = date;
         this.passengers = passengers;
         this.distance = distance;
-        this.time = time;
+        this.rideTime = rideTime;
     }
 
-    public Ride(String date, String distance, long time) {
+    public Ride(String date, String distance, long rideTime) {
         this.date = date;
         this.distance = distance;
-        this.time = time;
-    }
-
-    public String getDate() {
-        return date;
+        this.rideTime = rideTime;
     }
 
     public void setDate(String date) {
         this.date = date;
     }
 
-    public List<String> getPassengers() {
-        return passengers;
-    }
-
-    public void setPassengers(List<String> passengers) {
+    public void setPassengers(List<Passenger> passengers) {
         this.passengers = passengers;
-    }
-
-    public String getDistance() {
-        return distance;
     }
 
     public void setDistance(String distance) {
         this.distance = distance;
     }
 
-    public long getTime() {
-        return time;
+    public void setRideTime(long rideTime) {
+        this.rideTime = rideTime;
     }
 
-    public void setTime(long time) {
-        this.time = time;
+    public String getDate() {
+        return date;
+    }
+
+    public List<Passenger> getPassengers() {
+        return passengers;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public long getRideTime() {
+        return rideTime;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

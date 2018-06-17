@@ -9,6 +9,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Database connector for saving data into database and deleting data in database
@@ -75,4 +77,17 @@ public class DatabaseConnector {
 
     }
 
+    public void saveRide(String distance, long rideTime, ArrayList<Passenger> passengerList) {
+        Date currentTime = Calendar.getInstance().getTime();
+        String time = String.valueOf(currentTime);
+
+        Ride ride = new Ride(time, passengerList, distance, rideTime);
+
+        DatabaseReference myRef = database.getReference("user");
+
+        myRef.child(currentFirebaseUser.getUid())
+                .child("Ride")
+                .child(time)
+                .setValue(ride);
+    }
 }

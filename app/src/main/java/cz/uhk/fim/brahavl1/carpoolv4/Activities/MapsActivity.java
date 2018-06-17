@@ -521,9 +521,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Date currentTime = Calendar.getInstance().getTime();
         String time = String.valueOf(currentTime);
-        Log.d("TAG", time);
+
         Toast.makeText(this, "Stop location updates", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, time + " " + distance + " " + String.valueOf(base),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, time + " " + distance + " " + String.valueOf(base),Toast.LENGTH_LONG).show();
 
         ride = new Ride(time, distance, base);
     }
@@ -533,15 +533,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Date currentTime = Calendar.getInstance().getTime();
 
-        //tyhle 2 radky vloží něco do databaze
-        DatabaseReference myRef = database.getReference("user");
-        //jednotlive zanorovani se provadi pomoci .child
-        myRef.child(currentFirebaseUser.getUid())
-                .child("Ride")
-                .child(String.valueOf(currentTime))
-                .setValue(ride); //profil auta
-
-        Toast.makeText(this,"Saved",Toast.LENGTH_SHORT).show();
+//        //tyhle 2 radky vloží něco do databaze
+//        DatabaseReference myRef = database.getReference("user");
+//        //jednotlive zanorovani se provadi pomoci .child
+//        myRef.child(currentFirebaseUser.getUid())
+//                .child("Ride")
+//                .child(String.valueOf(currentTime))
+//                .setValue(ride); //profil auta
+        int resultCode = 300;
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("distance", ride.getDistance());
+        resultIntent.putExtra("base", String.valueOf(ride.getRideTime()));
+        setResult(resultCode, resultIntent);
+        finish();
 
     }
 }

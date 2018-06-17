@@ -10,24 +10,32 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import cz.uhk.fim.brahavl1.carpoolv4.Model.DatabaseConnector;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Passenger;
+import cz.uhk.fim.brahavl1.carpoolv4.Model.Ride;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
 public class Dashboard extends AppCompatActivity {
 
-    Button btnCarProfile;
-    Button btnStartCarPool;
-    Button btnSelectCar;
-    Button btnManageProfiles;
-    Button btnSelectPassengers;
-    int resultCode;
-    int resultCode2 = 1;
-    int resultCodeChoosePassengers = 2;
+    private Button btnCarProfile;
+    private Button btnStartCarPool;
+    private Button btnSelectCar;
+    private Button btnManageProfiles;
+    private Button btnSelectPassengers;
+    private int resultCode;
+    private int resultCode2 = 1;
+    private int resultCodeChoosePassengers = 2;
+
+    private DatabaseConnector databaseConnector;
+    private ArrayList<Passenger> passengerList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        databaseConnector = new DatabaseConnector();
 
         btnCarProfile = (Button) findViewById(R.id.btnCarProfile);
 
@@ -110,13 +118,29 @@ public class Dashboard extends AppCompatActivity {
             //Vraceni z CarChooser
             case 200:
                 //vytahne objekt z intentu
-                ArrayList<Passenger> passengerList = (ArrayList<Passenger>) data.getSerializableExtra("arg_key");
+//                ArrayList<Passenger> passengerList = (ArrayList<Passenger>) data.getSerializableExtra("arg_key");
+                passengerList = (ArrayList<Passenger>) data.getSerializableExtra("arg_key");
 
                 for (Passenger passenger : passengerList) {
                     Log.d("TAG", passenger.getPassengerName().toString());
                 }
                 Intent intentStartPool = new Intent(Dashboard.this, MapsActivity.class);
                 startActivityForResult(intentStartPool, resultCode);
+
+                break;
+
+                //vraceni z maps activity
+            case 300:
+                //vytahne objekt z intentu
+
+                String distance = data.getStringExtra("distance");
+                String rideTime = data.getStringExtra("base");
+                long drivingTime = Long.valueOf(rideTime);
+
+                Log.d("TAG", "prisla vzdalenost  " + distance + " a ridetime " + rideTime);
+
+                databaseConnector.saveRide(distance, drivingTime, passengerList);
+
 
                 break;
         }

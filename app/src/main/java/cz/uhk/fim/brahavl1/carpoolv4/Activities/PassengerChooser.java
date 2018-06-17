@@ -60,6 +60,7 @@ public class PassengerChooser extends AppCompatActivity implements PassengerChoo
         userID = currentFirebaseUser.getUid();
 
         listPassenger = new ArrayList<>();
+        listCheckedPassenger = new ArrayList<>();
 
         listPassenger = getPassengersFromDatabase();
 
@@ -68,13 +69,21 @@ public class PassengerChooser extends AppCompatActivity implements PassengerChoo
         btnChoosePassengers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int resultCode = 200;
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("arg_key", listCheckedPassenger);
-                setResult(resultCode, resultIntent);
-                finish();
+                if(listCheckedPassenger.isEmpty()){
+                    showErrorMessage("Please select passenger");
+                }else{
+                    int resultCode = 200;
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("arg_key", listCheckedPassenger);
+                    setResult(resultCode, resultIntent);
+                    finish();
+                }
             }
         });
+    }
+
+    private void showErrorMessage(String errorMessage) {
+        Toast.makeText(this,errorMessage ,Toast.LENGTH_SHORT).show();
     }
 
     private ArrayList<Passenger> getPassengersFromDatabase() {

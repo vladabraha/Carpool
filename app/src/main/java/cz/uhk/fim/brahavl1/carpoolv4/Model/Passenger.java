@@ -6,7 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 @SuppressLint("ParcelCreator")
-public class Passenger implements Parcelable{
+public class Passenger implements Parcelable{ //prida se Parcalable a umozni si to posilat objekty (nebo list objektu) skrz intenty +
 
     private String passengerName;
     private double debt;
@@ -24,6 +24,7 @@ public class Passenger implements Parcelable{
         this.debt = debt;
     }
 
+    //sem prepsat co se bude predavat v jakym typu
     protected Passenger(Parcel in) {
         passengerName = in.readString();
         debt = in.readDouble();
@@ -57,7 +58,7 @@ public class Passenger implements Parcelable{
         this.debt = debt;
     }
 
-    @Override
+    @Override //muze byt nula - nevola se v tomhle pripade, ale je to overide metoda pro implementaci - musi byt
     public int describeContents() {
         return 0;
     }

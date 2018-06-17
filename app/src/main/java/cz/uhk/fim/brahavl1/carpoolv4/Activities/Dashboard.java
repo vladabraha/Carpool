@@ -55,7 +55,6 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentChooseCar = new Intent(Dashboard.this, CarChooser.class);
-//                intentChooseCar.putExtra("carName");
                 startActivityForResult(intentChooseCar, resultCode2);
             }
         });
@@ -89,44 +88,41 @@ public class Dashboard extends AppCompatActivity {
         //super.onActivityResult(requestCode, resultCode, data);
 
         //tady budu switchovat akce podle toho ze ktery aktivity se vracim
-        switch (resultCode){
+        switch (resultCode) {
+            //pokud je akce zrusena uzivatelem
+            case 0:
+                Toast.makeText(this,"action was cancelled", Toast.LENGTH_SHORT).show();
+                break;
             //Vraceni z CarChooser
             case 100:
                 String fuelConsuption = data.getStringExtra("car");
 
-                Log.d("TAG",fuelConsuption );
+                Log.d("TAG", fuelConsuption);
                 Toast.makeText(this, fuelConsuption, Toast.LENGTH_SHORT).show();
+
+                //zahajeni dalsi aktivity po vyberu vozidla
+                ArrayList<Passenger> listPass = new ArrayList<>();
+                Intent intentSelectPassengers = new Intent(Dashboard.this, PassengerChooser.class);
+                intentSelectPassengers.putExtra("arg_key", listPass);
+                startActivityForResult(intentSelectPassengers, resultCodeChoosePassengers);
                 break;
+
             //Vraceni z CarChooser
             case 200:
-             ArrayList<Passenger> passengerList = (ArrayList<Passenger>) data.getSerializableExtra("arg_key");
+                //vytahne objekt z intentu
+                ArrayList<Passenger> passengerList = (ArrayList<Passenger>) data.getSerializableExtra("arg_key");
 
-             for(Passenger passenger : passengerList) {
-                 Log.d("TAG",passenger.getPassengerName().toString() );
-                 Toast.makeText(this, passenger.getPassengerName().toString(), Toast.LENGTH_SHORT).show();
-             }
+                for (Passenger passenger : passengerList) {
+                    Log.d("TAG", passenger.getPassengerName().toString());
+                }
+                Intent intentStartPool = new Intent(Dashboard.this, MapsActivity.class);
+                startActivityForResult(intentStartPool, resultCode);
 
-//                Toast.makeText(this, fuelConsuption, Toast.LENGTH_SHORT).show();
                 break;
         }
 
     }
 
-
-//        if (resultCode == 100) {
-//            String choosedOption = data.getStringExtra("car");
-//
-//            Log.d("TAG",choosedOption );
-//            Toast.makeText(this, choosedOption, Toast.LENGTH_SHORT).show();
-
-//            if(paid){
-//                //do týhle proměnný hodí výsledek z resultu
-//                int price = resultCode;
-//
-//                //vymaže items na nový záznam
-//                this.items.clear();
-//                rewriteData();
-//            }
-        }
+}
 
 

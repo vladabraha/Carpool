@@ -12,11 +12,11 @@ import java.util.List;
 @SuppressLint("ParcelCreator")
 public class Ride implements Parcelable {
     private String date;
-    private List<Passenger> passengers;
+    private List<String> passengers;
     private String distance;
     private long rideTime;
 
-    public Ride(String date, List<Passenger> passengers, String distance, long rideTime) {
+    public Ride(String date, List<String> passengers, String distance, long rideTime) {
         this.date = date;
         this.passengers = passengers;
         this.distance = distance;
@@ -33,7 +33,7 @@ public class Ride implements Parcelable {
         this.date = date;
     }
 
-    public void setPassengers(List<Passenger> passengers) {
+    public void setPassengers(List<String> passengers) {
         this.passengers = passengers;
     }
 
@@ -49,7 +49,7 @@ public class Ride implements Parcelable {
         return date;
     }
 
-    public List<Passenger> getPassengers() {
+    public List<String> getPassengers() {
         return passengers;
     }
 

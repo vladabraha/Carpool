@@ -78,10 +78,16 @@ public class DatabaseConnector {
     }
 
     public void saveRide(String distance, long rideTime, ArrayList<Passenger> passengerList) {
+        //todo pridat pasazerum dluh za cestu
         Date currentTime = Calendar.getInstance().getTime();
         String time = String.valueOf(currentTime);
 
-        Ride ride = new Ride(time, passengerList, distance, rideTime);
+        ArrayList<String> passengers = new ArrayList<>();
+        for (Passenger passenger : passengerList){
+            passengers.add(passenger.getPassengerName());
+        }
+
+        Ride ride = new Ride(time, passengers, distance, rideTime);
 
         DatabaseReference myRef = database.getReference("user");
 

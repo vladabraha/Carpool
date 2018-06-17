@@ -43,6 +43,8 @@
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait" />
         <activity android:name=".Activities.PassengerProfile" />
+        <activity android:name=".Activities.PassengerChooser" />
+        <activity android:name=".Adapter.PassengerChooserRecyclerViewAdapter"></activity>
     </application>
 
 </manifest>

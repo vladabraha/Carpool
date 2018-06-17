@@ -17,6 +17,7 @@ public class Dashboard extends AppCompatActivity {
     Button btnSelectCar;
 //    Button btnDeleteCar;
     Button btnManageProfiles;
+    Button btnSelectPassengers;
     int resultCode;
     int resultCode2 = 1;
 
@@ -64,6 +65,16 @@ public class Dashboard extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentManageProfiles = new Intent(Dashboard.this, PassengerProfile.class);
                 startActivity(intentManageProfiles);
+            }
+        });
+
+        btnSelectPassengers = findViewById(R.id.btnSelectPassenger);
+
+        btnSelectPassengers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentSelectPassengers = new Intent(Dashboard.this, PassengerChooser.class);
+                startActivity(intentSelectPassengers);
             }
         });
     }

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Passenger;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
-public class PassengerChooserRecyclerViewAdapter extends  RecyclerView.Adapter<PassengerChooserRecyclerViewAdapter.PassengerViewHolder> {
+public class PassengerChooserRecyclerViewAdapter extends RecyclerView.Adapter<PassengerChooserRecyclerViewAdapter.PassengerViewHolder> {
 
     private ArrayList<Passenger> passengerList; //list toho co sem bude chodit
     private ArrayList<Passenger> passengerCheckedList; //list toho co sem bude chodit
@@ -25,7 +25,7 @@ public class PassengerChooserRecyclerViewAdapter extends  RecyclerView.Adapter<P
 
 
     // Konstruktor  vlozi data, ktera se budou zobrazovat (vola se z aktivity)
-    public PassengerChooserRecyclerViewAdapter( ArrayList<Passenger> passengerList) {
+    public PassengerChooserRecyclerViewAdapter(ArrayList<Passenger> passengerList) {
         this.passengerList = passengerList;
         passengerCheckedList = new ArrayList<>();
 //        Log.d("TAG",String.valueOf(passengerList.size()));
@@ -92,13 +92,13 @@ public class PassengerChooserRecyclerViewAdapter extends  RecyclerView.Adapter<P
             checkBoxChoosePassenger.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(buttonView.isChecked()){
+                    if (buttonView.isChecked()) {
                         Log.i("TAGS", "vola se ischecked");
                         Log.i("TAGS", "pozice seznamu je " + String.valueOf(getAdapterPosition()));
                         passengerCheckedList.add(passengerList.get(getAdapterPosition()));
                         OnButtonPassengerChooseListener.onCheckboxChange(passengerCheckedList);
 
-                    }else{
+                    } else {
                         Log.i("TAGS", "vola se unchecked");
                         passengerCheckedList.remove(passengerList.get(getAdapterPosition()));
                         OnButtonPassengerChooseListener.onCheckboxChange(passengerCheckedList);
@@ -110,20 +110,17 @@ public class PassengerChooserRecyclerViewAdapter extends  RecyclerView.Adapter<P
 
         //nasetovani jednotlivych prvku
         public void setPassenger(Passenger passenger) {
-
             checkBoxChoosePassenger.setText(passenger.getPassengerName());
-
         }
     }
 
     //interface na komunikaci s aktivitou
-    public interface onButtonPassengerChooseInterface{
-        void onButtonChoose(int position);
+    public interface onButtonPassengerChooseInterface {
         void onCheckboxChange(ArrayList<Passenger> passengerCheckedList);
 
     }
 
-    public void setOnButtonChooseListener(PassengerChooserRecyclerViewAdapter.onButtonPassengerChooseInterface listener){
+    public void setOnButtonChooseListener(PassengerChooserRecyclerViewAdapter.onButtonPassengerChooseInterface listener) {
         this.OnButtonPassengerChooseListener = listener;
 
     }

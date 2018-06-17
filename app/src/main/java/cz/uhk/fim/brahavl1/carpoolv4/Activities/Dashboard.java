@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import cz.uhk.fim.brahavl1.carpoolv4.Model.Passenger;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
 public class Dashboard extends AppCompatActivity {
@@ -15,11 +18,11 @@ public class Dashboard extends AppCompatActivity {
     Button btnCarProfile;
     Button btnStartCarPool;
     Button btnSelectCar;
-//    Button btnDeleteCar;
     Button btnManageProfiles;
     Button btnSelectPassengers;
     int resultCode;
     int resultCode2 = 1;
+    int resultCodeChoosePassengers = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +76,10 @@ public class Dashboard extends AppCompatActivity {
         btnSelectPassengers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ArrayList<Passenger> listPass = new ArrayList<>();
                 Intent intentSelectPassengers = new Intent(Dashboard.this, PassengerChooser.class);
-                startActivity(intentSelectPassengers);
+                intentSelectPassengers.putExtra("arg_key", listPass);
+                startActivityForResult(intentSelectPassengers, resultCodeChoosePassengers);
             }
         });
     }
@@ -92,7 +97,20 @@ public class Dashboard extends AppCompatActivity {
                 Log.d("TAG",fuelConsuption );
                 Toast.makeText(this, fuelConsuption, Toast.LENGTH_SHORT).show();
                 break;
+            //Vraceni z CarChooser
+            case 200:
+             ArrayList<Passenger> passengerList = (ArrayList<Passenger>) data.getSerializableExtra("arg_key");
+
+             for(Passenger passenger : passengerList) {
+                 Log.d("TAG",passenger.getPassengerName().toString() );
+                 Toast.makeText(this, passenger.getPassengerName().toString(), Toast.LENGTH_SHORT).show();
+             }
+
+//                Toast.makeText(this, fuelConsuption, Toast.LENGTH_SHORT).show();
+                break;
         }
+
+    }
 
 
 //        if (resultCode == 100) {
@@ -110,5 +128,5 @@ public class Dashboard extends AppCompatActivity {
 //                rewriteData();
 //            }
         }
-    }
+
 

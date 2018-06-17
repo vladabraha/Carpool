@@ -1,10 +1,13 @@
 package cz.uhk.fim.brahavl1.carpoolv4.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,19 +26,21 @@ import cz.uhk.fim.brahavl1.carpoolv4.Model.Car;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Passenger;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
-public class PassengerChooser extends AppCompatActivity implements PassengerChooserRecyclerViewAdapter.onButtonPassengerChooseInterface{
+public class PassengerChooser extends AppCompatActivity implements PassengerChooserRecyclerViewAdapter.onButtonPassengerChooseInterface {
 
     private RecyclerView mRecyclerView;
     private PassengerChooserRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-
     private DatabaseReference myRef;
     private String userID;
     private FirebaseUser currentFirebaseUser;
 
+    private Button btnChoosePassengers;
+
     //seznam, ktery budeme posilat do recycler view
     private ArrayList<Passenger> listPassenger;
+    private ArrayList<Passenger> listCheckedPassenger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +59,25 @@ public class PassengerChooser extends AppCompatActivity implements PassengerChoo
         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         userID = currentFirebaseUser.getUid();
 
-        listPassenger =  new ArrayList<>();
+        listPassenger = new ArrayList<>();
 
         listPassenger = getPassengersFromDatabase();
+
+        btnChoosePassengers = findViewById(R.id.btnChoosePassengers);
+
+        btnChoosePassengers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int resultCode = 200;
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("arg_key", listCheckedPassenger);
+                setResult(resultCode, resultIntent);
+                finish();
+            }
+        });
     }
 
-    private ArrayList<Passenger> getPassengersFromDatabase(){
-        //TODO CTENI Z DATABAZE
+    private ArrayList<Passenger> getPassengersFromDatabase() {
         myRef = FirebaseDatabase.getInstance().getReference("user")
                 .child(userID).child("passengers");
 
@@ -68,7 +85,7 @@ public class PassengerChooser extends AppCompatActivity implements PassengerChoo
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
                     Passenger passengers = postSnapshot.getValue(Passenger.class);
                     listPassenger.add(passengers);
@@ -91,16 +108,13 @@ public class PassengerChooser extends AppCompatActivity implements PassengerChoo
         return listPassenger;
     }
 
-    @Override
-    public void onButtonChoose(int position) {
-
-    }
 
     @Override
     public void onCheckboxChange(ArrayList<Passenger> passengerCheckedList) {
-        for (Passenger passenger : passengerCheckedList){
-            Toast.makeText(this, passenger.getPassengerName(),Toast.LENGTH_SHORT).show();
+        for (Passenger passenger : passengerCheckedList) {
+            Toast.makeText(this, passenger.getPassengerName(), Toast.LENGTH_SHORT).show();
         }
+        this.listCheckedPassenger = passengerCheckedList;
 
     }
 }

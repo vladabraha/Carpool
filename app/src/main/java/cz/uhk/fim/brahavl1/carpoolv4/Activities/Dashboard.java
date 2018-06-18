@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class Dashboard extends AppCompatActivity {
 
     private DatabaseConnector databaseConnector;
     private ArrayList<Passenger> passengerList;
+    private String fuelConsuption;
 
 
     @Override
@@ -36,6 +38,7 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         databaseConnector = new DatabaseConnector();
+        databaseConnector.initializePassengerList();
 
         btnCarProfile = (Button) findViewById(R.id.btnCarProfile);
 
@@ -54,6 +57,7 @@ public class Dashboard extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentStartPool = new Intent(Dashboard.this, MapsActivity.class);
                 startActivityForResult(intentStartPool, resultCode);
+
             }
         });
 
@@ -87,6 +91,10 @@ public class Dashboard extends AppCompatActivity {
                 Intent intentSelectPassengers = new Intent(Dashboard.this, PassengerChooser.class);
                 intentSelectPassengers.putExtra("arg_key", listPass);
                 startActivityForResult(intentSelectPassengers, resultCodeChoosePassengers);
+
+//                ArrayList<Passenger> testList = new ArrayList<>();
+//                testList.add(new Passenger("Karel Dvořák",0));
+//                databaseConnector.saveRide("13.7", 25, testList, 30.0, Double.valueOf(35.3));
             }
         });
     }
@@ -103,10 +111,10 @@ public class Dashboard extends AppCompatActivity {
                 break;
             //Vraceni z CarChooser
             case 100:
-                String fuelConsuption = data.getStringExtra("car");
+                fuelConsuption = data.getStringExtra("car");
 
                 Log.d("TAG", fuelConsuption);
-                Toast.makeText(this, fuelConsuption, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, fuelConsuption, Toast.LENGTH_SHORT).show();
 
                 //zahajeni dalsi aktivity po vyberu vozidla
                 ArrayList<Passenger> listPass = new ArrayList<>();
@@ -126,6 +134,8 @@ public class Dashboard extends AppCompatActivity {
                 }
                 Intent intentStartPool = new Intent(Dashboard.this, MapsActivity.class);
                 startActivityForResult(intentStartPool, resultCode);
+                //TODO UNCHECK
+//                databaseConnector.initializePassengerList();
 
                 break;
 
@@ -137,12 +147,18 @@ public class Dashboard extends AppCompatActivity {
                 String rideTime = data.getStringExtra("base");
                 long drivingTime = Long.valueOf(rideTime);
 
-                Log.d("TAG", "prisla vzdalenost  " + distance + " a ridetime " + rideTime);
+//                Log.d("TAG", "prisla vzdalenost  " + distance + " a ridetime " + rideTime);
 
-                databaseConnector.saveRide(distance, drivingTime, passengerList);
+                //TODO DODELAT CENU ZA POHONNE HMOTY
+                databaseConnector.saveRide(distance, drivingTime, passengerList, 300000.0, Double.valueOf(fuelConsuption));
 
+
+//                ArrayList<Passenger> testList = new ArrayList<>();
+//                testList.add(new Passenger("Karel Dvořák",0));
+//                databaseConnector.saveRide("13.7", 25, testList, 30.0, Double.valueOf(35.3));
 
                 break;
+
         }
 
     }

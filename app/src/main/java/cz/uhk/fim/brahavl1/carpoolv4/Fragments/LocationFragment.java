@@ -62,6 +62,7 @@ public class LocationFragment extends Fragment {
 
 //        editKilometres = view.findViewById(R.id.editKilometres);
         textViewKilometres = view.findViewById(R.id.textKilometres);
+        textViewKilometres.setText("0");
 
         chronometer = view.findViewById(R.id.chronometer);
 
@@ -129,7 +130,7 @@ public class LocationFragment extends Fragment {
     public void updateDistance(double distance){
 
 //        editKilometres.setText(String.format("%.2f", distance));
-        textViewKilometres.setText(String.format("%.2f", distance) + " metres");
+        textViewKilometres.setText(String.format("%.2f", distance));
 //        editKilometres.setText(String.valueOf(distance));
 
     }

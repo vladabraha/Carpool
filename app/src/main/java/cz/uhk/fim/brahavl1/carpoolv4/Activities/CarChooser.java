@@ -82,7 +82,6 @@ public class CarChooser extends AppCompatActivity implements CarChooserRecyclerV
 
 
     private ArrayList<Car> getCarsFromDatabase(){
-        //TODO CTENI Z DATABAZE
         myRef = FirebaseDatabase.getInstance().getReference("user")
                 .child(userID).child("carProfile");
 
@@ -93,17 +92,9 @@ public class CarChooser extends AppCompatActivity implements CarChooserRecyclerV
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
 
                     Car car = postSnapshot.getValue(Car.class);
-                    Log.d("TAG","nyni se vklada " + car.toString());
                     listCar.add(car);
-                    Log.d("TAG", "v seznamu tedka je " + listCar.toString());
-                    Log.d("TAG","v seznamu je " + String.valueOf(listCar.size() + " hodnot"));
-
 
                 }
-                Log.d("TAG","velikost je " + String.valueOf(listCar.size()));
-
-                //TODO TADY TO MUSI BYT, ALE NEMELO BY TO TU BYT
-//                mAdapter = new CarChooserRecyclerViewAdapter(CarChooser.this,listCar);
                 mAdapter = new CarChooserRecyclerViewAdapter(listCar);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.setOnButtonChooseListener(CarChooser.this);

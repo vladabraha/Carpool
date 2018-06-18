@@ -540,12 +540,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                .child("Ride")
 //                .child(String.valueOf(currentTime))
 //                .setValue(ride); //profil auta
-        int resultCode = 300;
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("distance", ride.getDistance());
-        resultIntent.putExtra("base", String.valueOf(ride.getRideTime()));
-        setResult(resultCode, resultIntent);
-        finish();
+
+        //pokud se nezaznamenala zadna cesta, string je prazdny, tak se nic neulozi
+        if(ride.getDistance() == ""){
+            Toast.makeText(this, "Tracking was stopped too early, no data to save",Toast.LENGTH_LONG).show();
+        }else{
+            int resultCode = 300;
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("distance", ride.getDistance());
+            resultIntent.putExtra("base", String.valueOf(ride.getRideTime()));
+            setResult(resultCode, resultIntent);
+            finish();
+        }
+
 
     }
 }

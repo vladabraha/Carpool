@@ -24,7 +24,6 @@ public class Dashboard extends AppCompatActivity {
     private Button btnManageProfiles;
     private Button btnSelectPassengers;
     private Button btnLogOut;
-    private int resultCode;
     private int resultCode2 = 1;
     private int resultCodeChoosePassengers = 2;
 

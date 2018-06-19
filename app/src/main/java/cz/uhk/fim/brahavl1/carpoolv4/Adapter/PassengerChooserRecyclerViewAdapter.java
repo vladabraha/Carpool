@@ -70,36 +70,17 @@ public class PassengerChooserRecyclerViewAdapter extends RecyclerView.Adapter<Pa
 
 
             //vytahnuti prvku z xml, ktery si zadala v onCreateViewHolder
-
             checkBoxChoosePassenger = itemView.findViewById(R.id.checkBoxPassenger);
-
-
-//            checkBoxChoosePassenger.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //tohle zkontroluje jestli je něco vybrany a zavola metodu dole
-//                    if (OnButtonPassengerChooseListener != null) { //nutne pro to aby to nehodilo nullpointer
-//                        int position = getAdapterPosition();
-//                        if (position != RecyclerView.NO_POSITION) { //nutne pro to aby to nehodilo nullpointer
-//                            OnButtonPassengerChooseListener.onButtonChoose(position);
-//                        }
-//                        ;
-//                    }
-//                }
-//            });
 
             //Pri zmene zaskrtnuti checkboxu se zavola bude isChecked, nebo else
             checkBoxChoosePassenger.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (buttonView.isChecked()) {
-                        Log.i("TAGS", "vola se ischecked");
-                        Log.i("TAGS", "pozice seznamu je " + String.valueOf(getAdapterPosition()));
                         passengerCheckedList.add(passengerList.get(getAdapterPosition()));
                         OnButtonPassengerChooseListener.onCheckboxChange(passengerCheckedList);
 
                     } else {
-                        Log.i("TAGS", "vola se unchecked");
                         passengerCheckedList.remove(passengerList.get(getAdapterPosition()));
                         OnButtonPassengerChooseListener.onCheckboxChange(passengerCheckedList);
                     }

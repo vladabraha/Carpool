@@ -94,40 +94,16 @@ public class CarChooserRecyclerViewAdapter extends RecyclerView.Adapter<CarChoos
                         if(position != RecyclerView.NO_POSITION){ //nutne pro to aby to nehodilo nullpointer
                             OnButtonCarChooseListener.onButtonChoose(position);
                         };
-
                     }
-
                 }
             });
-
-
         }
-
         //nasetovani jednotlivych prvku
         public void setCar (final Car car){
 
             textViewCarName.setText(car.getName());
             textViewCarFuelConsuption.setText(String.valueOf(car.getFuelConsuption()));
             textViewCarType.setText(car.getCarType());
-
-            //mozna se bude hodit? spis asi ne
-//            if (person.isMale()){
-//                viewGender.setBackgroundResource(R.color.colorMale);
-//            }else {
-//                viewGender.setBackgroundResource(R.color.colorFemale);
-//            }
-
-
-
-            //kdyby byl potreba seekbar zmena, tak to tu jeste necham
-//            seekBarAge.setProgress(person.getAge());
-//            buttonChange.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    onItemDeleteClickListener.onItemDelete(getAdapterPosition()); //tohle maže při stisknutí tlačítka řádek
-//                }
-//            });
         }
 
     }

@@ -120,9 +120,9 @@ public class PassengerChooser extends AppCompatActivity implements PassengerChoo
 
     @Override
     public void onCheckboxChange(ArrayList<Passenger> passengerCheckedList) {
-        for (Passenger passenger : passengerCheckedList) {
-            Toast.makeText(this, passenger.getPassengerName(), Toast.LENGTH_SHORT).show();
-        }
+//        for (Passenger passenger : passengerCheckedList) {
+//            Toast.makeText(this, passenger.getPassengerName(), Toast.LENGTH_SHORT).show();
+//        }
         this.listCheckedPassenger = passengerCheckedList;
 
     }

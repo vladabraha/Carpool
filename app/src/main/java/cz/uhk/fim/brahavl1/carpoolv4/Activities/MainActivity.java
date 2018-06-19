@@ -25,9 +25,6 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogin;
     Button btnSignOut;
     private FirebaseUser currentFirebaseUser;
-    private String userID;
-
-
 
 
     @Override
@@ -90,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "SingIn failed",Toast.LENGTH_SHORT).show();
             }
         }
-
 
 }
 }

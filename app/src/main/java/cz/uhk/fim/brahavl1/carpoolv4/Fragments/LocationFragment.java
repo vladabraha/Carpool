@@ -110,16 +110,6 @@ public class LocationFragment extends Fragment {
 
     }
 
-//    public void startChronometr(){
-//        chronometer.setBase(SystemClock.elapsedRealtime());
-//       chronometer.start(); // stop a chronometer
-//    }
-//
-//    public void stopChronometr(){
-//        chronometer.stop(); // stop a chronometer
-//        String formatType = chronometer.getFormat();
-//
-//    }
 
     //pro mapovou aktivitu nastavi location interface
     public void setOnLocationUpdateInterface(onButtonInterface onLocationUpdateInterface) {
@@ -128,10 +118,6 @@ public class LocationFragment extends Fragment {
 
 
     public void updateDistance(double distance){
-
-//        editKilometres.setText(String.format("%.2f", distance));
         textViewKilometres.setText(String.format("%.2f", distance));
-//        editKilometres.setText(String.valueOf(distance));
-
     }
 }

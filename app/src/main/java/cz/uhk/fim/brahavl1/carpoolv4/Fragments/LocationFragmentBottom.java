@@ -50,18 +50,13 @@ public class LocationFragmentBottom extends Fragment {
                 onLocationUpdateInterface.onButtonClickSave();
             }
         });
-
-
         return view;
-
 
     }
 
     //slouuzi pro komunikaci mezi fragmentem a aktivitou
     public interface onButtonSaveInterface{
         void onButtonClickSave();
-
-
     }
 
 
@@ -69,7 +64,4 @@ public class LocationFragmentBottom extends Fragment {
     public void setOnLocationUpdateInterface(onButtonSaveInterface onLocationUpdateInterface) {
         this.onLocationUpdateInterface = onLocationUpdateInterface;
     }
-
-
-
 }

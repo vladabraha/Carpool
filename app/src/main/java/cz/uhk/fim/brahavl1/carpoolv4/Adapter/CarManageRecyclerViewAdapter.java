@@ -13,17 +13,16 @@ import java.util.ArrayList;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Car;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
-public class CarManageRecyclerViewAdapter extends RecyclerView.Adapter<CarManageRecyclerViewAdapter.CarViewHolder>{
+public class CarManageRecyclerViewAdapter extends RecyclerView.Adapter<CarManageRecyclerViewAdapter.CarViewHolder> {
     private ArrayList<Car> carList; //list toho co sem bude chodt
 
-    private  onButtonCarDeleteInterface OnButtonCarDeleteListener;
-
+    private onButtonCarDeleteInterface OnButtonCarDeleteListener;
 
 
     // Konstruktor  vlozi data, ktera se budou zobrazovat (vola se z aktivity)
-    public CarManageRecyclerViewAdapter( ArrayList<Car> carList) {
+    public CarManageRecyclerViewAdapter(ArrayList<Car> carList) {
         this.carList = carList;
-        Log.d("TAG",String.valueOf(carList.size()));
+        Log.d("TAG", String.valueOf(carList.size()));
     }
 
     // Prepsat podle holderu dole
@@ -92,8 +91,6 @@ public class CarManageRecyclerViewAdapter extends RecyclerView.Adapter<CarManage
                     }
                 }
             });
-
-
         }
 
         //nasetovani jednotlivych prvku
@@ -106,14 +103,15 @@ public class CarManageRecyclerViewAdapter extends RecyclerView.Adapter<CarManage
 
         }
     }
+
     //interface na komunikaci s aktivitou
-    public interface onButtonCarDeleteInterface{
+    public interface onButtonCarDeleteInterface {
         void onButtonDelete(int position);
 
 
     }
 
-    public void setOnButtonChooseListener(onButtonCarDeleteInterface listener){
+    public void setOnButtonChooseListener(onButtonCarDeleteInterface listener) {
         this.OnButtonCarDeleteListener = listener;
 
     }

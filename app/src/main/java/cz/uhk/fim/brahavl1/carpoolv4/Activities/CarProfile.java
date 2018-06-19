@@ -93,7 +93,6 @@ public class CarProfile extends AppCompatActivity implements CarManageRecyclerVi
                 /*percent = seek.getProgress();*/
                 updateData(progress);
 
-
             }
 
             @Override
@@ -197,20 +196,8 @@ public class CarProfile extends AppCompatActivity implements CarManageRecyclerVi
             Toast.makeText(this, "Missing car details",Toast.LENGTH_SHORT).show();
         }else{
             car = new Car(editTextCarName.getText().toString(), Float.parseFloat(fuelConsuption), carType);
-
-//            //TODO predelat ukladani do samostane metoddy
-//            //tyhle 2 radky vloží něco do databaze
-//            DatabaseReference myRef = database.getReference("user");
-//            //jednotlive zanorovani se provadi pomoci .child
-//            myRef.child(currentFirebaseUser.getUid())
-//                    .child("carProfile")
-//                    .child(editTextCarName.getText().toString()) //pokud by bylo vice aut, tak se pak bude moct vybirat
-//                    .setValue(car); //profil auta
-
             databaseConnector.saveCarProfile(car);
-
             Toast.makeText(this, "CarDetails Succesfully saved",Toast.LENGTH_SHORT).show();
-
             finish();
         }
     }
@@ -225,17 +212,11 @@ public class CarProfile extends AppCompatActivity implements CarManageRecyclerVi
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 listCar.clear();
+
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-
                     Car car = postSnapshot.getValue(Car.class);
-                    Log.d("TAG","nyni se vklada " + car.toString());
                     listCar.add(car);
-                    Log.d("TAG", "v seznamu tedka je " + listCar.toString());
-                    Log.d("TAG","v seznamu je " + String.valueOf(listCar.size() + " hodnot"));
-
-
                 }
-                Log.d("TAG","velikost je " + String.valueOf(listCar.size()));
 
                 //TODO TADY TO MUSI BYT, ALE NEMELO BY TO TU BYT
 //                mAdapter = new CarChooserRecyclerViewAdapter(CarChooser.this,listCar);
@@ -282,18 +263,7 @@ public class CarProfile extends AppCompatActivity implements CarManageRecyclerVi
     public void onButtonDelete(int position) {
 
         String carName = listCar.get(position).getName().toString();
-
-//        //TODO predelat ukladani do samostane metoddy
-//        //tyhle 2 radky vloží něco do databaze
-//        DatabaseReference myRef = database.getReference("user");
-//        //jednotlive zanorovani se provadi pomoci .child
-//        myRef.child(currentFirebaseUser.getUid())
-//                .child("carProfile")
-//                .child(carName) //pokud by bylo vice aut, tak se pak bude moct vybirat
-//                .setValue(null); //profil auta
-
         databaseConnector.deleteCarProfile(carName);
-
         Toast.makeText(this, "CarDetails Succesfully saved",Toast.LENGTH_SHORT).show();
     }
 }

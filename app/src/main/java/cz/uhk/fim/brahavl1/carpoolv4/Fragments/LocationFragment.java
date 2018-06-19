@@ -31,6 +31,7 @@ public class LocationFragment extends Fragment {
 //    private EditText editKilometres;
     private Chronometer chronometer;
     private TextView textViewKilometres;
+    private TextView textViewMetresOrKilometresInformation;
 
     private onButtonInterface onLocationUpdateInterface;
 
@@ -63,6 +64,9 @@ public class LocationFragment extends Fragment {
 //        editKilometres = view.findViewById(R.id.editKilometres);
         textViewKilometres = view.findViewById(R.id.textKilometres);
         textViewKilometres.setText("0");
+
+        textViewMetresOrKilometresInformation = view.findViewById(R.id.textKmM);
+        textViewMetresOrKilometresInformation.setText("metres");
 
         chronometer = view.findViewById(R.id.chronometer);
 
@@ -118,6 +122,14 @@ public class LocationFragment extends Fragment {
 
 
     public void updateDistance(double distance){
-        textViewKilometres.setText(String.format("%.2f", distance));
+        if (distance < 1000){
+            textViewKilometres.setText(String.format("%.2f", distance));
+            textViewMetresOrKilometresInformation.setText("metres");
+        }else {
+            distance = distance / 1000;
+            textViewKilometres.setText(String.format("%.2f", distance));
+            textViewMetresOrKilometresInformation.setText("kilometres");
+        }
+
     }
 }

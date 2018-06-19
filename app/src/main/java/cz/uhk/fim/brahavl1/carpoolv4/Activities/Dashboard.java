@@ -87,14 +87,16 @@ public class Dashboard extends AppCompatActivity {
         btnSelectPassengers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Passenger> listPass = new ArrayList<>();
-                Intent intentSelectPassengers = new Intent(Dashboard.this, PassengerChooser.class);
-                intentSelectPassengers.putExtra("arg_key", listPass);
-                startActivityForResult(intentSelectPassengers, resultCodeChoosePassengers);
+//                ArrayList<Passenger> listPass = new ArrayList<>();
+//                Intent intentSelectPassengers = new Intent(Dashboard.this, PassengerChooser.class);
+//                intentSelectPassengers.putExtra("arg_key", listPass);
+//                startActivityForResult(intentSelectPassengers, resultCodeChoosePassengers);
 
-//                ArrayList<Passenger> testList = new ArrayList<>();
-//                testList.add(new Passenger("Karel Dvořák",0));
-//                databaseConnector.saveRide("13.7", 25, testList, 30.0, Double.valueOf(35.3));
+                ArrayList<Passenger> testList = new ArrayList<>();
+
+                testList.add(new Passenger("Martin",0));
+                testList.add(new Passenger("Miloš Gabrle",30));
+                databaseConnector.saveRide("13.7", 25, testList, 30.0, Double.valueOf(35.3));
             }
         });
     }

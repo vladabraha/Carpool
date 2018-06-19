@@ -57,12 +57,14 @@ public class DatabaseConnector {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
+                passengersList.clear();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
 
                     Passenger passenger = postSnapshot.getValue(Passenger.class);
 
                     passengersList.add(passenger);
                     Log.i("TAG", "seznam se nafoukl na:  " + passengersList.size());
+                    Log.i("TAG", "do seznamu jsme přidali: " + passenger.getPassengerName());
                 }
             }
 
@@ -189,7 +191,7 @@ public class DatabaseConnector {
             String name = passenger.getPassengerName();
 
             Log.i("TAG", "nyni se prohledava " + passenger.getPassengerName());
-            if(!name.equals(searchName)){
+            if(name.equals(searchName)){
                 Log.i("TAG", "nalezl se dluh " + passenger.getDebt());
                 return Double.valueOf(passenger.getDebt());
 

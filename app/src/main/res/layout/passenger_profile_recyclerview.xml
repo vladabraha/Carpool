@@ -32,15 +32,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="right"
+        android:layout_gravity="right"
+        android:layout_weight="1"
         >
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btnPassengerDelete"
             android:height="50dp"
-            android:gravity="right"
             android:text="Delete passenger"/>
 
     </LinearLayout>

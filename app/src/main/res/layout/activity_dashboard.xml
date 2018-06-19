@@ -21,26 +21,44 @@
         android:layout_marginTop="8dp"
         android:text="Manage passengers" />
 
-    <Button
-        android:id="@+id/btnStartCarPool"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Start Car pool" />
+    <!--<Button-->
+        <!--android:id="@+id/btnStartCarPool"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="Start Car pool" />-->
 
     <Button
         android:id="@+id/btnSelectCar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Select car" />
+        android:text="Start carpool" />
 
-    <Button
-        android:id="@+id/btnSelectPassenger"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Select passengers" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="end"
+        android:gravity="center|bottom">
+
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_weight="0"
+            android:text="Log out" />
+
+    </LinearLayout>
+
+    <!--<Button-->
+        <!--android:id="@+id/btnSelectPassenger"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="Select passengers" />-->
 
 
 </LinearLayout>

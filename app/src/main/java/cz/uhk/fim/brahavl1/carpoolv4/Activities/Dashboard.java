@@ -23,6 +23,7 @@ public class Dashboard extends AppCompatActivity {
     private Button btnSelectCar;
     private Button btnManageProfiles;
     private Button btnSelectPassengers;
+    private Button btnLogOut;
     private int resultCode;
     private int resultCode2 = 1;
     private int resultCodeChoosePassengers = 2;
@@ -50,16 +51,16 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
-        btnStartCarPool = (Button) findViewById(R.id.btnStartCarPool);
-
-        btnStartCarPool.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentStartPool = new Intent(Dashboard.this, MapsActivity.class);
-                startActivityForResult(intentStartPool, resultCode);
-
-            }
-        });
+//        btnStartCarPool = (Button) findViewById(R.id.btnStartCarPool);
+//
+//        btnStartCarPool.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intentStartPool = new Intent(Dashboard.this, MapsActivity.class);
+//                startActivityForResult(intentStartPool, resultCode);
+//
+//            }
+//        });
 
         btnSelectCar = (Button) findViewById(R.id.btnSelectCar);
 
@@ -82,23 +83,35 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
-        btnSelectPassengers = findViewById(R.id.btnSelectPassenger);
+        btnLogOut = findViewById(R.id.btnLogout);
 
-        btnSelectPassengers.setOnClickListener(new View.OnClickListener() {
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ArrayList<Passenger> listPass = new ArrayList<>();
-//                Intent intentSelectPassengers = new Intent(Dashboard.this, PassengerChooser.class);
-//                intentSelectPassengers.putExtra("arg_key", listPass);
-//                startActivityForResult(intentSelectPassengers, resultCodeChoosePassengers);
-
-                ArrayList<Passenger> testList = new ArrayList<>();
-
-                testList.add(new Passenger("Martin",0));
-                testList.add(new Passenger("Miloš Gabrle",30));
-                databaseConnector.saveRide("13.7", 25, testList, 30.0, Double.valueOf(35.3));
+                //tohle posle zpátky - v tomhle pripade zvoleny auto
+                Intent resultIntent = new Intent();
+                setResult(100, resultIntent);
+                finish();
             }
         });
+
+//        btnSelectPassengers = findViewById(R.id.btnSelectPassenger);
+//
+//        btnSelectPassengers.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                ArrayList<Passenger> listPass = new ArrayList<>();
+////                Intent intentSelectPassengers = new Intent(Dashboard.this, PassengerChooser.class);
+////                intentSelectPassengers.putExtra("arg_key", listPass);
+////                startActivityForResult(intentSelectPassengers, resultCodeChoosePassengers);
+//
+//                ArrayList<Passenger> testList = new ArrayList<>();
+//
+//                testList.add(new Passenger("Martin",0));
+//                testList.add(new Passenger("Miloš Gabrle",30));
+//                databaseConnector.saveRide("13.7", 25, testList, 30.0, Double.valueOf(35.3));
+//            }
+//        });
     }
 
     @Override
@@ -163,6 +176,12 @@ public class Dashboard extends AppCompatActivity {
 
         }
 
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        moveTaskToBack(true);
     }
 
 }

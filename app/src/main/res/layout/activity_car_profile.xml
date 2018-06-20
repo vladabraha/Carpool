@@ -38,6 +38,12 @@
             android:text="cng"
             android:onClick="onRadioButtonClicked"
             />
+        <RadioButton android:id="@+id/radio_lpg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="lpg"
+            android:onClick="onRadioButtonClicked"
+            />
     </RadioGroup>
 
     <EditText
@@ -46,6 +52,14 @@
         android:hint="enter car name"
         android:id="@+id/editTextCarName"
         android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewFuelInformation"
+        android:text="Set car consuption"
+        android:textSize="14dp"
+        android:layout_margin="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <SeekBar
         android:id="@+id/seekBarfuelConsuption"

@@ -255,6 +255,10 @@ public class CarProfile extends AppCompatActivity implements CarManageRecyclerVi
                 if (checked)
                     carType = "cng";
                     break;
+            case R.id.radio_lpg:
+                if (checked)
+                    carType = "lpg";
+                break;
         }
     }
 

@@ -94,7 +94,8 @@ public class PassengerProfileRecyclerViewAdapter extends RecyclerView.Adapter<Pa
         public void setPassenger(Passenger passenger) {
 
             textViewPasengerName.setText(passenger.getPassengerName());
-            textViewPassengerDebt.setText("plati " + String.valueOf(passenger.getDebt()));
+            long debt = Math.round(passenger.getDebt());
+            textViewPassengerDebt.setText("dluzi " + String.valueOf(debt));
 
         }
     }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +29,8 @@ public class CarChooser extends AppCompatActivity implements CarChooserRecyclerV
     private RecyclerView mRecyclerView;
     private CarChooserRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    private TextView textViewInformation;
 
 
     private DatabaseReference myRef;
@@ -66,6 +69,7 @@ public class CarChooser extends AppCompatActivity implements CarChooserRecyclerV
 
         listCar = getCarsFromDatabase();
 
+        textViewInformation = findViewById(R.id.textViewCarChooseInformation);
 
 
         //---------------
@@ -98,6 +102,13 @@ public class CarChooser extends AppCompatActivity implements CarChooserRecyclerV
                 mAdapter = new CarChooserRecyclerViewAdapter(listCar);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.setOnButtonChooseListener(CarChooser.this);
+
+                if (listCar.isEmpty()){
+                    textViewInformation.setText("No car has been created");
+                }else{
+                    textViewInformation.setText("Choose car for ride");
+                }
+
             }
 
             @Override

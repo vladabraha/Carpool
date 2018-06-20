@@ -20,6 +20,9 @@ public class PassengerProfileRecyclerViewAdapter extends RecyclerView.Adapter<Pa
     private PassengerProfileRecyclerViewAdapter.onButtonPassengerDeleteInterface OnButtonPassengerDeleteListener;
 
 
+    public PassengerProfileRecyclerViewAdapter() {
+    }
+
     // Konstruktor  vlozi data, ktera se budou zobrazovat (vola se z aktivity)
     public PassengerProfileRecyclerViewAdapter( ArrayList<Passenger> passengerList) {
         this.passengerList = passengerList;

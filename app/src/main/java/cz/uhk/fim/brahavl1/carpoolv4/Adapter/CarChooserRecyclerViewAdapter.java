@@ -24,6 +24,8 @@ public class CarChooserRecyclerViewAdapter extends RecyclerView.Adapter<CarChoos
     private onButtonCarChooseInterface OnButtonCarChooseListener;
 
 
+    public CarChooserRecyclerViewAdapter() {
+    }
 
     // Konstruktor  vlozi data, ktera se budou zobrazovat (vola se z aktivity)
     public CarChooserRecyclerViewAdapter( ArrayList<Car> carList) {

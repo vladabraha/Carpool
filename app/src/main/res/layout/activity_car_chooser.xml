@@ -7,6 +7,14 @@
     android:orientation="vertical"
     tools:context=".Activities.CarChooser">
 
+    <TextView
+        android:id="@+id/textViewCarChooseInformation"
+        android:text="Choose car for ride"
+        android:textSize="14dp"
+        android:layout_margin="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_choose_car"
         android:scrollbars="vertical"

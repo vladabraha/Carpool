@@ -19,6 +19,9 @@ public class CarManageRecyclerViewAdapter extends RecyclerView.Adapter<CarManage
     private onButtonCarDeleteInterface OnButtonCarDeleteListener;
 
 
+    public CarManageRecyclerViewAdapter() {
+    }
+
     // Konstruktor  vlozi data, ktera se budou zobrazovat (vola se z aktivity)
     public CarManageRecyclerViewAdapter(ArrayList<Car> carList) {
         this.carList = carList;

@@ -24,6 +24,9 @@ public class PassengerChooserRecyclerViewAdapter extends RecyclerView.Adapter<Pa
     private PassengerChooserRecyclerViewAdapter.onButtonPassengerChooseInterface OnButtonPassengerChooseListener;
 
 
+    public PassengerChooserRecyclerViewAdapter() {
+    }
+
     // Konstruktor  vlozi data, ktera se budou zobrazovat (vola se z aktivity)
     public PassengerChooserRecyclerViewAdapter(ArrayList<Passenger> passengerList) {
         this.passengerList = passengerList;

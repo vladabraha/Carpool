@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,6 +39,8 @@ public class PassengerChooser extends AppCompatActivity implements PassengerChoo
 
     private Button btnChoosePassengers;
 
+    private TextView textViewChoosePassenger;
+
     //seznam, ktery budeme posilat do recycler view
     private ArrayList<Passenger> listPassenger;
     private ArrayList<Passenger> listCheckedPassenger;
@@ -46,6 +49,8 @@ public class PassengerChooser extends AppCompatActivity implements PassengerChoo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_chooser);
+
+        textViewChoosePassenger = findViewById(R.id.textViewChoosePassenger);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_choose_passenger); //sem hodit z tyhle aktivity id recycler view
 
@@ -104,6 +109,12 @@ public class PassengerChooser extends AppCompatActivity implements PassengerChoo
                 mAdapter = new PassengerChooserRecyclerViewAdapter(listPassenger);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.setOnButtonChooseListener(PassengerChooser.this);
+
+                if(listPassenger.isEmpty()){
+                    textViewChoosePassenger.setText("No passenger has been created");
+                }else{
+                    textViewChoosePassenger.setText("Select passengers");
+                }
             }
 
             @Override

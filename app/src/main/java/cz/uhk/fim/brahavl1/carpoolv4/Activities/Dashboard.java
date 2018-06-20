@@ -20,9 +20,9 @@ public class Dashboard extends AppCompatActivity {
 
     private Button btnCarProfile;
     private Button btnStartCarPool;
-    private Button btnSelectCar;
+    private Button btnStartCarpool;
     private Button btnManageProfiles;
-    private Button btnSelectPassengers;
+    private Button btnRides;
     private Button btnLogOut;
     private int resultCode2 = 1;
     private int resultCodeChoosePassengers = 2;
@@ -50,20 +50,20 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
-//        btnStartCarPool = (Button) findViewById(R.id.btnStartCarPool);
-//
-//        btnStartCarPool.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intentStartPool = new Intent(Dashboard.this, MapsActivity.class);
-//                startActivityForResult(intentStartPool, resultCode);
-//
-//            }
-//        });
+        btnRides = (Button) findViewById(R.id.btnManageRides);
 
-        btnSelectCar = (Button) findViewById(R.id.btnSelectCar);
+        btnRides.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Dashboard.this, RideOverview.class);
+                startActivity(intent);
 
-        btnSelectCar.setOnClickListener(new View.OnClickListener() {
+            }
+        });
+
+        btnStartCarpool = (Button) findViewById(R.id.btnStartCarpool);
+
+        btnStartCarpool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentChooseCar = new Intent(Dashboard.this, CarChooser.class);

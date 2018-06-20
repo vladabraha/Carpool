@@ -44,7 +44,9 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Activities.PassengerProfile" />
         <activity android:name=".Activities.PassengerChooser" />
-        <activity android:name=".Adapter.PassengerChooserRecyclerViewAdapter"></activity>
+        <activity android:name=".Adapter.PassengerChooserRecyclerViewAdapter" />
+        <activity android:name=".Activities.RideOverview" />
+        <activity android:name=".Adapter.RideOverviewRecyclerViewAdapter"></activity>
     </application>
 
 </manifest>

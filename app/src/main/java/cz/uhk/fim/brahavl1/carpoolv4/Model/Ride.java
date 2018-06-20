@@ -16,6 +16,9 @@ public class Ride implements Parcelable {
     private String distance;
     private long rideTime;
 
+    public Ride() {
+    }
+
     public Ride(String date, List<String> passengers, String distance, long rideTime) {
         this.date = date;
         this.passengers = passengers;

@@ -63,8 +63,6 @@ public class DatabaseConnector {
                     Passenger passenger = postSnapshot.getValue(Passenger.class);
 
                     passengersList.add(passenger);
-                    Log.i("TAG", "seznam se nafoukl na:  " + passengersList.size());
-                    Log.i("TAG", "do seznamu jsme přidali: " + passenger.getPassengerName());
                 }
             }
 
@@ -147,18 +145,17 @@ public class DatabaseConnector {
 
         //aktualizace dluhu u pasazeru
         int passengerCount = passengers.size();
-        Log.i("TAG", "pocet pasazeru je " + String.valueOf(passengerCount));
 
         distance = distance.replaceAll(",","."); //prehozeni carky na tecku pro double
 
         double priceForTrip = (carConsuption / 100) * Double.valueOf(distance);
-        Log.i("TAG", "cena za vsechny je " + String.valueOf(priceForTrip));
+
         double priceForEachPassenger = priceForTrip / passengerCount;
-        Log.i("TAG", "cena za jednoho je " + String.valueOf(priceForEachPassenger));
+
 
         for (String passenger : passengers){
 
-            Log.i("TAG", "aktualizuje se počet pasazeru:  " + passengers.size());
+
             double originalDebt = getPassengerDebt(passenger);
             if(originalDebt == -1){
                 return;
@@ -185,8 +182,6 @@ public class DatabaseConnector {
 
     //vrátí dluh daneho pasazera
     private double getPassengerDebt(String searchName) {
-        Log.i("TAG", "velikost prohledavaneho pole je " + passengersList.size());
-        Log.i("TAG", "hledame " + searchName);
         for (Passenger passenger: this.passengersList ) {
             String name = passenger.getPassengerName();
 

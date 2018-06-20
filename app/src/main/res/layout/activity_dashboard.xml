@@ -21,15 +21,15 @@
         android:layout_marginTop="8dp"
         android:text="Manage passengers" />
 
-    <!--<Button-->
-        <!--android:id="@+id/btnStartCarPool"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:text="Start Car pool" />-->
+    <Button
+        android:id="@+id/btnManageRides"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Manage rides" />
 
     <Button
-        android:id="@+id/btnSelectCar"
+        android:id="@+id/btnStartCarpool"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

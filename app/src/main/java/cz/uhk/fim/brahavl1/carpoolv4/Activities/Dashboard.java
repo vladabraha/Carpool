@@ -27,6 +27,8 @@ public class Dashboard extends AppCompatActivity {
     private int resultCode2 = 1;
     private int resultCodeChoosePassengers = 2;
 
+    private String fuelPrice;
+
     private DatabaseConnector databaseConnector;
     private ArrayList<Passenger> passengerList;
     private String fuelConsuption;
@@ -143,35 +145,36 @@ public class Dashboard extends AppCompatActivity {
 //                ArrayList<Passenger> passengerList = (ArrayList<Passenger>) data.getSerializableExtra("arg_key");
                 passengerList = (ArrayList<Passenger>) data.getSerializableExtra("arg_key");
 
-                for (Passenger passenger : passengerList) {
-                    Log.d("TAG", passenger.getPassengerName().toString());
-                }
+//                for (Passenger passenger : passengerList) {
+//                    Log.d("TAG", passenger.getPassengerName().toString());
+//                }
+                Intent intentSetFuelPrice = new Intent(Dashboard.this, FuelPrice.class);
+                startActivityForResult(intentSetFuelPrice, resultCode);
+
+                break;
+
+                //vraceni z fuelPrice aktivity
+            case 400:
+
+                fuelPrice = data.getStringExtra("fuelPrice");
                 Intent intentStartPool = new Intent(Dashboard.this, MapsActivity.class);
                 startActivityForResult(intentStartPool, resultCode);
-                //TODO UNCHECK
-//                databaseConnector.initializePassengerList();
 
                 break;
 
                 //vraceni z maps activity
             case 300:
                 //vytahne objekt z intentu
-
                 String distance = data.getStringExtra("distance");
                 String rideTime = data.getStringExtra("base");
                 long drivingTime = Long.valueOf(rideTime);
 
-//                Log.d("TAG", "prisla vzdalenost  " + distance + " a ridetime " + rideTime);
-
-                //TODO DODELAT CENU ZA POHONNE HMOTY
-                databaseConnector.saveRide(distance, drivingTime, passengerList, 300000.0, Double.valueOf(fuelConsuption));
-
-
-//                ArrayList<Passenger> testList = new ArrayList<>();
-//                testList.add(new Passenger("Karel Dvořák",0));
-//                databaseConnector.saveRide("13.7", 25, testList, 30.0, Double.valueOf(35.3));
+                Log.d("TAG", "prisla cena za pohonne hmoty ve vysi " + fuelPrice);
+                databaseConnector.saveRide(distance, drivingTime, passengerList, Double.valueOf(fuelPrice), Double.valueOf(fuelConsuption));
 
                 break;
+
+
 
         }
 

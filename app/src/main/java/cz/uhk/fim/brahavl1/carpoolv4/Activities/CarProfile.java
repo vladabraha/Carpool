@@ -57,7 +57,7 @@ public class CarProfile extends AppCompatActivity implements CarManageRecyclerVi
 
     private DatabaseConnector databaseConnector;
 
-    final int max = 100;
+    final int max = 400;
 
 
     @Override
@@ -184,7 +184,7 @@ public class CarProfile extends AppCompatActivity implements CarManageRecyclerVi
     private void updateData(int progress) {
 
         float consuption = Float.valueOf(progress);
-        consuption = ((consuption/100) * 12.5f) + 2f;
+        consuption = (consuption/10)+ 2f;
         fuelConsuption = String.valueOf(consuption);
 
         textProgress.setText(String.valueOf(consuption));

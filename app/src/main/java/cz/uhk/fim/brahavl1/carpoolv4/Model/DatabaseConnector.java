@@ -195,4 +195,15 @@ public class DatabaseConnector {
         Log.i("TAG", "dluh se nenalezl ");
         return -1;
     }
+
+    public void deleteRide(Ride ride) {
+
+        DatabaseReference myRef = database.getReference("user");
+        String rideDate = ride.getDate();
+        myRef.child(currentFirebaseUser.getUid())
+                .child("Ride")
+                .child(rideDate)
+                .setValue(null);
+
+    }
 }

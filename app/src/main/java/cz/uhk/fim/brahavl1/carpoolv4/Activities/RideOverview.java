@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import cz.uhk.fim.brahavl1.carpoolv4.Adapter.PassengerProfileRecyclerViewAdapter;
 import cz.uhk.fim.brahavl1.carpoolv4.Adapter.RideOverviewRecyclerViewAdapter;
+import cz.uhk.fim.brahavl1.carpoolv4.Model.DatabaseConnector;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Passenger;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Ride;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
@@ -34,6 +35,7 @@ public class RideOverview extends AppCompatActivity implements RideOverviewRecyc
 
     private TextView textviewRideInformation;
 
+    private DatabaseConnector databaseConnector;
 
     private ArrayList<Ride> listRide;
 
@@ -54,6 +56,8 @@ public class RideOverview extends AppCompatActivity implements RideOverviewRecyc
         listRide = new ArrayList<>();
         listRide = getAllRidesFromDatabase();
 
+        databaseConnector = new DatabaseConnector();
+
     }
 
     private ArrayList<Ride> getAllRidesFromDatabase() {
@@ -67,7 +71,7 @@ public class RideOverview extends AppCompatActivity implements RideOverviewRecyc
                 // Get Post object and use the values to update the UI
                 listRide.clear();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-//
+
                    Ride rides = postSnapshot.getValue(Ride.class);
                     listRide.add(rides);
 
@@ -95,8 +99,12 @@ public class RideOverview extends AppCompatActivity implements RideOverviewRecyc
         return listRide;
     }
 
-    @Override
-    public void onButtonDelete(ArrayList<Ride> listRides) {
 
+    @Override
+    public void onButtonDelete(int position) {
+
+        Ride ride = new Ride(listRide.get(position).getDate(), listRide.get(position).getPassengers(),
+                listRide.get(position).getDistance(), listRide.get(position).getRideTime());
+        databaseConnector.deleteRide(ride);
     }
 }

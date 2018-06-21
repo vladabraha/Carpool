@@ -3,6 +3,7 @@ package cz.uhk.fim.brahavl1.carpoolv4.Adapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
 
     private ArrayList<Ride> rideList; //list toho co sem bude chodit
 
-    private RideOverviewRecyclerViewAdapter.onButtonRideChooseInterface onButtonRideChooseInterface;
+    private RideOverviewRecyclerViewAdapter.onButtonRideChooseInterface onButtonRideChooseListener;
 
     // Konstruktor  vlozi data, ktera se budou zobrazovat (vola se z aktivity)
     public RideOverviewRecyclerViewAdapter(ArrayList<Ride> rideList) {
@@ -82,7 +83,12 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
             btnDeleteRide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    if(onButtonRideChooseListener != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            onButtonRideChooseListener.onButtonDelete(position);
+                        }
+                    }
                 }
             });
 
@@ -128,18 +134,21 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
                     passengerNames = passengerNames + ", " + name;
                 }
             }
-            textViewRidePassengers.setText(passengerNames);;
+            //smazani prvni carky
+            StringBuilder passNames = new StringBuilder(passengerNames);
+            passNames.delete(0,2); //smazani 20 - 30 znaku
+            textViewRidePassengers.setText(passNames);;
         }
     }
 
     //interface na komunikaci s aktivitou
     public interface onButtonRideChooseInterface {
-        void onButtonDelete(ArrayList<Ride> listRides);
+        void onButtonDelete(int position);
 
     }
 
     public void setOnButtonChooseListener(RideOverviewRecyclerViewAdapter.onButtonRideChooseInterface listener) {
-        this.onButtonRideChooseInterface = listener;
+        this.onButtonRideChooseListener = listener;
 
     }
 }

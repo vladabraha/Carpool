@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,6 +32,8 @@ public class RideOverview extends AppCompatActivity implements RideOverviewRecyc
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
 
+    private TextView textviewRideInformation;
+
 
     private ArrayList<Ride> listRide;
 
@@ -38,6 +41,8 @@ public class RideOverview extends AppCompatActivity implements RideOverviewRecyc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ride_overview);
+
+        textviewRideInformation = findViewById(R.id.textviewRideInformation);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_ride_overview); //sem hodit z tyhle aktivity id recycler view
         mLayoutManager = new LinearLayoutManager(this); //nechat
@@ -71,6 +76,12 @@ public class RideOverview extends AppCompatActivity implements RideOverviewRecyc
                 mAdapter = new RideOverviewRecyclerViewAdapter(listRide);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.setOnButtonChooseListener(RideOverview.this);
+
+                if (listRide.isEmpty()){
+                    textviewRideInformation.setText("no rides has been created yet");
+                }else {
+                    textviewRideInformation.setText("Manage your rides");
+                }
             }
 
             @Override

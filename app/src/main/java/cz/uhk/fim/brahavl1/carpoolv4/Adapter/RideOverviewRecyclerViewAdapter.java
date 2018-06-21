@@ -105,7 +105,11 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
 
         //nasetovani jednotlivych prvku
         public void setRide(Ride rides) {
-            textViewRideDate.setText(rides.getDate());
+            //smazani gtm...
+            StringBuilder date = new StringBuilder(rides.getDate());
+            date.delete(20,30); //smazani 20 - 30 znaku
+
+            textViewRideDate.setText(date.toString());
             textViewRideDistance.setText("distance " + rides.getDistance());;
             textViewRideTime.setText(String.valueOf("Ride time " + rides.getRideTime()));
 

@@ -4,8 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     tools:context=".Adapter.RideOverviewRecyclerViewAdapter">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardview_ride_overview"
+        android:layout_marginTop="8dp"
+        card_view:cardCornerRadius="10dp">
 
 
     <LinearLayout
@@ -44,12 +53,16 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+    </android.support.v7.widget.CardView>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnDeleteRide"
+        android:layout_marginTop="6dp"
         android:text="Delete ride"/>
+
+
 
 
 </LinearLayout>

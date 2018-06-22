@@ -30,7 +30,6 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
     // Konstruktor  vlozi data, ktera se budou zobrazovat (vola se z aktivity)
     public RideOverviewRecyclerViewAdapter(ArrayList<Ride> rideList) {
         this.rideList = rideList;
-//        Log.d("TAG",String.valueOf(passengerList.size()));
     }
 
     // Prepsat podle holderu dole
@@ -125,8 +124,9 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
             StringBuilder passNames = new StringBuilder(passengerNames);
             passNames.delete(0,2); //smazani 20 - 30 znaku
             String name = passNames.toString();
-            name.replace("|", "."); //vymena znaku pro zobrazeni
-            textViewRidePassengers.setText(name);
+            String clearName = name.replace("|", "."); //vymena znaku pro zobrazeni
+//            Log.d("TAG","tohle mame po vycisteni " + clearName);
+            textViewRidePassengers.setText(clearName);
         }
     }
 

@@ -50,11 +50,6 @@ public class CarChooser extends AppCompatActivity implements CarChooserRecyclerV
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_choose_car); //sem hodit z tyhle aktivity id recycler view
 
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        // blbost, smazat
-//        mRecyclerView.setHasFixedSize(true);
-
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this); //nechat
         mRecyclerView.setLayoutManager(mLayoutManager); //nechat
@@ -71,17 +66,6 @@ public class CarChooser extends AppCompatActivity implements CarChooserRecyclerV
 
         textViewInformation = findViewById(R.id.textViewCarChooseInformation);
 
-
-        //---------------
-
-
-        // specify an adapter (see also next example)
-        // sem se do konstruktoru recycler view předá list toho co budeme zobrazovat (mit kontruktor aby prijimal list)
-
-
-        //TODO NEJDE TO TU ZPROVOZNIT?
-//        mAdapter = new CarChooserRecyclerViewAdapter(listCar);
-//        mRecyclerView.setAdapter(mAdapter);
     }
 
 

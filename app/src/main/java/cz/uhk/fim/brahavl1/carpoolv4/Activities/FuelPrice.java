@@ -60,8 +60,6 @@ public class FuelPrice extends AppCompatActivity {
         });
 
 
-
-
     }
 
     private void updateData(int progress) {

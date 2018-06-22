@@ -68,8 +68,14 @@ public class PassengerProfile extends AppCompatActivity implements PassengerProf
         btnSavePassenger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                passenger = new Passenger(String.valueOf(editTextPassenger.getText()),0);
+                //vymena tecky za | protoze tam tecka byt nesmi
+                String name = String.valueOf(editTextPassenger.getText());
+                String newName = name.replace(".","|");
+                Log.d("TAG","jmeno je " + newName);
+                passenger = new Passenger(newName,0);
                 databaseConnector.savePassenger(passenger);
+
+                editTextPassenger.setText("");
             }
         });
     }

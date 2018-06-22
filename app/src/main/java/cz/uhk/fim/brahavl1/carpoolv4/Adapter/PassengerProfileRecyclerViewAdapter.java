@@ -96,9 +96,17 @@ public class PassengerProfileRecyclerViewAdapter extends RecyclerView.Adapter<Pa
         //nasetovani jednotlivych prvku
         public void setPassenger(Passenger passenger) {
 
-            textViewPasengerName.setText(passenger.getPassengerName());
+            String oldName = passenger.getPassengerName();
+            String newName = oldName.replace("|",".");
+            textViewPasengerName.setText(newName);
             long debt = Math.round(passenger.getDebt());
-            textViewPassengerDebt.setText("dluzi " + String.valueOf(debt));
+
+            if (debt > 0){
+                textViewPassengerDebt.setText("dluzi " + String.valueOf(debt));
+            } else{
+                textViewPassengerDebt.setText("dluzite " + String.valueOf(debt));
+            }
+
 
         }
     }

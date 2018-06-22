@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editPassengerName"
-        android:hint="insert passenger name"/>
+        android:hint="insert passenger name or passenger email"/>
 
     <Button
         android:layout_width="match_parent"

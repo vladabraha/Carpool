@@ -94,7 +94,9 @@ public class PassengerChooserRecyclerViewAdapter extends RecyclerView.Adapter<Pa
 
         //nasetovani jednotlivych prvku
         public void setPassenger(Passenger passenger) {
-            checkBoxChoosePassenger.setText(passenger.getPassengerName());
+            String oldName = passenger.getPassengerName();
+            String newName = oldName.replace("|",".");
+            checkBoxChoosePassenger.setText(newName);
         }
     }
 

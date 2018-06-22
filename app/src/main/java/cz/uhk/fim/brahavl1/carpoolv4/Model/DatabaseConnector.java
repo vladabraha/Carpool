@@ -36,6 +36,8 @@ public class DatabaseConnector {
     private RecyclerView.LayoutManager mLayoutManager;
 
     private ArrayList<Passenger> passengersList;
+    private ArrayList<UidEmail> uidEmailsList; //seznam emailu a uid
+    private ArrayList<String> emailList; //seznam jenom emailu pro vyhledavani, zdali je uz v databazi
 
 
     public DatabaseConnector() {
@@ -43,6 +45,7 @@ public class DatabaseConnector {
         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         userID = currentFirebaseUser.getUid();
         listCar = new ArrayList<>();
+        emailList = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
     }
 
@@ -75,6 +78,38 @@ public class DatabaseConnector {
         };
         myRef.addValueEventListener(postListener);
 
+        initializeUidEmails();
+
+    }
+
+    private void initializeUidEmails() {
+        uidEmailsList = new ArrayList<>();
+
+//        passengersList = passList;
+        myRef = FirebaseDatabase.getInstance().getReference("uid");
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                uidEmailsList.clear();
+                emailList.clear();
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+
+                    UidEmail uidEmail = postSnapshot.getValue(UidEmail.class);
+                    uidEmailsList.add(uidEmail);
+                    emailList.add(uidEmail.getEmail());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                // showText("nejde");
+                // ...
+            }
+        };
+        myRef.addValueEventListener(postListener);
     }
 
 
@@ -123,7 +158,6 @@ public class DatabaseConnector {
     }
 
     public void saveRide(String distance, long rideTime, ArrayList<Passenger> passengerList, double fuelPrice, double carConsuption) {
-        //todo pridat pasazerum dluh za cestu
         //ulozeni cesty do databaze
         Date currentTime = Calendar.getInstance().getTime();
         String time = String.valueOf(currentTime);
@@ -143,7 +177,7 @@ public class DatabaseConnector {
                 .child(time)
                 .setValue(ride);
 
-        //aktualizace dluhu u pasazeru
+        //AKTUALIZACE DLUHU U PASAZERU
         int passengerCount = passengers.size();
 
         distance = distance.replaceAll(",","."); //prehozeni carky na tecku pro double
@@ -162,7 +196,7 @@ public class DatabaseConnector {
             }
             myRef = database.getReference("user");
 
-            //TODO PŘIDĚLAT MAZANI PASAZERU
+
             Passenger updatedPassenger = new Passenger(passenger, (originalDebt + priceForEachPassenger));
 
             myRef.child(currentFirebaseUser.getUid())
@@ -178,7 +212,45 @@ public class DatabaseConnector {
 
         }
 
+        //ZAPSANI DLUHU OSTATNIM UZIVATELUM, POKUD JSOU
+        for (Passenger passenger : passengerList){
+            String name = passenger.getPassengerName();
+            // zjistime u kazdeho, zdali ma ve jmene @ - coz znamena, ze uzivatel chtel propojit jmeno s dalsim uzivatelem
+            // -1 se vrati, pokud tam neni, jinak vrati pozici, na ktery pozici symbolu se dany znak nacházi
+            if (name.indexOf('@') != -1){
+                //pokud je zadany email druheho cloveka v databazi (tzn. je zaregistrovany)
+                if (emailList.contains(name)){
+                    //pokud existuje, zjistime jeho uid a vlozime tam jeho dluh
+                    for (UidEmail uidEmail : uidEmailsList){
+                        String email = uidEmail.getEmail();
+                        String uid;
+                        if (email == name){
+                            uid = uidEmail.getUid();
+                            saveDebtToUserProfile(uid, priceForEachPassenger, userID, currentFirebaseUser.getEmail());
+                        }
+
+                    }
+                }
+            }
+        }
+
+
     }
+
+    //metoda, ktera vlozi dluh danemu pasazerovi, ktery ma ucet
+    //uid je toho kdo dluzi a komu se to zapise, price je cena za jednoho u te dane jizdy,
+    // userIDDriver je od koho ten dluh je (komu se to ma vratit) a driverEmail je nazev uzivatele, který se vlozi pasazerovi, ze mu dluzi
+    private void saveDebtToUserProfile(String uidPassenger, double priceForEachPassenger, String userIDDriver, String driverEmail) {
+
+        double price = priceForEachPassenger - priceForEachPassenger - priceForEachPassenger;
+        Passenger passenger = new Passenger(driverEmail, price);
+        DatabaseReference myRef = database.getReference("user");
+        myRef.child(uidPassenger)
+                .child("passengers")
+                .child(driverEmail)
+                .setValue(passenger);
+    }
+
 
     //vrátí dluh daneho pasazera
     private double getPassengerDebt(String searchName) {
@@ -205,5 +277,16 @@ public class DatabaseConnector {
                 .child(rideDate)
                 .setValue(null);
 
+    }
+
+    public void checkEmailInDatabse() {
+
+        String email = currentFirebaseUser.getEmail();
+        UidEmail uidEmail = new UidEmail(email, userID);
+
+        DatabaseReference myRef = database.getReference("uid");
+        myRef.child(currentFirebaseUser.getUid())
+                .setValue(uidEmail);
+        Log.i("TAG", "email je " + myRef.toString());
     }
 }

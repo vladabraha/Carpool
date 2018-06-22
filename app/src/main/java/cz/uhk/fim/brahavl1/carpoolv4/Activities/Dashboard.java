@@ -96,6 +96,7 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
+        databaseConnector.checkEmailInDatabse();
 //        btnSelectPassengers = findViewById(R.id.btnSelectPassenger);
 //
 //        btnSelectPassengers.setOnClickListener(new View.OnClickListener() {
@@ -129,9 +130,6 @@ public class Dashboard extends AppCompatActivity {
             case 100:
                 fuelConsuption = data.getStringExtra("car");
 
-                Log.d("TAG", fuelConsuption);
-//                Toast.makeText(this, fuelConsuption, Toast.LENGTH_SHORT).show();
-
                 //zahajeni dalsi aktivity po vyberu vozidla
                 ArrayList<Passenger> listPass = new ArrayList<>();
                 Intent intentSelectPassengers = new Intent(Dashboard.this, PassengerChooser.class);
@@ -142,7 +140,6 @@ public class Dashboard extends AppCompatActivity {
             //Vraceni z CarChooser
             case 200:
                 //vytahne objekt z intentu
-//                ArrayList<Passenger> passengerList = (ArrayList<Passenger>) data.getSerializableExtra("arg_key");
                 passengerList = (ArrayList<Passenger>) data.getSerializableExtra("arg_key");
 
 //                for (Passenger passenger : passengerList) {
@@ -173,9 +170,6 @@ public class Dashboard extends AppCompatActivity {
                 databaseConnector.saveRide(distance, drivingTime, passengerList, Double.valueOf(fuelPrice), Double.valueOf(fuelConsuption));
 
                 break;
-
-
-
         }
 
     }

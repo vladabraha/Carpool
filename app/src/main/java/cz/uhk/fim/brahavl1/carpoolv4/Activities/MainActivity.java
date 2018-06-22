@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     Button btnSignOut;
     private FirebaseUser currentFirebaseUser;
 
+    private  final List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build());
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        final List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build());
+
 
 
         btnLogin = (Button)findViewById(R.id.btnLogin);
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (currentFirebaseUser != null) {
             Intent intent = new Intent(MainActivity.this, Dashboard.class);
-            startActivity(intent);
+            startActivityForResult(intent,100);
         }
 
 
@@ -86,6 +87,13 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(this, "SingIn failed",Toast.LENGTH_SHORT).show();
             }
+        }else{
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setAvailableProviders(providers)
+                            .build(),
+                    RC_SIGN_IN);
         }
 
 }

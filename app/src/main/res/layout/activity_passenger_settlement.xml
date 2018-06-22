@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/textViewSettlementInformation"
         android:text="Choose action"
         android:textSize="14dp"
         android:layout_margin="4dp"

@@ -36,12 +36,14 @@ public class PassengerSettlement extends AppCompatActivity implements PassengerS
     private DatabaseConnector databaseConnector;
     private ArrayList<Passenger> listPassenger;
 
-
+    private TextView textViewSettlementInformation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_settlement);
+
+        textViewSettlementInformation = findViewById(R.id.textViewSettlementInformation);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_settlement); //sem hodit z tyhle aktivity id recycler view
         mLayoutManager = new LinearLayoutManager(this); //nechat
@@ -79,6 +81,12 @@ public class PassengerSettlement extends AppCompatActivity implements PassengerS
                 mAdapter = new PassengerSettlementRecyclerViewAdapter(listPassenger);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.setOnButtonActionListener(PassengerSettlement.this);
+
+                if (listPassenger.isEmpty()){
+                    textViewSettlementInformation.setText("No passengers has been created yet");
+                }else{
+                    textViewSettlementInformation.setText("Choose action");
+                }
             }
 
             @Override

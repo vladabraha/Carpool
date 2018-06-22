@@ -94,22 +94,6 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
                     }
                 }
             });
-
-            //Pri zmene zaskrtnuti checkboxu se zavola bude isChecked, nebo else
-//            btnDeleteRide.setOnClickListener(new CompoundButton.OnCheckedChangeListener() {
-//                @Override
-//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                    if (buttonView.isChecked()) {
-//                        passengerCheckedList.add(passengerList.get(getAdapterPosition()));
-//                        OnButtonPassengerChooseListener.onCheckboxChange(passengerCheckedList);
-//
-//                    } else {
-//                        passengerCheckedList.remove(passengerList.get(getAdapterPosition()));
-//                        OnButtonPassengerChooseListener.onCheckboxChange(passengerCheckedList);
-//                    }
-//                }
-//            });
-
         }
 
         //nasetovani jednotlivych prvku
@@ -140,7 +124,9 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
             //smazani prvni carky
             StringBuilder passNames = new StringBuilder(passengerNames);
             passNames.delete(0,2); //smazani 20 - 30 znaku
-            textViewRidePassengers.setText(passNames);;
+            String name = passNames.toString();
+            name.replace("|", "."); //vymena znaku pro zobrazeni
+            textViewRidePassengers.setText(name);
         }
     }
 

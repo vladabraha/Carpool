@@ -51,8 +51,11 @@ public class PassengerChooser extends AppCompatActivity implements PassengerChoo
         setContentView(R.layout.activity_passenger_chooser);
 
         textViewChoosePassenger = findViewById(R.id.textViewChoosePassenger);
-
+        btnChoosePassengers = findViewById(R.id.btnChoosePassengers);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_choose_passenger); //sem hodit z tyhle aktivity id recycler view
+
+        listPassenger = new ArrayList<>();
+        listCheckedPassenger = new ArrayList<>();
 
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this); //nechat
@@ -64,12 +67,7 @@ public class PassengerChooser extends AppCompatActivity implements PassengerChoo
         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         userID = currentFirebaseUser.getUid();
 
-        listPassenger = new ArrayList<>();
-        listCheckedPassenger = new ArrayList<>();
-
         listPassenger = getPassengersFromDatabase();
-
-        btnChoosePassengers = findViewById(R.id.btnChoosePassengers);
 
         btnChoosePassengers.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -47,7 +47,9 @@
         <activity android:name=".Adapter.PassengerChooserRecyclerViewAdapter" />
         <activity android:name=".Activities.RideOverview" />
         <activity android:name=".Adapter.RideOverviewRecyclerViewAdapter" />
-        <activity android:name=".Activities.FuelPrice"></activity>
+        <activity android:name=".Activities.FuelPrice" />
+        <activity android:name=".Activities.PassengerSettlement" />
+        <activity android:name=".Adapter.PassengerSettlementRecyclerViewAdapter"></activity>
     </application>
 
 </manifest>

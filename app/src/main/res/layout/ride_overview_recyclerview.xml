@@ -14,13 +14,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/cardview_ride_overview"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
         card_view:cardCornerRadius="10dp">
 
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
         android:orientation="vertical">
 
         <TextView

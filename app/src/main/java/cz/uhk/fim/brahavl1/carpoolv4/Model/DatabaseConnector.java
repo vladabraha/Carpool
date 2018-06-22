@@ -173,7 +173,6 @@ public class DatabaseConnector {
         Ride ride = new Ride(time, passengers, distance, rideTime);
 
         DatabaseReference myRef = database.getReference("user");
-
         myRef.child(currentFirebaseUser.getUid())
                 .child("Ride")
                 .child(time)
@@ -183,22 +182,18 @@ public class DatabaseConnector {
         int passengerCount = passengers.size();
 
         distance = distance.replace(",","."); //prehozeni carky na tecku pro double
-
         double priceForTrip = (carConsuption / 100) * Double.valueOf(distance);
-
         double priceForEachPassenger = priceForTrip / passengerCount;
 
 
         for (String passenger : passengers){
 
-
             double originalDebt = getPassengerDebt(passenger);
             if(originalDebt == -1){
                 return;
             }
+
             myRef = database.getReference("user");
-
-
             Passenger updatedPassenger = new Passenger(passenger, (originalDebt + priceForEachPassenger));
 
             myRef.child(currentFirebaseUser.getUid())
@@ -211,7 +206,6 @@ public class DatabaseConnector {
                     .child(passenger)
                     .setValue(updatedPassenger);
 
-
         }
 
         //ZAPSANI DLUHU OSTATNIM UZIVATELUM, POKUD JSOU
@@ -220,31 +214,21 @@ public class DatabaseConnector {
             // zjistime u kazdeho, zdali ma ve jmene | - coz znamena, ze uzivatel chtel propojit jmeno s dalsim uzivatelem (vymenili se @ za |)
             // -1 se vrati, pokud tam neni, jinak vrati pozici, na ktery pozici symbolu se dany znak nacházi
             if (name.indexOf('|') != -1){
-                Log.i("TAG", "email existuje ");
-                Log.i("TAG", "hleda se jmeno: " + name);
-                for (String str : emailList){
-                    Log.i("TAG", "hleda se v seznamu: " + str);
-                }
                 //pokud je zadany email druheho cloveka v databazi (tzn. je zaregistrovany)
                 if (emailList.contains(name)){
                     //pokud existuje, zjistime jeho uid a vlozime tam jeho dluh
                     for (UidEmail uidEmail : uidEmailsList){
                         String email = uidEmail.getEmail();
                         email = email.replace(".","|");
-                        Log.i("TAG", "prohledáváme jestli existuje email " + email);
                         String uid;
                         if (email.equals(name)){
-                            Log.i("TAG", "nalezli jsme jeho uid ");
                             uid = uidEmail.getUid();
                             saveDebtToUserProfile(uid, priceForEachPassenger, userID, currentFirebaseUser.getEmail());
                         }
-
                     }
                 }
             }
         }
-
-
     }
 
     //metoda, ktera vlozi dluh danemu pasazerovi, ktery ma ucet

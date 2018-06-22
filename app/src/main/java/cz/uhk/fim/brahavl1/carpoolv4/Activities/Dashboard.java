@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -13,13 +12,12 @@ import java.util.ArrayList;
 
 import cz.uhk.fim.brahavl1.carpoolv4.Model.DatabaseConnector;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Passenger;
-import cz.uhk.fim.brahavl1.carpoolv4.Model.Ride;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
 public class Dashboard extends AppCompatActivity {
 
     private Button btnCarProfile;
-    private Button btnStartCarPool;
+    private Button btnDebtSettlement;
     private Button btnStartCarpool;
     private Button btnManageProfiles;
     private Button btnRides;
@@ -97,23 +95,19 @@ public class Dashboard extends AppCompatActivity {
         });
 
         databaseConnector.checkEmailInDatabse();
-//        btnSelectPassengers = findViewById(R.id.btnSelectPassenger);
-//
-//        btnSelectPassengers.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                ArrayList<Passenger> listPass = new ArrayList<>();
-////                Intent intentSelectPassengers = new Intent(Dashboard.this, PassengerChooser.class);
-////                intentSelectPassengers.putExtra("arg_key", listPass);
-////                startActivityForResult(intentSelectPassengers, resultCodeChoosePassengers);
-//
-//                ArrayList<Passenger> testList = new ArrayList<>();
-//
-//                testList.add(new Passenger("Martin",0));
-//                testList.add(new Passenger("Miloš Gabrle",30));
-//                databaseConnector.saveRide("13.7", 25, testList, 30.0, Double.valueOf(35.3));
-//            }
-//        });
+
+
+        btnDebtSettlement = findViewById(R.id.btnDebtSettlements);
+
+        btnDebtSettlement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentDebtSettlement = new Intent(Dashboard.this, PassengerSettlement.class);
+                startActivity(intentDebtSettlement);
+            }
+        });
+
+
     }
 
     @Override
@@ -142,9 +136,6 @@ public class Dashboard extends AppCompatActivity {
                 //vytahne objekt z intentu
                 passengerList = (ArrayList<Passenger>) data.getSerializableExtra("arg_key");
 
-//                for (Passenger passenger : passengerList) {
-//                    Log.d("TAG", passenger.getPassengerName().toString());
-//                }
                 Intent intentSetFuelPrice = new Intent(Dashboard.this, FuelPrice.class);
                 startActivityForResult(intentSetFuelPrice, resultCode);
 

@@ -1,6 +1,5 @@
 package cz.uhk.fim.brahavl1.carpoolv4.Adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -40,7 +37,7 @@ public class CarChooserRecyclerViewAdapter extends RecyclerView.Adapter<CarChoos
         // create a new view
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext()); //taha xml nechat
 
-        View view = layoutInflater.inflate(R.layout.car_profile_recyclerview, null); //sem hod nazev xml, kterym se bude plnit recycler view
+        View view = layoutInflater.inflate(R.layout.car_choose_recyclerview, null); //sem hod nazev xml, kterym se bude plnit recycler view
 
         CarViewHolder viewHolder = new CarViewHolder(view); //vytvoreni carviewholederu (viz. trida dole)
         return viewHolder;

@@ -24,6 +24,9 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
 
     private RideOverviewRecyclerViewAdapter.onButtonRideChooseInterface onButtonRideChooseListener;
 
+    public RideOverviewRecyclerViewAdapter() {
+    }
+
     // Konstruktor  vlozi data, ktera se budou zobrazovat (vola se z aktivity)
     public RideOverviewRecyclerViewAdapter(ArrayList<Ride> rideList) {
         this.rideList = rideList;

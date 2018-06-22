@@ -98,7 +98,9 @@ public class DatabaseConnector {
 
                     UidEmail uidEmail = postSnapshot.getValue(UidEmail.class);
                     uidEmailsList.add(uidEmail);
-                    emailList.add(uidEmail.getEmail());
+                    String mail = uidEmail.getEmail();
+                    mail = mail.replace(".","|");
+                    emailList.add(mail);
                 }
             }
 
@@ -180,7 +182,7 @@ public class DatabaseConnector {
         //AKTUALIZACE DLUHU U PASAZERU
         int passengerCount = passengers.size();
 
-        distance = distance.replaceAll(",","."); //prehozeni carky na tecku pro double
+        distance = distance.replace(",","."); //prehozeni carky na tecku pro double
 
         double priceForTrip = (carConsuption / 100) * Double.valueOf(distance);
 
@@ -215,16 +217,24 @@ public class DatabaseConnector {
         //ZAPSANI DLUHU OSTATNIM UZIVATELUM, POKUD JSOU
         for (Passenger passenger : passengerList){
             String name = passenger.getPassengerName();
-            // zjistime u kazdeho, zdali ma ve jmene @ - coz znamena, ze uzivatel chtel propojit jmeno s dalsim uzivatelem
+            // zjistime u kazdeho, zdali ma ve jmene | - coz znamena, ze uzivatel chtel propojit jmeno s dalsim uzivatelem (vymenili se @ za |)
             // -1 se vrati, pokud tam neni, jinak vrati pozici, na ktery pozici symbolu se dany znak nacházi
-            if (name.indexOf('@') != -1){
+            if (name.indexOf('|') != -1){
+                Log.i("TAG", "email existuje ");
+                Log.i("TAG", "hleda se jmeno: " + name);
+                for (String str : emailList){
+                    Log.i("TAG", "hleda se v seznamu: " + str);
+                }
                 //pokud je zadany email druheho cloveka v databazi (tzn. je zaregistrovany)
                 if (emailList.contains(name)){
                     //pokud existuje, zjistime jeho uid a vlozime tam jeho dluh
                     for (UidEmail uidEmail : uidEmailsList){
                         String email = uidEmail.getEmail();
+                        email = email.replace(".","|");
+                        Log.i("TAG", "prohledáváme jestli existuje email " + email);
                         String uid;
-                        if (email == name){
+                        if (email.equals(name)){
+                            Log.i("TAG", "nalezli jsme jeho uid ");
                             uid = uidEmail.getUid();
                             saveDebtToUserProfile(uid, priceForEachPassenger, userID, currentFirebaseUser.getEmail());
                         }
@@ -244,10 +254,12 @@ public class DatabaseConnector {
 
         double price = priceForEachPassenger - priceForEachPassenger - priceForEachPassenger;
         Passenger passenger = new Passenger(driverEmail, price);
+        String email = driverEmail.replace(".","|");
+
         DatabaseReference myRef = database.getReference("user");
         myRef.child(uidPassenger)
                 .child("passengers")
-                .child(driverEmail)
+                .child(email)
                 .setValue(passenger);
     }
 
@@ -259,12 +271,9 @@ public class DatabaseConnector {
 
             Log.i("TAG", "nyni se prohledava " + passenger.getPassengerName());
             if(name.equals(searchName)){
-                Log.i("TAG", "nalezl se dluh " + passenger.getDebt());
                 return Double.valueOf(passenger.getDebt());
-
             }
         }
-        Log.i("TAG", "dluh se nenalezl ");
         return -1;
     }
 

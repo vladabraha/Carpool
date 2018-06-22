@@ -104,7 +104,11 @@ public class PassengerProfileRecyclerViewAdapter extends RecyclerView.Adapter<Pa
             if (debt > 0){
                 textViewPassengerDebt.setText("dluzi " + String.valueOf(debt));
             } else{
-                textViewPassengerDebt.setText("dluzite " + String.valueOf(debt));
+                if (debt == 0){
+                    textViewPassengerDebt.setText("vyrovnano");
+                }else{
+                    textViewPassengerDebt.setText("dluzite " + newName + " " + String.valueOf(debt));
+                }
             }
 
 

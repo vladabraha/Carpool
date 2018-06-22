@@ -64,6 +64,7 @@ public class PassengerSettlementRecyclerViewAdapter extends RecyclerView.Adapter
         private TextView textViewPasssengerSettlementDebt;
 
         private Button buttonSettleDebt;
+        private Button buttonPay;
 
 
         public PassengerViewHolder(View itemView) {
@@ -74,7 +75,7 @@ public class PassengerSettlementRecyclerViewAdapter extends RecyclerView.Adapter
             textViewPasssengerSettlementName = itemView.findViewById(R.id.textViewPasssengerSettlementName);
             textViewPasssengerSettlementDebt = itemView.findViewById(R.id.textViewPasssengerSettlementDebt);
             buttonSettleDebt = itemView.findViewById(R.id.btnSettleDebt);
-
+            buttonPay = itemView.findViewById(R.id.btnPay);
 
             buttonSettleDebt.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -84,6 +85,20 @@ public class PassengerSettlementRecyclerViewAdapter extends RecyclerView.Adapter
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) { //nutne pro to aby to nehodilo nullpointer
                             OnButtonActionListener.onButtonSettlement(position);
+                        }
+
+                    }
+                }
+            });
+
+            buttonPay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //tohle zkontroluje jestli je něco vybrany a zavola metodu dole
+                    if (OnButtonActionListener != null) { //nutne pro to aby to nehodilo nullpointer
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) { //nutne pro to aby to nehodilo nullpointer
+                            OnButtonActionListener.onButtonPayback(position);
                         }
 
                     }

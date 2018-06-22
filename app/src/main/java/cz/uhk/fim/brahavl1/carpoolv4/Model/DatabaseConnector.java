@@ -282,4 +282,5 @@ public class DatabaseConnector {
                 .setValue(uidEmail);
         Log.i("TAG", "email je " + myRef.toString());
     }
+
 }

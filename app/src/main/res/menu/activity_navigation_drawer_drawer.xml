@@ -6,12 +6,12 @@
     <group android:checkableBehavior="single">
             <item
                 android:id="@+id/nav_manage_passengers"
-                android:icon="@drawable/ic_passenger"
-                android:title="Passenger profile" />
+                android:icon="@drawable/ic_passengers_profile"
+                android:title="Passengers profile" />
             <item
                 android:id="@+id/nav_manage_car_profiles"
                 android:icon="@drawable/ic_car_profiles"
-                android:title="Car profiles" />
+                android:title="Cars profile" />
             <item
                 android:id="@+id/nav_manage_rides"
                 android:icon="@drawable/ic_manage_rides"

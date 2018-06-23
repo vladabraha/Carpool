@@ -115,71 +115,7 @@ public class CarProfile extends NavigationDrawer implements CarManageRecyclerVie
 
             }
         });
-
-//        //TODO CTENI Z DATABAZE
-//        myRef = FirebaseDatabase.getInstance().getReference("user")
-//                .child(userID).child("carProfile");
-//
-//        ValueEventListener postListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // Get Post object and use the values to update the UI
-//                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-//
-//                    Car car = postSnapshot.getValue(Car.class);
-//                    Log.d("TAG", car.toString());
-//
-//                    showText(car.getName());
-//                }
-//
-//                // ...
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//               // showText("nejde");
-//                // ...
-//            }
-//        };
-//        myRef.addValueEventListener(postListener);
-
-
-        //TODO TAKHLE BY TO MELO JIT ALE NEJDE - PROC????
-//        myRef = database.getReference();
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                //showData(dataSnapshot);
-//                Log.d("TAG", dataSnapshot.toString());
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
-
     }
-
-
-//    private void showData(DataSnapshot dataSnapshot) {
-//        for(DataSnapshot ds : dataSnapshot.getChildren()){
-//            Car car = new Car();
-//            car.setCarType(ds.child(userID).getValue(Car.class).getCarType()); //tohle kombo vytahne typ auta
-//            car.setFuelConsuption(ds.child(userID).getValue(Car.class).getFuelConsuption());
-//            car.setName(ds.child(userID).getValue(Car.class).getName());
-//            //showText(car.getName());
-//
-//        }
-//    }
-//
-//    private void showText(String text){
-//
-//        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
-//    }
 
     private void updateData(int progress) {
 
@@ -203,7 +139,6 @@ public class CarProfile extends NavigationDrawer implements CarManageRecyclerVie
     }
 
     private ArrayList<Car> getCarsFromDatabase(){
-        //TODO CTENI Z DATABAZE
         myRef = FirebaseDatabase.getInstance().getReference("user")
                 .child(userID).child("carProfile");
 
@@ -218,8 +153,6 @@ public class CarProfile extends NavigationDrawer implements CarManageRecyclerVie
                     listCar.add(car);
                 }
 
-                //TODO TADY TO MUSI BYT, ALE NEMELO BY TO TU BYT
-//                mAdapter = new CarChooserRecyclerViewAdapter(CarChooser.this,listCar);
                 mAdapter = new CarManageRecyclerViewAdapter(listCar);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.setOnButtonChooseListener(CarProfile.this);

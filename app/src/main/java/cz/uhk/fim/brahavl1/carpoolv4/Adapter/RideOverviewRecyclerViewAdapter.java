@@ -69,6 +69,7 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
         private TextView textViewPriceForRide;
         private TextView textViewRidePassengers;
         private Button btnDeleteRide;
+        private Button btnShowRide;
 
 
         public RideViewHolder(View itemView) {
@@ -83,6 +84,7 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
 
             textViewRidePassengers = itemView.findViewById(R.id.textViewRidePassengers);
             btnDeleteRide = itemView.findViewById(R.id.btnDeleteRide);
+            btnShowRide = itemView.findViewById(R.id.btnShowRide);
 
 
             btnDeleteRide.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +98,18 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
                     }
                 }
             });
+
+            btnShowRide.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(onButtonRideChooseListener != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            onButtonRideChooseListener.onButtonShowRide(position);
+                        }
+                    }
+                }
+            });
         }
 
         //nasetovani jednotlivych prvku
@@ -105,7 +119,7 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
             date.delete(20,30); //smazani 20 - 30 znaku
 
             textViewRideDate.setText(date.toString());
-            textViewRideDistance.setText("distance " + rides.getDistance());;
+            textViewRideDistance.setText("distance " + rides.getDistance());
             textViewRideTime.setText(String.valueOf("Ride time " + rides.getRideTime()));
             textViewPriceForRide.setText("Price for this ride is: " + String.format("%.2f", rides.getPrice()));
 
@@ -130,7 +144,6 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
             passNames.delete(0,2); //smazani 20 - 30 znaku
             String name = passNames.toString();
             String clearName = name.replace("|", "."); //vymena znaku pro zobrazeni
-//            Log.d("TAG","tohle mame po vycisteni " + clearName);
             textViewRidePassengers.setText(clearName);
         }
     }
@@ -138,7 +151,7 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
     //interface na komunikaci s aktivitou
     public interface onButtonRideChooseInterface {
         void onButtonDelete(int position);
-
+        void onButtonShowRide(int position);
     }
 
     public void setOnButtonChooseListener(RideOverviewRecyclerViewAdapter.onButtonRideChooseInterface listener) {

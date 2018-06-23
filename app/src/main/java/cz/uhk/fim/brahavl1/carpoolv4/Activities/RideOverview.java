@@ -1,5 +1,6 @@
 package cz.uhk.fim.brahavl1.carpoolv4.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,10 +17,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cz.uhk.fim.brahavl1.carpoolv4.Adapter.PassengerProfileRecyclerViewAdapter;
 import cz.uhk.fim.brahavl1.carpoolv4.Adapter.RideOverviewRecyclerViewAdapter;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.DatabaseConnector;
+import cz.uhk.fim.brahavl1.carpoolv4.Model.LocationModel;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Passenger;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Ride;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
@@ -107,4 +110,31 @@ public class RideOverview extends NavigationDrawer implements RideOverviewRecycl
                 listRide.get(position).getDistance(), listRide.get(position).getRideTime());
         databaseConnector.deleteRide(ride);
     }
+
+    @Override
+    public void onButtonShowRide(int position) {
+
+        Ride ride = listRide.get(position);
+
+        String allPassengers = "";
+        List<String> passengerList = ride.getPassengers();
+        for (String passenger : passengerList){
+            allPassengers = allPassengers + ", " + passenger;
+        }
+
+        ArrayList<LocationModel> listPositions = new ArrayList<>();
+        listPositions = ride.getRoute();
+        Intent intentRideDetail = new Intent(RideOverview.this, RideDetail.class);
+        intentRideDetail.putExtra("date", ride.getDate());
+        intentRideDetail.putExtra("passengers", allPassengers);
+        intentRideDetail.putExtra("distance", String.valueOf(ride.getDistance()));
+        Log.d("TAG", "posilame cas: " + String.valueOf(ride.getRideTime()));
+        intentRideDetail.putExtra("rideTime", String.valueOf(ride.getRideTime()));
+        intentRideDetail.putExtra("price", String.valueOf(ride.getPrice()));
+        intentRideDetail.putExtra("listPositions", listPositions);
+        startActivity(intentRideDetail);
+
+
+    }
+
 }

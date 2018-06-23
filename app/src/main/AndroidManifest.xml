@@ -17,17 +17,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.Dashboard"
-                  android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Activities.CarProfile"
-                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Activities.Dashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.CarProfile"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.CarChooser" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -44,23 +45,27 @@
         <activity
             android:name=".Activities.MapsActivity"
             android:label="@string/title_activity_maps"
-
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.PassengerProfile"
-                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Activities.PassengerProfile"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.PassengerChooser" />
         <activity android:name=".Adapter.PassengerChooserRecyclerViewAdapter" />
-        <activity android:name=".Activities.RideOverview"
-                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Activities.RideOverview"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Adapter.RideOverviewRecyclerViewAdapter" />
         <activity android:name=".Activities.FuelPrice" />
-        <activity android:name=".Activities.PassengerSettlement"
-                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Activities.PassengerSettlement"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Adapter.PassengerSettlementRecyclerViewAdapter" />
         <activity
             android:name=".Activities.NavigationDrawer"
             android:label="@string/title_activity_navigation_drawer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Fragments.RideDetailFragment" />
+        <activity android:name=".Activities.RideDetail"></activity>
     </application>
 
 </manifest>

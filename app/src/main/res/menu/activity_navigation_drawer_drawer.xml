@@ -4,23 +4,36 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_manage_passengers"
-            android:icon="@drawable/ic_passenger"
-            android:title="Passenger profile" />
-        <item
-            android:id="@+id/nav_manage_car_profiles"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Car profiles" />
-        <item
-            android:id="@+id/nav_manage_rides"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Manage rides" />
-        <item
-            android:id="@+id/nav_settlement"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Settle debts" />
+            <item
+                android:id="@+id/nav_manage_passengers"
+                android:icon="@drawable/ic_passenger"
+                android:title="Passenger profile" />
+            <item
+                android:id="@+id/nav_manage_car_profiles"
+                android:icon="@drawable/ic_car_profiles"
+                android:title="Car profiles" />
+            <item
+                android:id="@+id/nav_manage_rides"
+                android:icon="@drawable/ic_manage_rides"
+                android:title="Manage rides" />
+            <item
+                android:id="@+id/nav_settlement"
+                android:icon="@drawable/ic_settle_debts"
+                android:title="Settle debts" />
     </group>
+
+    <item android:title="Carpool">
+        <menu>
+            <item
+                android:id="@+id/nav_start_carpool"
+                android:icon="@drawable/ic_start_carpool"
+                android:title="Start carpool" />
+            <!--<item-->
+            <!--android:id="@+id/nav_send"-->
+            <!--android:icon="@drawable/ic_menu_send"-->
+            <!--android:title="Send" />-->
+        </menu>
+    </item>
 
     <item android:title="Profile">
         <menu>

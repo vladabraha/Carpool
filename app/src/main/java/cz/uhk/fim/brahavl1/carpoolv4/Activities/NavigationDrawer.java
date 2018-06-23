@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,6 +30,9 @@ import java.util.ArrayList;
 
 import cz.uhk.fim.brahavl1.carpoolv4.Adapter.CarManageRecyclerViewAdapter;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Car;
+import cz.uhk.fim.brahavl1.carpoolv4.Model.DatabaseConnector;
+import cz.uhk.fim.brahavl1.carpoolv4.Model.LocationModel;
+import cz.uhk.fim.brahavl1.carpoolv4.Model.Passenger;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.UidEmail;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
@@ -39,8 +43,12 @@ public class NavigationDrawer extends AppCompatActivity
     private TextView textViewCurrentUser;
     private FirebaseUser currentFirebaseUser;
     private DatabaseReference myRef;
-    private String userID;
-    private CarManageRecyclerViewAdapter mAdapter;
+
+    private String fuelPrice;
+
+    private DatabaseConnector databaseConnector;
+    private ArrayList<Passenger> passengerList;
+    private String fuelConsuption;
 
 
     @Override
@@ -65,6 +73,10 @@ public class NavigationDrawer extends AppCompatActivity
 
         setInformation();
 
+        databaseConnector = new DatabaseConnector();
+        databaseConnector.initializePassengerList();
+        databaseConnector.checkEmailInDatabse();
+
     }
 
     private void setInformation() {
@@ -79,26 +91,23 @@ public class NavigationDrawer extends AppCompatActivity
                 // Get Post object and use the values to update the UI
                 text.clear();
 
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     UidEmail uidEmail = postSnapshot.getValue(UidEmail.class);
                     text.add(uidEmail);
                 }
 
-
-                if (!text.isEmpty()){
+                if (!text.isEmpty()) {
                     currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                     Log.d("TAG", "uzivatel je" + currentFirebaseUser.getEmail());
                     textViewCurrentUser = findViewById(R.id.textCurrentUser);
-                    if (textViewCurrentUser != null){
+                    if (textViewCurrentUser != null) {
 
-                        if (currentFirebaseUser.getDisplayName().isEmpty()){
+                        if (currentFirebaseUser.getDisplayName().isEmpty()) {
                             textViewCurrentUser.setText(currentFirebaseUser.getEmail());
-                        }else{
+                        } else {
                             textViewCurrentUser.setText(currentFirebaseUser.getDisplayName());
                         }
                     }
-
-
 
                 }
 
@@ -123,6 +132,8 @@ public class NavigationDrawer extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+//            moveTaskToBack(true);
+
         }
     }
 
@@ -166,8 +177,10 @@ public class NavigationDrawer extends AppCompatActivity
         } else if (id == R.id.nav_settlement) {
             Intent intentDebtSettlement = new Intent(NavigationDrawer.this, PassengerSettlement.class);
             startActivity(intentDebtSettlement);
-//        } else if (id == R.id.nav_share) {
-//
+        } else if (id == R.id.nav_start_carpool) {
+            Intent intentChooseCar = new Intent(NavigationDrawer.this, CarChooser.class);
+            startActivityForResult(intentChooseCar, 1);
+
         } else if (id == R.id.nav_logout) {
             Intent resultIntent = new Intent();
             setResult(100, resultIntent);
@@ -178,4 +191,65 @@ public class NavigationDrawer extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+
+        //tady budu switchovat akce podle toho ze ktery aktivity se vracim
+        switch (resultCode) {
+            //pokud je akce zrusena uzivatelem
+            case 0:
+                Toast.makeText(this, "action was cancelled", Toast.LENGTH_SHORT).show();
+                break;
+            //Vraceni z CarChooser
+            case 100:
+                fuelConsuption = data.getStringExtra("car");
+
+                //zahajeni dalsi aktivity po vyberu vozidla
+                ArrayList<Passenger> listPass = new ArrayList<>();
+                Intent intentSelectPassengers = new Intent(NavigationDrawer.this, PassengerChooser.class);
+                intentSelectPassengers.putExtra("arg_key", listPass);
+                startActivityForResult(intentSelectPassengers, 2);
+                break;
+
+            //Vraceni z CarChooser
+            case 200:
+                //vytahne objekt z intentu
+                passengerList = (ArrayList<Passenger>) data.getSerializableExtra("arg_key");
+
+                Intent intentSetFuelPrice = new Intent(NavigationDrawer.this, FuelPrice.class);
+                startActivityForResult(intentSetFuelPrice, resultCode);
+
+                break;
+
+            //vraceni z fuelPrice aktivity
+            case 400:
+
+                fuelPrice = data.getStringExtra("fuelPrice");
+                Intent intentStartPool = new Intent(NavigationDrawer.this, MapsActivity.class);
+                startActivityForResult(intentStartPool, resultCode);
+
+                break;
+
+            //vraceni z maps activity
+            case 300:
+                //vytahne objekt z intentu
+                ArrayList<LocationModel> listPosition = new ArrayList<>();
+                String distance = data.getStringExtra("distance");
+                String rideTime = data.getStringExtra("base");
+                listPosition = (ArrayList<LocationModel>) data.getSerializableExtra("positionList");
+                for (LocationModel locationModel : listPosition) {
+                    Log.d("TAG", "v locmodelu je " + locationModel.getLatitude());
+                }
+                long drivingTime = Long.valueOf(rideTime);
+
+
+                databaseConnector.saveRide(distance, drivingTime, passengerList, Double.valueOf(fuelPrice), Double.valueOf(fuelConsuption), listPosition);
+
+                break;
+        }
+    }
+
+
 }

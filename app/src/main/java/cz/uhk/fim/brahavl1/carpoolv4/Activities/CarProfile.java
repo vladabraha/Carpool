@@ -31,7 +31,7 @@ import cz.uhk.fim.brahavl1.carpoolv4.Model.Car;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.DatabaseConnector;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
-public class CarProfile extends AppCompatActivity implements CarManageRecyclerViewAdapter.onButtonCarDeleteInterface{
+public class CarProfile extends NavigationDrawer implements CarManageRecyclerViewAdapter.onButtonCarDeleteInterface{
 
     private String carType;
     private Button btnSaveCarProfile;
@@ -63,7 +63,7 @@ public class CarProfile extends AppCompatActivity implements CarManageRecyclerVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_profile);
+        getLayoutInflater().inflate(R.layout.activity_car_profile, frameLayout);
 
         btnSaveCarProfile = findViewById(R.id.btnSaveCarProfile);
         editTextCarName = findViewById(R.id.editTextCarName);

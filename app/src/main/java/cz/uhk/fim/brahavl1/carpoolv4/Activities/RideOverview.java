@@ -24,7 +24,7 @@ import cz.uhk.fim.brahavl1.carpoolv4.Model.Passenger;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Ride;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
-public class RideOverview extends AppCompatActivity implements RideOverviewRecyclerViewAdapter.onButtonRideChooseInterface{
+public class RideOverview extends NavigationDrawer implements RideOverviewRecyclerViewAdapter.onButtonRideChooseInterface{
 
     private FirebaseUser currentFirebaseUser;
     private DatabaseReference myRef;
@@ -42,7 +42,7 @@ public class RideOverview extends AppCompatActivity implements RideOverviewRecyc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ride_overview);
+        getLayoutInflater().inflate(R.layout.activity_ride_overview, frameLayout);
 
         textviewRideInformation = findViewById(R.id.textviewRideInformation);
 

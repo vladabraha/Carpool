@@ -11,7 +11,7 @@
         android:id="@+id/btnCarProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="60dp"
         android:text="Manage car profiles" />
 
     <Button

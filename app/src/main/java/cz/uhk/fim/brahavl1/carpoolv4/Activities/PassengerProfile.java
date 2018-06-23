@@ -28,7 +28,7 @@ import cz.uhk.fim.brahavl1.carpoolv4.Model.DatabaseConnector;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Passenger;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
-public class PassengerProfile extends AppCompatActivity implements PassengerProfileRecyclerViewAdapter.onButtonPassengerDeleteInterface{
+public class PassengerProfile extends NavigationDrawer implements PassengerProfileRecyclerViewAdapter.onButtonPassengerDeleteInterface{
 
     private Button btnSavePassenger;
     private EditText editTextPassenger;
@@ -47,7 +47,8 @@ public class PassengerProfile extends AppCompatActivity implements PassengerProf
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passenger_profile);
+
+        getLayoutInflater().inflate(R.layout.activity_passenger_profile, frameLayout);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_manage_passengers); //sem hodit z tyhle aktivity id recycler view
         mLayoutManager = new LinearLayoutManager(this); //nechat

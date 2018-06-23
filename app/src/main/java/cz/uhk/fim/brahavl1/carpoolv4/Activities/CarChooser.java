@@ -24,7 +24,7 @@ import cz.uhk.fim.brahavl1.carpoolv4.Adapter.CarChooserRecyclerViewAdapter;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Car;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
-public class CarChooser extends AppCompatActivity implements CarChooserRecyclerViewAdapter.onButtonCarChooseInterface {
+public class CarChooser extends NavigationDrawer implements CarChooserRecyclerViewAdapter.onButtonCarChooseInterface {
 
     private RecyclerView mRecyclerView;
     private CarChooserRecyclerViewAdapter mAdapter;
@@ -45,7 +45,7 @@ public class CarChooser extends AppCompatActivity implements CarChooserRecyclerV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_chooser);
+        getLayoutInflater().inflate(R.layout.activity_car_chooser, frameLayout);
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_choose_car); //sem hodit z tyhle aktivity id recycler view

@@ -67,6 +67,7 @@ public class PassengerSettlement extends AppCompatActivity implements PassengerS
         listPassenger = getAllPassengerFromDatabase();
 
         databaseConnector = new DatabaseConnector();
+        databaseConnector.initializePassengerList();
 
     }
 
@@ -156,6 +157,7 @@ public class PassengerSettlement extends AppCompatActivity implements PassengerS
         double newDebt = 0;
         Passenger updatedPassenger = new Passenger(passenger.getPassengerName(), newDebt);
         databaseConnector.savePassenger(updatedPassenger);
+        databaseConnector.settlePassengersDebtToHisProfile(updatedPassenger);
     }
 
 

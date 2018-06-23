@@ -283,4 +283,42 @@ public class DatabaseConnector {
         Log.i("TAG", "email je " + myRef.toString());
     }
 
+    public void settlePassengersDebtToHisProfile(Passenger passenger) {
+        //ZAPSANI DLUHU OSTATNIM UZIVATELUM, POKUD JSOU
+
+            String name = passenger.getPassengerName();
+            // zjistime u kazdeho, zdali ma ve jmene | - coz znamena, ze uzivatel chtel propojit jmeno s dalsim uzivatelem (vymenili se @ za |)
+            // -1 se vrati, pokud tam neni, jinak vrati pozici, na ktery pozici symbolu se dany znak nacházi
+            if (name.indexOf('|') != -1){
+                //pokud je zadany email druheho cloveka v databazi (tzn. je zaregistrovany)
+                if (emailList.contains(name)){
+                    //pokud existuje, zjistime jeho uid a vlozime tam jeho dluh
+                    for (UidEmail uidEmail : uidEmailsList){
+                        String email = uidEmail.getEmail();
+                        email = email.replace(".","|");
+                        String uid;
+                        if (email.equals(name)){
+                            uid = uidEmail.getUid(); //v tomhle mame uid kam budeme ukladat
+                            updateProfileWithUID(uid); //staci nam jenom uid, protoze email se nastavi z prihlaseneho uzivatele
+                        }
+                    }
+                }
+            }
+
+
+    }
+
+    private void updateProfileWithUID(String uid) {
+
+        String unModifiedEmail = currentFirebaseUser.getEmail();
+        String email = unModifiedEmail.replace(".","|");
+        Passenger passenger = new Passenger(email, 0);
+
+        DatabaseReference myRef = database.getReference("user");
+        myRef.child(uid)
+                .child("passengers")
+                .child(email)
+                .setValue(passenger);
+
+    }
 }

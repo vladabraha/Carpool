@@ -169,7 +169,7 @@ public class NavigationDrawer extends AppCompatActivity
             Intent intentManageProfiles = new Intent(NavigationDrawer.this, PassengerProfile.class);
             startActivity(intentManageProfiles);
         } else if (id == R.id.nav_manage_car_profiles) {
-            Intent intentManageProfiles = new Intent(NavigationDrawer.this, PassengerProfile.class);
+            Intent intentManageProfiles = new Intent(NavigationDrawer.this, CarProfile.class);
             startActivity(intentManageProfiles);
         } else if (id == R.id.nav_manage_rides) {
             Intent intent = new Intent(NavigationDrawer.this, RideOverview.class);

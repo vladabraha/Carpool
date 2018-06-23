@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (currentFirebaseUser != null) {
-            Intent intent = new Intent(MainActivity.this, RideOverview.class);
+            Intent intent = new Intent(MainActivity.this, Dashboard.class);
             startActivityForResult(intent,100);
         }
 

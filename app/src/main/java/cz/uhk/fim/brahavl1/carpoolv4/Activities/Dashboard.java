@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 
 import cz.uhk.fim.brahavl1.carpoolv4.Model.DatabaseConnector;
+import cz.uhk.fim.brahavl1.carpoolv4.Model.LocationModel;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Passenger;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
@@ -161,12 +162,17 @@ public class Dashboard extends NavigationDrawer{
                 //vraceni z maps activity
             case 300:
                 //vytahne objekt z intentu
+                ArrayList<LocationModel> listPosition = new ArrayList<>();
                 String distance = data.getStringExtra("distance");
                 String rideTime = data.getStringExtra("base");
+                listPosition = (ArrayList<LocationModel>) data.getSerializableExtra("positionList");
+                for (LocationModel locationModel: listPosition){
+                    Log.d("TAG", "v locmodelu je " + locationModel.getLatitude());
+                }
                 long drivingTime = Long.valueOf(rideTime);
 
-                Log.d("TAG", "prisla cena za pohonne hmoty ve vysi " + fuelPrice);
-                databaseConnector.saveRide(distance, drivingTime, passengerList, Double.valueOf(fuelPrice), Double.valueOf(fuelConsuption));
+
+                databaseConnector.saveRide(distance, drivingTime, passengerList, Double.valueOf(fuelPrice), Double.valueOf(fuelConsuption), listPosition);
 
                 break;
         }

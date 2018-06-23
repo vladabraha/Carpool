@@ -66,6 +66,7 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
         private TextView textViewRideDate;
         private TextView textViewRideDistance;
         private TextView textViewRideTime;
+        private TextView textViewPriceForRide;
         private TextView textViewRidePassengers;
         private Button btnDeleteRide;
 
@@ -78,6 +79,8 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
             textViewRideDate = itemView.findViewById(R.id.textViewRideDate);
             textViewRideDistance = itemView.findViewById(R.id.textViewRideDistance);
             textViewRideTime = itemView.findViewById(R.id.textViewRideTime);
+            textViewPriceForRide = itemView.findViewById(R.id.textViewPriceForRide);
+
             textViewRidePassengers = itemView.findViewById(R.id.textViewRidePassengers);
             btnDeleteRide = itemView.findViewById(R.id.btnDeleteRide);
 
@@ -104,6 +107,8 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
             textViewRideDate.setText(date.toString());
             textViewRideDistance.setText("distance " + rides.getDistance());;
             textViewRideTime.setText(String.valueOf("Ride time " + rides.getRideTime()));
+            textViewPriceForRide.setText("Price for this ride is: " + String.format("%.2f", rides.getPrice()));
+
 
             //projdu vsechny pasazery, hodim si je do pole
             ArrayList<String> passengers = new ArrayList<>();

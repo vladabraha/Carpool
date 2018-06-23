@@ -44,11 +44,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import cz.uhk.fim.brahavl1.carpoolv4.Fragments.LocationFragment;
 import cz.uhk.fim.brahavl1.carpoolv4.Fragments.LocationFragmentBottom;
+import cz.uhk.fim.brahavl1.carpoolv4.Model.LocationModel;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Ride;
 
@@ -83,6 +85,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double prevLon;
     private LatLng myLocation; //sem budeme ukladat kde jsme
     private double distance = 0; //ujeta vzdálenost
+    private ArrayList<LocationModel> positionList = new ArrayList<>();
 
 
     @Override
@@ -315,6 +318,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             lat = mCurrentLocation.getLatitude();
             lon = mCurrentLocation.getLongitude();
 
+            //hodime bod do seznamu bodu (poloh)
+            positionList.add(new LocationModel(lat, lon));
+
             myLocation = new LatLng(lat, lon);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
 
@@ -525,7 +531,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Toast.makeText(this, "Stop location updates", Toast.LENGTH_SHORT).show();
         Toast.makeText(this, time + " " + distance + " " + String.valueOf(base),Toast.LENGTH_LONG).show();
 
-        ride = new Ride(time, distance, base);
+        ride = new Ride(time, distance, base, positionList);
     }
 
     @Override
@@ -549,6 +555,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Intent resultIntent = new Intent();
             resultIntent.putExtra("distance", ride.getDistance());
             resultIntent.putExtra("base", String.valueOf(ride.getRideTime()));
+            resultIntent.putExtra("positionList", positionList);
             setResult(resultCode, resultIntent);
             finish();
         }

@@ -159,7 +159,7 @@ public class DatabaseConnector {
 
     }
 
-    public void saveRide(String distance, long rideTime, ArrayList<Passenger> passengerList, double fuelPrice, double carConsuption) {
+    public void saveRide(String distance, long rideTime, ArrayList<Passenger> passengerList, double fuelPrice, double carConsuption, ArrayList<LocationModel> listPositions) {
         //ulozeni cesty do databaze
         Date currentTime = Calendar.getInstance().getTime();
         String time = String.valueOf(currentTime);
@@ -170,21 +170,13 @@ public class DatabaseConnector {
             passengers.add(passenger.getPassengerName());
         }
 
-        Ride ride = new Ride(time, passengers, distance, rideTime);
-
-        DatabaseReference myRef = database.getReference("user");
-        myRef.child(currentFirebaseUser.getUid())
-                .child("Ride")
-                .child(time)
-                .setValue(ride);
-
         //AKTUALIZACE DLUHU U PASAZERU
         int passengerCount = passengers.size();
 
         distance = distance.replace(",","."); //prehozeni carky na tecku pro double
+        //VYPOCITANI CENY ZA CESTU
         double priceForTrip = (carConsuption / 100) * Double.valueOf(distance);
         double priceForEachPassenger = priceForTrip / passengerCount;
-
 
         for (String passenger : passengers){
 
@@ -206,6 +198,15 @@ public class DatabaseConnector {
                     .child(passenger)
                     .setValue(updatedPassenger);
 
+
+            //ULOZENI SAMOTNE JIZDY
+            Ride ride = new Ride(time, passengers, distance, rideTime, priceForTrip, listPositions);
+
+            DatabaseReference myRef = database.getReference("user");
+            myRef.child(currentFirebaseUser.getUid())
+                    .child("Ride")
+                    .child(time)
+                    .setValue(ride);
         }
 
         //ZAPSANI DLUHU OSTATNIM UZIVATELUM, POKUD JSOU
@@ -253,7 +254,6 @@ public class DatabaseConnector {
         for (Passenger passenger: this.passengersList ) {
             String name = passenger.getPassengerName();
 
-            Log.i("TAG", "nyni se prohledava " + passenger.getPassengerName());
             if(name.equals(searchName)){
                 return Double.valueOf(passenger.getDebt());
             }
@@ -280,7 +280,7 @@ public class DatabaseConnector {
         DatabaseReference myRef = database.getReference("uid");
         myRef.child(currentFirebaseUser.getUid())
                 .setValue(uidEmail);
-        Log.i("TAG", "email je " + myRef.toString());
+//        Log.i("TAG", "email je " + myRef.toString());
     }
 
     public void settlePassengersDebtToHisProfile(Passenger passenger) {

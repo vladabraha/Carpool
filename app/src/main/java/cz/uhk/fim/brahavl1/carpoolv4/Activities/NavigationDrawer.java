@@ -163,8 +163,9 @@ public class NavigationDrawer extends AppCompatActivity
         } else if (id == R.id.nav_manage_rides) {
             Intent intent = new Intent(NavigationDrawer.this, RideOverview.class);
             startActivity(intent);
-//        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_settlement) {
+            Intent intentDebtSettlement = new Intent(NavigationDrawer.this, PassengerSettlement.class);
+            startActivity(intentDebtSettlement);
 //        } else if (id == R.id.nav_share) {
 //
         } else if (id == R.id.nav_logout) {

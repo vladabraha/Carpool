@@ -31,7 +31,7 @@ import cz.uhk.fim.brahavl1.carpoolv4.Model.Passenger;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Ride;
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
-public class PassengerSettlement extends AppCompatActivity implements PassengerSettlementRecyclerViewAdapter.onButtonPassengerActionInterface{
+public class PassengerSettlement extends NavigationDrawer implements PassengerSettlementRecyclerViewAdapter.onButtonPassengerActionInterface{
 
     private FirebaseUser currentFirebaseUser;
     private DatabaseReference myRef;
@@ -52,7 +52,8 @@ public class PassengerSettlement extends AppCompatActivity implements PassengerS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passenger_settlement);
+//        setContentView(R.layout.activity_passenger_settlement);
+        getLayoutInflater().inflate(R.layout.activity_passenger_settlement, frameLayout);
 
         textViewSettlementInformation = findViewById(R.id.textViewSettlementInformation);
         editTextSettlement = findViewById(R.id.editTextSettlement);

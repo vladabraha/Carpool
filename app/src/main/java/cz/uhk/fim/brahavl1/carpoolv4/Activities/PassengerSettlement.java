@@ -175,6 +175,7 @@ public class PassengerSettlement extends NavigationDrawer implements PassengerSe
             Passenger updatedPassenger = new Passenger(passenger.getPassengerName(), newDebt);
 
             databaseConnector.savePassenger(updatedPassenger);
+            databaseConnector.settlePassengersDebtToHisProfile(updatedPassenger, updatedPassenger.getDebt());
         }else{
             Toast.makeText(this,"Value is empty, please insert value first", Toast.LENGTH_SHORT).show();
         }

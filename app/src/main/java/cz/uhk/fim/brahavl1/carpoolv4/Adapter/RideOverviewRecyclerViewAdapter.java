@@ -119,7 +119,14 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
             date.delete(20,30); //smazani 20 - 30 znaku
 
             textViewRideDate.setText(date.toString());
-            textViewRideDistance.setText("distance " + rides.getDistance());
+           if (Double.valueOf(rides.getDistance()) < 1000){
+               textViewRideDistance.setText("distance " + rides.getDistance() + " metres");
+           } else {
+               double km = Double.valueOf(rides.getDistance());
+               km = km / 1000;
+               textViewRideDistance.setText("distance " + String.format("%.2f", String.valueOf(km)) + " kilometres");
+           }
+
             if (rides.getRideTime() < 60){
                 textViewRideTime.setText(String.valueOf("Ride time " + rides.getRideTime() + " seconds"));
             }else if (rides.getRideTime() < 3600 && rides.getRideTime() > 60){

@@ -171,11 +171,11 @@ public class DatabaseConnector {
         }
 
         //AKTUALIZACE DLUHU U PASAZERU
-        int passengerCount = passengers.size();
+        int passengerCount = passengers.size() + 1;
 
         distance = distance.replace(",","."); //prehozeni carky na tecku pro double
         //VYPOCITANI CENY ZA CESTU
-        double priceForTrip = (carConsuption / 100) * Double.valueOf(distance);
+        double priceForTrip = (carConsuption / 100) * Double.valueOf(distance) * fuelPrice;
         double priceForEachPassenger = priceForTrip / passengerCount;
 
         for (String passenger : passengers){
@@ -224,7 +224,7 @@ public class DatabaseConnector {
                         String uid;
                         if (email.equals(name)){
                             uid = uidEmail.getUid();
-                            saveDebtToUserProfile(uid, priceForEachPassenger, userID, currentFirebaseUser.getEmail());
+                            saveDebtToUserProfile(uid, priceForEachPassenger, userID, currentFirebaseUser.getEmail(), time, distance, rideTime, priceForTrip, listPositions);
                         }
                     }
                 }
@@ -235,8 +235,10 @@ public class DatabaseConnector {
     //metoda, ktera vlozi dluh danemu pasazerovi, ktery ma ucet
     //uid je toho kdo dluzi a komu se to zapise, price je cena za jednoho u te dane jizdy,
     // userIDDriver je od koho ten dluh je (komu se to ma vratit) a driverEmail je nazev uzivatele, který se vlozi pasazerovi, ze mu dluzi
-    private void saveDebtToUserProfile(String uidPassenger, double priceForEachPassenger, String userIDDriver, String driverEmail) {
+    private void saveDebtToUserProfile(String uidPassenger, double priceForEachPassenger, String userIDDriver, String driverEmail,
+                                       String time, String distance, long rideTime, double priceForTrip, ArrayList<LocationModel> listPositions ) {
 
+        //ULOZENI PASAZERA
         double price = priceForEachPassenger - priceForEachPassenger - priceForEachPassenger;
         Passenger passenger = new Passenger(driverEmail, price);
         String email = driverEmail.replace(".","|");
@@ -246,6 +248,19 @@ public class DatabaseConnector {
                 .child("passengers")
                 .child(email)
                 .setValue(passenger);
+
+        //ULOZENI SAMOTNE CESTY
+        ArrayList<String> passengers = new ArrayList<>();
+        passengers.add(email);
+        priceForTrip = priceForTrip - priceForTrip - priceForTrip;
+        Ride ride = new Ride(time, passengers, distance, rideTime, priceForTrip, listPositions);
+
+        myRef = database.getReference("user");
+        myRef.child(uidPassenger)
+                .child("Ride")
+                .child(time)
+                .setValue(ride);
+
     }
 
 

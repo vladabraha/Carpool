@@ -98,7 +98,6 @@ public class NavigationDrawer extends AppCompatActivity
 
                 if (!text.isEmpty()) {
                     currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                    Log.d("TAG", "uzivatel je" + currentFirebaseUser.getEmail());
                     textViewCurrentUser = findViewById(R.id.textCurrentUser);
                     if (textViewCurrentUser != null) {
 
@@ -194,20 +193,6 @@ public class NavigationDrawer extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //super.onActivityResult(requestCode, resultCode, data);
-        Log.d("TAG", "prisel zpatky resulkod " + resultCode);
-        Log.d("TAG", "prisel zpatky request " + requestCode);
-
-//        if(requestCode == 1){
-//            fuelConsuption = data.getStringExtra("car");
-//
-//            //zahajeni dalsi aktivity po vyberu vozidla
-//            ArrayList<Passenger> listPass = new ArrayList<>();
-//            Intent intentSelectPassengers = new Intent(NavigationDrawer.this, PassengerChooser.class);
-//            intentSelectPassengers.putExtra("arg_key", listPass);
-//            startActivityForResult(intentSelectPassengers, 2);
-//        }
-
         //tady budu switchovat akce podle toho ze ktery aktivity se vracim
         switch (resultCode) {
             //pokud je akce zrusena uzivatelem
@@ -250,12 +235,14 @@ public class NavigationDrawer extends AppCompatActivity
                 ArrayList<LocationModel> listPosition = new ArrayList<>();
                 String distance = data.getStringExtra("distance");
                 String rideTime = data.getStringExtra("base");
+                Log.i("TAG", "v navigation draweru  je cas: " + rideTime);
                 listPosition = (ArrayList<LocationModel>) data.getSerializableExtra("positionList");
                 for (LocationModel locationModel : listPosition) {
                     Log.d("TAG", "v locmodelu je " + locationModel.getLatitude());
                 }
                 long drivingTime = Long.valueOf(rideTime);
 
+                Log.i("TAG", "do connectoru posilame cas: " + drivingTime);
 
                 databaseConnector.saveRide(distance, drivingTime, passengerList, Double.valueOf(fuelPrice), Double.valueOf(fuelConsuption), listPosition);
 

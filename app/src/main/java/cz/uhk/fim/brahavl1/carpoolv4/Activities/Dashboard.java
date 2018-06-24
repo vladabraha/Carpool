@@ -201,6 +201,12 @@ public class Dashboard extends NavigationDrawer{
                 totalSavedMoney = totalSavedMoney + (Double.valueOf(ride.getPrice()) / numberOfPassengers);
             }
             setNewTitles();
+        }else{
+            totalKilometres = 0;
+            totalPrice = 0;
+            totalTime = 0;
+            totalSavedMoney = 0;
+            setNewTitles();
         }
     }
 
@@ -220,6 +226,9 @@ public class Dashboard extends NavigationDrawer{
             totalTime = totalTime / 60;
             textviewTotalTime.setText(String.valueOf(totalTime) + " minutes");
         }else if (totalTime > 3600 && totalTime < 86400){
+            totalTime = totalTime / 3600;
+            textviewTotalTime.setText(String.valueOf(totalTime) + " hours");
+        }else{
             totalTime = totalTime / 86400;
             textviewTotalTime.setText(String.valueOf(totalTime) + " days");
         }

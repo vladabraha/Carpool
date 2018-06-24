@@ -120,7 +120,22 @@ public class RideOverviewRecyclerViewAdapter extends RecyclerView.Adapter<RideOv
 
             textViewRideDate.setText(date.toString());
             textViewRideDistance.setText("distance " + rides.getDistance());
-            textViewRideTime.setText(String.valueOf("Ride time " + rides.getRideTime()));
+            if (rides.getRideTime() < 60){
+                textViewRideTime.setText(String.valueOf("Ride time " + rides.getRideTime() + " seconds"));
+            }else if (rides.getRideTime() < 3600 && rides.getRideTime() > 60){
+                long time = rides.getRideTime();
+                time = time / 60;
+                textViewRideTime.setText(String.valueOf("Ride time " + String.valueOf(time) + " minutes"));
+            }else if (rides.getRideTime() < 86400 && rides.getRideTime() > 3600){
+                long time = rides.getRideTime();
+                time = time / 3600;
+                textViewRideTime.setText(String.valueOf("Ride time " + String.valueOf(time) + " hours"));
+            }else {
+                long time = rides.getRideTime();
+                time = time / 86400;
+                textViewRideTime.setText(String.valueOf("Ride time " + String.valueOf(time) + " days"));
+            }
+
             textViewPriceForRide.setText("Price for this ride is: " + String.format("%.2f", rides.getPrice()));
 
 

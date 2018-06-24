@@ -96,7 +96,7 @@ public class LocationFragment extends Fragment {
                 //predame pri zastaveni trackovani
 //                String distance = editKilometres.getText().toString();
                 String distance = textViewKilometres.getText().toString();
-                long base= (chronometer.getBase())/10000000; // vrátí čas z chronometru, deleni pro prevod na vteriny!
+                long base= (chronometer.getBase())/1000000; // vrátí čas z chronometru, deleni pro prevod na vteriny!
                 //predani prislusnych parametru
                 onLocationUpdateInterface.onButtonClickStop(distance,base);
                 chronometer.stop();

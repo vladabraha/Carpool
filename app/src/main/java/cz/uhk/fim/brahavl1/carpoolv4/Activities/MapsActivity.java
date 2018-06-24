@@ -196,7 +196,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        Log.i(TAG, "vola se onSaveInstanceState");
         savedInstanceState.putBoolean(KEY_REQUESTING_LOCATION_UPDATES, mRequestingLocationUpdates);
         savedInstanceState.putParcelable(KEY_LOCATION, mCurrentLocation);
         super.onSaveInstanceState(savedInstanceState);
@@ -205,7 +204,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     //zacne tahat aktivitu - google dev.
     private void startLocationUpdates() {
-        Log.i(TAG, "vola se startLocationUpdates");
         // Begin by checking if the device has the necessary location settings.
         settingsClient.checkLocationSettings(mLocationSettingsRequest)
                 .addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
@@ -480,6 +478,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             int resultCode = 300;
             Intent resultIntent = new Intent();
             resultIntent.putExtra("distance", ride.getDistance());
+            Log.i(TAG, "v map aktivite je cas: " + String.valueOf(ride.getRideTime()));
             resultIntent.putExtra("base", String.valueOf(ride.getRideTime()));
             resultIntent.putExtra("positionList", positionList);
             setResult(resultCode, resultIntent);

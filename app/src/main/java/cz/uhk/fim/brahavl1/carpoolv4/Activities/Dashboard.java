@@ -198,6 +198,11 @@ public class Dashboard extends NavigationDrawer{
                 long drivingTime = Long.valueOf(rideTime);
                 databaseConnector.saveRide(distance, drivingTime, passengerList, Double.valueOf(fuelPrice), Double.valueOf(fuelConsuption), listPosition);
 
+                double totaPrice = Double.valueOf(fuelConsuption) * (Double.valueOf(distance) / 1000);
+                Toast.makeText(this,"price for ride is: " + String.valueOf(totaPrice),Toast.LENGTH_LONG).show();
+                double priceForEach = totaPrice / (passengerList.size() + 1);
+                Toast.makeText(this,"price for each passenger is: " + String.valueOf(priceForEach),Toast.LENGTH_LONG).show();
+
                 break;
         }
 

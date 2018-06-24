@@ -6,8 +6,8 @@ android {
         applicationId "cz.uhk.fim.brahavl1.carpoolv4"
         minSdkVersion 23
         targetSdkVersion 26
-        versionCode 5
-        versionName "2.6"
+        versionCode 6
+        versionName "3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

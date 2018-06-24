@@ -172,7 +172,9 @@ public class DatabaseConnector {
 
         distance = distance.replace(",","."); //prehozeni carky na tecku pro double
         //VYPOCITANI CENY ZA CESTU
-        double priceForTrip = (carConsuption / 100) * Double.valueOf(distance) * fuelPrice;
+        double newDistance = Double.valueOf(distance);
+        newDistance = newDistance / 1000;
+        double priceForTrip = (carConsuption / 100) * newDistance * fuelPrice;
         double priceForEachPassenger = priceForTrip / passengerCount;
 
         for (String passenger : passengers){

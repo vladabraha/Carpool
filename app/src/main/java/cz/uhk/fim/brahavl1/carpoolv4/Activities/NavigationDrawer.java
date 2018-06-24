@@ -246,13 +246,16 @@ public class NavigationDrawer extends AppCompatActivity
 
                 databaseConnector.saveRide(distance, drivingTime, passengerList, Double.valueOf(fuelPrice), Double.valueOf(fuelConsuption), listPosition);
 
+                //information about price
                 String dist = distance;
-                dist.replace(",",".");
-                double dist2 = Double.valueOf(dist);
-                double totaPrice = Double.valueOf(fuelConsuption) * (dist2 / 1000);
-                Toast.makeText(this,"price for ride is: " + String.valueOf(totaPrice),Toast.LENGTH_LONG).show();
-                double priceForEach = totaPrice / (passengerList.size() + 1);
-                Toast.makeText(this,"price for each passenger is: " + String.valueOf(priceForEach),Toast.LENGTH_LONG).show();
+                String newDist = dist.replace(",",".");
+
+                Log.i("TAG", newDist);
+                double dist2 = Double.valueOf(newDist);
+                double totalPrice = Double.valueOf(fuelConsuption) * (dist2 / 1000);
+                Toast.makeText(this,"price for ride is: " + String.valueOf(String.valueOf(String.format("%.2f", totalPrice))),Toast.LENGTH_LONG).show();
+                double priceForEach = totalPrice / (passengerList.size() + 1);
+                Toast.makeText(this,"price for each passenger is: " + String.valueOf( String.valueOf(String.format("%.2f", priceForEach))),Toast.LENGTH_LONG).show();
 
                 break;
         }

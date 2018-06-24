@@ -128,7 +128,6 @@ public class RideOverview extends NavigationDrawer implements RideOverviewRecycl
         intentRideDetail.putExtra("date", ride.getDate());
         intentRideDetail.putExtra("passengers", allPassengers);
         intentRideDetail.putExtra("distance", String.valueOf(ride.getDistance()));
-        Log.d("TAG", "posilame cas: " + String.valueOf(ride.getRideTime()));
         intentRideDetail.putExtra("rideTime", String.valueOf(ride.getRideTime()));
         intentRideDetail.putExtra("price", String.valueOf(ride.getPrice()));
         intentRideDetail.putExtra("listPositions", listPositions);

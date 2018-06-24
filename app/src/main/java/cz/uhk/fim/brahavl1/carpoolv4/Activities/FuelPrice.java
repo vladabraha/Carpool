@@ -14,11 +14,9 @@ public class FuelPrice extends AppCompatActivity {
 
     private SeekBar seekBarfuelPrice;
     private TextView textProgressPrice;
-    private float price;
-
     private Button btnSaveFuelPrice;
 
-
+    private float price;
     final int max = 400;
 
     @Override

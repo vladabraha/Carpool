@@ -31,7 +31,6 @@ public class PassengerChooserRecyclerViewAdapter extends RecyclerView.Adapter<Pa
     public PassengerChooserRecyclerViewAdapter(ArrayList<Passenger> passengerList) {
         this.passengerList = passengerList;
         passengerCheckedList = new ArrayList<>();
-//        Log.d("TAG",String.valueOf(passengerList.size()));
     }
 
     // Prepsat podle holderu dole
@@ -51,7 +50,6 @@ public class PassengerChooserRecyclerViewAdapter extends RecyclerView.Adapter<Pa
     public void onBindViewHolder(PassengerChooserRecyclerViewAdapter.PassengerViewHolder holder, int position) {
         Passenger passenger = passengerList.get(position); // zde upravit podle toho, co se bude v holderu zobrazovat, ale pozice se bude zjitovat vzdy
         holder.setPassenger(passenger);
-
     }
 
     // Potrebuje to vedet jak velky pole to bude - upravit nazvy
@@ -67,10 +65,8 @@ public class PassengerChooserRecyclerViewAdapter extends RecyclerView.Adapter<Pa
         //de facto tady vytvoris jednotlivy polozky co se budou v recyclerview zobrazovat
         private CheckBox checkBoxChoosePassenger;
 
-
         public PassengerViewHolder(View itemView) {
             super(itemView);
-
 
             //vytahnuti prvku z xml, ktery si zadala v onCreateViewHolder
             checkBoxChoosePassenger = itemView.findViewById(R.id.checkBoxPassenger);
@@ -89,7 +85,6 @@ public class PassengerChooserRecyclerViewAdapter extends RecyclerView.Adapter<Pa
                     }
                 }
             });
-
         }
 
         //nasetovani jednotlivych prvku
@@ -103,11 +98,9 @@ public class PassengerChooserRecyclerViewAdapter extends RecyclerView.Adapter<Pa
     //interface na komunikaci s aktivitou
     public interface onButtonPassengerChooseInterface {
         void onCheckboxChange(ArrayList<Passenger> passengerCheckedList);
-
     }
 
     public void setOnButtonChooseListener(PassengerChooserRecyclerViewAdapter.onButtonPassengerChooseInterface listener) {
         this.OnButtonPassengerChooseListener = listener;
-
     }
 }

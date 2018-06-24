@@ -74,7 +74,7 @@ public class PassengerProfile extends NavigationDrawer implements PassengerProfi
                     //vymena tecky za | protoze tam tecka byt nesmi
                     String name = String.valueOf(editTextPassenger.getText());
                     String newName = name.replace(".","|");
-                    Log.d("TAG","jmeno je " + newName);
+//                    Log.d("TAG","jmeno je " + newName);
                     passenger = new Passenger(newName,0);
                     databaseConnector.savePassenger(passenger);
 
@@ -105,8 +105,6 @@ public class PassengerProfile extends NavigationDrawer implements PassengerProfi
                 listPassenger.clear();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
 
-//                    Log.d("TAG", postSnapshot.getValue(Passenger.class).getPassengerName());
-//
                     Passenger passengers = postSnapshot.getValue(Passenger.class);
                    listPassenger.add(passengers);
 

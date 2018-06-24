@@ -25,7 +25,6 @@ public class CarManageRecyclerViewAdapter extends RecyclerView.Adapter<CarManage
     // Konstruktor  vlozi data, ktera se budou zobrazovat (vola se z aktivity)
     public CarManageRecyclerViewAdapter(ArrayList<Car> carList) {
         this.carList = carList;
-        Log.d("TAG", String.valueOf(carList.size()));
     }
 
     // Prepsat podle holderu dole
@@ -54,7 +53,6 @@ public class CarManageRecyclerViewAdapter extends RecyclerView.Adapter<CarManage
     // Potrebuje to vedet jak velky pole to bude - upravit nazvy
     @Override
     public int getItemCount() {
-        Log.d("TAG", String.valueOf(carList.size()));
         return carList.size();
     }
 
@@ -66,14 +64,10 @@ public class CarManageRecyclerViewAdapter extends RecyclerView.Adapter<CarManage
         private TextView textViewCarName;
         private TextView textViewCarFuelConsuption;
         private TextView textViewCarType;
-
         private Button buttonChooseCar;
-
 
         public CarViewHolder(View itemView) {
             super(itemView);
-
-
             //vytahnuti prvku z xml, ktery si zadala v onCreateViewHolder
             textViewCarName = itemView.findViewById(R.id.textViewCarName2);
             textViewCarFuelConsuption = itemView.findViewById(R.id.textViewCarFuelConsuption2);
@@ -90,7 +84,6 @@ public class CarManageRecyclerViewAdapter extends RecyclerView.Adapter<CarManage
                         if (position != RecyclerView.NO_POSITION) { //nutne pro to aby to nehodilo nullpointer
                             OnButtonCarDeleteListener.onButtonDelete(position);
                         }
-                        ;
                     }
                 }
             });
@@ -98,24 +91,18 @@ public class CarManageRecyclerViewAdapter extends RecyclerView.Adapter<CarManage
 
         //nasetovani jednotlivych prvku
         public void setCar(final Car car) {
-
             textViewCarName.setText(car.getName());
             textViewCarFuelConsuption.setText(String.valueOf(car.getFuelConsuption()));
             textViewCarType.setText(car.getCarType());
-
-
         }
     }
 
     //interface na komunikaci s aktivitou
     public interface onButtonCarDeleteInterface {
         void onButtonDelete(int position);
-
-
     }
 
     public void setOnButtonChooseListener(onButtonCarDeleteInterface listener) {
         this.OnButtonCarDeleteListener = listener;
-
     }
 }

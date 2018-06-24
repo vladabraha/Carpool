@@ -107,9 +107,7 @@ public class NavigationDrawer extends AppCompatActivity
                             textViewCurrentUser.setText(currentFirebaseUser.getDisplayName());
                         }
                     }
-
                 }
-
             }
 
             @Override

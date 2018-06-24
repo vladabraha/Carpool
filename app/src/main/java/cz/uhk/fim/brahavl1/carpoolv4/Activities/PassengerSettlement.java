@@ -46,8 +46,6 @@ public class PassengerSettlement extends NavigationDrawer implements PassengerSe
     private TextView textViewSettlementInformation;
     private EditText editTextSettlement;
 
-    private boolean confirm = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

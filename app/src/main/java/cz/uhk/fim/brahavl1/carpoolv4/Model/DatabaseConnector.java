@@ -52,7 +52,6 @@ public class DatabaseConnector {
     public void initializePassengerList(){
         passengersList = new ArrayList<>();
 
-//        passengersList = passList;
         myRef = FirebaseDatabase.getInstance().getReference("user")
                 .child(userID).child("passengers");
 
@@ -77,9 +76,7 @@ public class DatabaseConnector {
             }
         };
         myRef.addValueEventListener(postListener);
-
         initializeUidEmails();
-
     }
 
     private void initializeUidEmails() {
@@ -260,7 +257,6 @@ public class DatabaseConnector {
                 .child("Ride")
                 .child(time)
                 .setValue(ride);
-
     }
 
 
@@ -284,7 +280,6 @@ public class DatabaseConnector {
                 .child("Ride")
                 .child(rideDate)
                 .setValue(null);
-
     }
 
     public void checkEmailInDatabse() {
@@ -295,7 +290,6 @@ public class DatabaseConnector {
         DatabaseReference myRef = database.getReference("uid");
         myRef.child(currentFirebaseUser.getUid())
                 .setValue(uidEmail);
-//        Log.i("TAG", "email je " + myRef.toString());
     }
 
     public void settlePassengersDebtToHisProfile(Passenger passenger) {
@@ -319,8 +313,6 @@ public class DatabaseConnector {
                     }
                 }
             }
-
-
     }
 
     private void updateProfileWithUID(String uid) {
@@ -334,6 +326,5 @@ public class DatabaseConnector {
                 .child("passengers")
                 .child(email)
                 .setValue(passenger);
-
     }
 }

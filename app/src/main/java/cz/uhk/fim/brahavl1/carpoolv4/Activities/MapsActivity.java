@@ -478,7 +478,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             int resultCode = 300;
             Intent resultIntent = new Intent();
             resultIntent.putExtra("distance", ride.getDistance());
-            Log.i(TAG, "v map aktivite je cas: " + String.valueOf(ride.getRideTime()));
             resultIntent.putExtra("base", String.valueOf(ride.getRideTime()));
             resultIntent.putExtra("positionList", positionList);
             setResult(resultCode, resultIntent);

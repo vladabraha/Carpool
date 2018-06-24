@@ -46,7 +46,6 @@ public class PassengerSettlementRecyclerViewAdapter extends RecyclerView.Adapter
     public void onBindViewHolder(PassengerSettlementRecyclerViewAdapter.PassengerViewHolder holder, int position) {
         Passenger passenger = passengerList.get(position); // zde upravit podle toho, co se bude v holderu zobrazovat, ale pozice se bude zjitovat vzdy
         holder.setPassenger(passenger);
-
     }
 
     // Potrebuje to vedet jak velky pole to bude - upravit nazvy
@@ -55,17 +54,14 @@ public class PassengerSettlementRecyclerViewAdapter extends RecyclerView.Adapter
         return passengerList.size();
     }
 
-
     public class PassengerViewHolder extends RecyclerView.ViewHolder {
 
         //tady si vytahnout id z layoutu a nasetovat je podle toho jak to co se v nich ma zobrazit
         //de facto tady vytvoris jednotlivy polozky co se budou v recyclerview zobrazovat
         private TextView textViewPasssengerSettlementName;
         private TextView textViewPasssengerSettlementDebt;
-
         private Button buttonSettleDebt;
         private Button buttonPay;
-
 
         public PassengerViewHolder(View itemView) {
             super(itemView);
@@ -86,7 +82,6 @@ public class PassengerSettlementRecyclerViewAdapter extends RecyclerView.Adapter
                         if (position != RecyclerView.NO_POSITION) { //nutne pro to aby to nehodilo nullpointer
                             OnButtonActionListener.onButtonSettlement(position);
                         }
-
                     }
                 }
             });
@@ -100,12 +95,9 @@ public class PassengerSettlementRecyclerViewAdapter extends RecyclerView.Adapter
                         if (position != RecyclerView.NO_POSITION) { //nutne pro to aby to nehodilo nullpointer
                             OnButtonActionListener.onButtonPayback(position);
                         }
-
                     }
                 }
             });
-
-
         }
 
         //nasetovani jednotlivych prvku
@@ -132,11 +124,9 @@ public class PassengerSettlementRecyclerViewAdapter extends RecyclerView.Adapter
     public interface onButtonPassengerActionInterface{
         void onButtonSettlement(int position);
         void onButtonPayback(int position);
-
     }
 
     public void setOnButtonActionListener(PassengerSettlementRecyclerViewAdapter.onButtonPassengerActionInterface listener){
         this.OnButtonActionListener = listener;
-
     }
 }

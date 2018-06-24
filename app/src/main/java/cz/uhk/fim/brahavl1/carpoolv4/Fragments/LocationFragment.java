@@ -58,10 +58,8 @@ public class LocationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-
         View view = inflater.inflate(R.layout.fragment_location, container, false);
 
-//        editKilometres = view.findViewById(R.id.editKilometres);
         textViewKilometres = view.findViewById(R.id.textKilometres);
         textViewKilometres.setText("");
 
@@ -102,17 +100,13 @@ public class LocationFragment extends Fragment {
                 chronometer.stop();
             }
         });
-
         return view;
-
-
     }
 
     //slouuzi pro komunikaci mezi fragmentem a aktivitou
     public interface onButtonInterface{
         void onButtonClickStart(Boolean mRequestingLocationUpdates);
         void onButtonClickStop(String distance, long base);
-
     }
 
 

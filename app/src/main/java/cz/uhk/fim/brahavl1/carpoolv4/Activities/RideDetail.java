@@ -39,7 +39,6 @@ public class RideDetail extends FragmentActivity implements OnMapReadyCallback {
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            Log.d("TAG", "intent mame: " + extras.toString());
             if (extras == null) {
             } else {
                 positionList = (ArrayList<LocationModel>) extras.getSerializable("listPositions");
@@ -48,12 +47,6 @@ public class RideDetail extends FragmentActivity implements OnMapReadyCallback {
                 distance = extras.getString("distance");
                 rideTime = extras.getString("rideTime");
                 price = extras.getString("price");
-
-
-                Log.d("TAG", "prisel cas: " + rideTime);
-//                for (LocationModel locationModel : positionList) {
-//                    Log.d("TAG", "v seznamu je: " + locationModel.getLatitude());
-//                }
             }
         }
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -100,8 +93,7 @@ public class RideDetail extends FragmentActivity implements OnMapReadyCallback {
         // Add a marker to your position and move the camera
         double currentLat;
         double currentLng;
-
-        double previousLat = positionList.get(0).getLatitude();
+        double previousLat = positionList.get(0).getLatitude(); //vezmeme prvni body
         double previousLng = positionList.get(0).getLongitude();
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(previousLat, previousLng), 12.5f));
@@ -110,12 +102,12 @@ public class RideDetail extends FragmentActivity implements OnMapReadyCallback {
             currentLat = location.getLatitude();
             currentLng = location.getLongitude();
 
-            mMap.addPolyline(new PolylineOptions().clickable(false).add(
+            mMap.addPolyline(new PolylineOptions().clickable(false).add( //vykreslime acru
                     new LatLng(previousLat, previousLng),
                     new LatLng(currentLat, currentLng)
             ));
 
-            previousLat = currentLat;
+            previousLat = currentLat; //prohodime
             previousLng = currentLng;
         }
     }

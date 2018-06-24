@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnSignOut;
     private FirebaseUser currentFirebaseUser;
 
-    private  final List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build());
+    private final List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build());
 
 
     @Override
@@ -34,11 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
-
-        btnLogin = (Button)findViewById(R.id.btnLogin);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (currentFirebaseUser != null) {
             Intent intent = new Intent(MainActivity.this, Dashboard.class);
-            startActivityForResult(intent,100);
+            startActivityForResult(intent, 100);
         }
 
 
@@ -79,11 +75,10 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                Toast.makeText(this, "Success",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent (MainActivity.this, Dashboard.class );
-                startActivityForResult(intent,35);
-
+                Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                startActivityForResult(intent, 35);
 
 
             } else {
@@ -92,9 +87,9 @@ public class MainActivity extends AppCompatActivity {
                 // response.getError().getErrorCode() and handle the error.
                 // ...
 
-                Toast.makeText(this, "SingIn failed",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "SingIn failed", Toast.LENGTH_SHORT).show();
             }
-        }else{
+        } else {
             startActivityForResult(
                     AuthUI.getInstance()
                             .createSignInIntentBuilder()
@@ -103,5 +98,5 @@ public class MainActivity extends AppCompatActivity {
                     RC_SIGN_IN);
         }
 
-}
+    }
 }

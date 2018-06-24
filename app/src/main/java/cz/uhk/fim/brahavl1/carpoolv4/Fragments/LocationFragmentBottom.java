@@ -10,10 +10,8 @@ import android.widget.Button;
 
 import cz.uhk.fim.brahavl1.carpoolv4.R;
 
-
 public class LocationFragmentBottom extends Fragment {
     private Button btnSaveRide;
-
     private onButtonSaveInterface onLocationUpdateInterface;
 
     public LocationFragmentBottom() {
@@ -27,7 +25,6 @@ public class LocationFragmentBottom extends Fragment {
 
         try {
             onLocationUpdateInterface = (LocationFragmentBottom.onButtonSaveInterface) context;
-
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
                     + " must implement OnLocationUpdateInterface");
@@ -38,10 +35,7 @@ public class LocationFragmentBottom extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-
         View view = inflater.inflate(R.layout.fragment_location_fragment_bottom, container, false);
-
         btnSaveRide = view.findViewById(R.id.btnSaveRide);
 
         btnSaveRide.setOnClickListener(new View.OnClickListener() {

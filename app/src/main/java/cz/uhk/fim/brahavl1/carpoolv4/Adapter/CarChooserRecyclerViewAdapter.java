@@ -50,7 +50,6 @@ public class CarChooserRecyclerViewAdapter extends RecyclerView.Adapter<CarChoos
         // - replace the contents of the view with that element
         Car car = carList.get(position); // zde upravit podle toho, co se bude v holderu zobrazovat, ale pozice z recyclerview vzdycky bude stejna
         holder.setCar(car);
-
     }
 
     // Potrebuje to vedet jak velky pole to bude - upravit nazvy
@@ -67,13 +66,11 @@ public class CarChooserRecyclerViewAdapter extends RecyclerView.Adapter<CarChoos
         private TextView textViewCarName;
         private TextView textViewCarFuelConsuption;
         private TextView textViewCarType;
-
         private Button buttonChooseCar;
 
 
         public CarViewHolder(View itemView) {
             super(itemView);
-
 
             //vytahnuti prvku z xml, ktery si zadala v onCreateViewHolder
             textViewCarName= itemView.findViewById(R.id.textViewCarName);
@@ -91,7 +88,7 @@ public class CarChooserRecyclerViewAdapter extends RecyclerView.Adapter<CarChoos
                         int position = getAdapterPosition();
                         if(position != RecyclerView.NO_POSITION){ //nutne pro to aby to nehodilo nullpointer
                             OnButtonCarChooseListener.onButtonChoose(position);
-                        };
+                        }
                     }
                 }
             });
@@ -103,18 +100,14 @@ public class CarChooserRecyclerViewAdapter extends RecyclerView.Adapter<CarChoos
             textViewCarFuelConsuption.setText(String.valueOf(car.getFuelConsuption()));
             textViewCarType.setText(car.getCarType());
         }
-
     }
 
     //interface na komunikaci s aktivitou
     public interface onButtonCarChooseInterface{
         void onButtonChoose(int position);
-
-
     }
 
     public void setOnButtonChooseListener(onButtonCarChooseInterface listener){
         this.OnButtonCarChooseListener = listener;
-
     }
 }

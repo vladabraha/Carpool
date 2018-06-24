@@ -1,14 +1,12 @@
 package cz.uhk.fim.brahavl1.carpoolv4.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -16,12 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-
-import cz.uhk.fim.brahavl1.carpoolv4.Adapter.CarManageRecyclerViewAdapter;
-import cz.uhk.fim.brahavl1.carpoolv4.Adapter.RideOverviewRecyclerViewAdapter;
-import cz.uhk.fim.brahavl1.carpoolv4.Model.Car;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.DatabaseConnector;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.LocationModel;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Passenger;
@@ -30,17 +23,8 @@ import cz.uhk.fim.brahavl1.carpoolv4.R;
 
 public class Dashboard extends NavigationDrawer{
 
-    private Button btnCarProfile;
-    private Button btnDebtSettlement;
-    private Button btnStartCarpool;
-    private Button btnManageProfiles;
-    private Button btnRides;
-    private Button btnLogOut;
-    private int resultCode2 = 1;
     private int resultCodeChoosePassengers = 2;
-
     private String fuelPrice;
-
     private DatabaseConnector databaseConnector;
     private ArrayList<Passenger> passengerList;
     private String fuelConsuption;
@@ -79,82 +63,10 @@ public class Dashboard extends NavigationDrawer{
         textviewSavedMoney.setText("");
 
         getAllRidesFromDatabase();
-
-
-
         databaseConnector = new DatabaseConnector();
         databaseConnector.initializePassengerList();
 
     }
-//
-//
-//
-//        btnCarProfile = (Button) findViewById(R.id.btnCarProfile);
-//
-//        btnCarProfile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(Dashboard.this, CarProfile.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        btnRides = (Button) findViewById(R.id.btnManageRides);
-//
-//        btnRides.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(Dashboard.this, RideOverview.class);
-//                startActivity(intent);
-//
-//            }
-//        });
-//
-//        btnStartCarpool = (Button) findViewById(R.id.btnStartCarpool);
-//
-//        btnStartCarpool.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intentChooseCar = new Intent(Dashboard.this, CarChooser.class);
-//                startActivityForResult(intentChooseCar, resultCode2);
-//            }
-//        });
-//
-//
-//        btnManageProfiles = findViewById(R.id.btnManagePassengers);
-//
-//        btnManageProfiles.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intentManageProfiles = new Intent(Dashboard.this, PassengerProfile.class);
-//                startActivity(intentManageProfiles);
-//            }
-//        });
-//
-//        btnLogOut = findViewById(R.id.btnLogout);
-//
-//        btnLogOut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //tohle posle zpátky - v tomhle pripade zvoleny auto
-//                Intent resultIntent = new Intent();
-//                setResult(100, resultIntent);
-//                finish();
-//            }
-//        });
-//
-//        databaseConnector.checkEmailInDatabse();
-//
-//
-//        btnDebtSettlement = findViewById(R.id.btnDebtSettlements);
-//
-//        btnDebtSettlement.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intentDebtSettlement = new Intent(Dashboard.this, PassengerSettlement.class);
-//                startActivity(intentDebtSettlement);
-//            }
-//        });
 
     private ArrayList<Ride> getAllRidesFromDatabase() {
         myRef = FirebaseDatabase.getInstance().getReference("user")
@@ -232,18 +144,12 @@ public class Dashboard extends NavigationDrawer{
             totalTime = totalTime / 86400;
             textviewTotalTime.setText(String.valueOf(totalTime) + " days");
         }
-
     }
-
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
-        //super.onActivityResult(requestCode, resultCode, data);
-
-        //tady budu switchovat akce podle toho ze ktery aktivity se vracim
+    //tady budu switchovat akce podle toho ze ktery aktivity se vracim
         switch (resultCode) {
             //pokud je akce zrusena uzivatelem
             case 0:
@@ -290,8 +196,6 @@ public class Dashboard extends NavigationDrawer{
                     Log.d("TAG", "v locmodelu je " + locationModel.getLatitude());
                 }
                 long drivingTime = Long.valueOf(rideTime);
-
-
                 databaseConnector.saveRide(distance, drivingTime, passengerList, Double.valueOf(fuelPrice), Double.valueOf(fuelConsuption), listPosition);
 
                 break;

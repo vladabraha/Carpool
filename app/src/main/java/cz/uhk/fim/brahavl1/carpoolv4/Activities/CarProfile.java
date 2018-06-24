@@ -1,7 +1,6 @@
 package cz.uhk.fim.brahavl1.carpoolv4.Activities;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,6 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,10 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-
-import cz.uhk.fim.brahavl1.carpoolv4.Adapter.CarChooserRecyclerViewAdapter;
 import cz.uhk.fim.brahavl1.carpoolv4.Adapter.CarManageRecyclerViewAdapter;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.Car;
 import cz.uhk.fim.brahavl1.carpoolv4.Model.DatabaseConnector;
@@ -46,7 +41,6 @@ public class CarProfile extends NavigationDrawer implements CarManageRecyclerVie
 
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
-
 
     //seznam, ktery budeme posilat do recycler view
     private ArrayList<Car> listCar;
@@ -110,9 +104,7 @@ public class CarProfile extends NavigationDrawer implements CarManageRecyclerVie
         btnSaveCarProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                saveCarProfile();
-
             }
         });
     }

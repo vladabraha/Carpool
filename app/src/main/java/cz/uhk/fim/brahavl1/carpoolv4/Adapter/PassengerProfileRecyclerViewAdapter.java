@@ -62,19 +62,15 @@ public class PassengerProfileRecyclerViewAdapter extends RecyclerView.Adapter<Pa
         //de facto tady vytvoris jednotlivy polozky co se budou v recyclerview zobrazovat
         private TextView textViewPasengerName;
         private TextView textViewPassengerDebt;
-
         private Button buttonChoosePassenger;
-
 
         public PassengerViewHolder(View itemView) {
             super(itemView);
-
 
             //vytahnuti prvku z xml, ktery si zadala v onCreateViewHolder
             textViewPasengerName = itemView.findViewById(R.id.textViewPasengerName);
             textViewPassengerDebt = itemView.findViewById(R.id.textViewPasengerDebt);
             buttonChoosePassenger = itemView.findViewById(R.id.btnPassengerDelete);
-
 
             buttonChoosePassenger.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,12 +81,9 @@ public class PassengerProfileRecyclerViewAdapter extends RecyclerView.Adapter<Pa
                         if (position != RecyclerView.NO_POSITION) { //nutne pro to aby to nehodilo nullpointer
                             OnButtonPassengerDeleteListener.onButtonDelete(position);
                         }
-                        ;
                     }
                 }
             });
-
-
         }
 
         //nasetovani jednotlivych prvku
@@ -110,21 +103,16 @@ public class PassengerProfileRecyclerViewAdapter extends RecyclerView.Adapter<Pa
                     textViewPassengerDebt.setText("dluzite " + newName + " " + String.valueOf(debt));
                 }
             }
-
-
         }
     }
 
     //interface na komunikaci s aktivitou
     public interface onButtonPassengerDeleteInterface{
         void onButtonDelete(int position);
-
-
     }
 
     public void setOnButtonDeleteListener(PassengerProfileRecyclerViewAdapter.onButtonPassengerDeleteInterface listener){
         this.OnButtonPassengerDeleteListener = listener;
-
     }
 }
 

@@ -97,15 +97,17 @@ public class NavigationDrawer extends AppCompatActivity
                 }
 
                 if (!text.isEmpty()) {
-                    currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                    textViewCurrentUser = findViewById(R.id.textCurrentUser);
-                    if (textViewCurrentUser != null) {
+                    if (currentFirebaseUser != null){
+                        currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                        textViewCurrentUser = findViewById(R.id.textCurrentUser);
+                        if (textViewCurrentUser != null) {
 
-                        if (currentFirebaseUser.getDisplayName().isEmpty()) {
-                            textViewCurrentUser.setText(currentFirebaseUser.getEmail());
-                        } else {
-                            textViewCurrentUser.setText(currentFirebaseUser.getDisplayName());
-                        }
+                                if (currentFirebaseUser.getDisplayName().isEmpty()) {
+                                    textViewCurrentUser.setText(currentFirebaseUser.getEmail());
+                                } else {
+                                    textViewCurrentUser.setText(currentFirebaseUser.getDisplayName());
+                                }
+                            }
                     }
                 }
             }
@@ -244,7 +246,10 @@ public class NavigationDrawer extends AppCompatActivity
 
                 databaseConnector.saveRide(distance, drivingTime, passengerList, Double.valueOf(fuelPrice), Double.valueOf(fuelConsuption), listPosition);
 
-                double totaPrice = Double.valueOf(fuelConsuption) * (Double.valueOf(distance) / 1000);
+                String dist = distance;
+                dist.replace(",",".");
+                double dist2 = Double.valueOf(dist);
+                double totaPrice = Double.valueOf(fuelConsuption) * (dist2 / 1000);
                 Toast.makeText(this,"price for ride is: " + String.valueOf(totaPrice),Toast.LENGTH_LONG).show();
                 double priceForEach = totaPrice / (passengerList.size() + 1);
                 Toast.makeText(this,"price for each passenger is: " + String.valueOf(priceForEach),Toast.LENGTH_LONG).show();

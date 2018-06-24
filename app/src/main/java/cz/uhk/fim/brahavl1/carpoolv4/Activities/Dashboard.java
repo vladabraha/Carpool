@@ -133,16 +133,16 @@ public class Dashboard extends NavigationDrawer{
         textviewSavedMoney.setText(String.format("%.2f", totalSavedMoney));
         textviewTotalPrice.setText(String.format("%.2f", totalPrice));
         if (totalTime < 60){
-            textviewTotalTime.setText(String.valueOf(totalTime) + " seconds");
+            textviewTotalTime.setText(String.valueOf(String.format("%.2f", totalTime)) + " seconds");
         }else if (totalTime > 60 && totalTime < 3600){
             totalTime = totalTime / 60;
-            textviewTotalTime.setText(String.valueOf(totalTime) + " minutes");
+            textviewTotalTime.setText(String.valueOf(String.format("%.2f", totalTime)) + " minutes");
         }else if (totalTime > 3600 && totalTime < 86400){
             totalTime = totalTime / 3600;
-            textviewTotalTime.setText(String.valueOf(totalTime) + " hours");
+            textviewTotalTime.setText(String.valueOf(String.format("%.2f", totalTime)) + " hours");
         }else{
             totalTime = totalTime / 86400;
-            textviewTotalTime.setText(String.valueOf(totalTime) + " days");
+            textviewTotalTime.setText(String.valueOf(String.format("%.2f", totalTime)) + " days");
         }
     }
 
@@ -198,10 +198,16 @@ public class Dashboard extends NavigationDrawer{
                 long drivingTime = Long.valueOf(rideTime);
                 databaseConnector.saveRide(distance, drivingTime, passengerList, Double.valueOf(fuelPrice), Double.valueOf(fuelConsuption), listPosition);
 
-                double totaPrice = Double.valueOf(fuelConsuption) * (Double.valueOf(distance) / 1000);
-                Toast.makeText(this,"price for ride is: " + String.valueOf(totaPrice),Toast.LENGTH_LONG).show();
-                double priceForEach = totaPrice / (passengerList.size() + 1);
-                Toast.makeText(this,"price for each passenger is: " + String.valueOf(priceForEach),Toast.LENGTH_LONG).show();
+                //information about price
+                String dist = distance;
+                String newDist = dist.replace(",",".");
+
+                Log.i("TAG", newDist);
+                double dist2 = Double.valueOf(newDist);
+                double totalPrice = Double.valueOf(fuelConsuption) * (dist2 / 1000);
+                Toast.makeText(this,"price for ride is: " + String.valueOf(String.valueOf(String.format("%.2f", totalPrice))),Toast.LENGTH_LONG).show();
+                double priceForEach = totalPrice / (passengerList.size() + 1);
+                Toast.makeText(this,"price for each passenger is: " + String.valueOf( String.valueOf(String.format("%.2f", priceForEach))),Toast.LENGTH_LONG).show();
 
                 break;
         }

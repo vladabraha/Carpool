@@ -69,16 +69,27 @@ public class PassengerProfile extends NavigationDrawer implements PassengerProfi
         btnSavePassenger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //vymena tecky za | protoze tam tecka byt nesmi
-                String name = String.valueOf(editTextPassenger.getText());
-                String newName = name.replace(".","|");
-                Log.d("TAG","jmeno je " + newName);
-                passenger = new Passenger(newName,0);
-                databaseConnector.savePassenger(passenger);
+                String editText = editTextPassenger.getText().toString();
+                if (!editText.matches("") ){
+                    //vymena tecky za | protoze tam tecka byt nesmi
+                    String name = String.valueOf(editTextPassenger.getText());
+                    String newName = name.replace(".","|");
+                    Log.d("TAG","jmeno je " + newName);
+                    passenger = new Passenger(newName,0);
+                    databaseConnector.savePassenger(passenger);
 
-                editTextPassenger.setText("");
+                    editTextPassenger.setText("");
+                }else{
+                    showText("Insert name into field name first");
+
+                }
+
             }
         });
+    }
+
+    private void showText(String texts) {
+        Toast.makeText(this,texts,Toast.LENGTH_SHORT).show();
     }
 
     private ArrayList<Passenger> getAllPassengerFromDatabase() {

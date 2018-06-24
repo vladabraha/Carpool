@@ -73,6 +73,11 @@ public class Dashboard extends NavigationDrawer{
         textviewTotalTime = findViewById(R.id.textviewTotalTime);
         textviewSavedMoney = findViewById(R.id.textviewSavedMoney);
 
+        textviewReachedKilometres.setText("");
+        textviewTotalPrice.setText("");
+        textviewTotalTime.setText("");
+        textviewSavedMoney.setText("");
+
         getAllRidesFromDatabase();
 
 

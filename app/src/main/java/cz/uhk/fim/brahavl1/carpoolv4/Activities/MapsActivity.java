@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -15,6 +16,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -484,5 +486,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             finish();
         }
 
+    }
+    @Override
+    public void onBackPressed()
+    {
+        // setup the alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Close tracking");
+        builder.setMessage("Are you sure you want to close tracking?");
+
+
+        // Set click listener for alert dialog buttons
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch(which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        // User clicked the Yes button
+                        finish();
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        // User clicked the No button
+                        break;
+                }
+            }
+        };
+
+        // Set the alert dialog yes button click listener
+        builder.setPositiveButton("Yes", dialogClickListener);
+
+        // Set the alert dialog no button click listener
+        builder.setNegativeButton("No",dialogClickListener);
+
+        AlertDialog dialog = builder.create();
+        // Display the alert dialog on interface
+        dialog.show();
     }
 }

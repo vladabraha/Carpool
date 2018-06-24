@@ -30,20 +30,20 @@ import cz.uhk.fim.brahavl1.carpoolv4.R;
 
 public class Dashboard extends NavigationDrawer{
 
-//    private Button btnCarProfile;
-//    private Button btnDebtSettlement;
-//    private Button btnStartCarpool;
-//    private Button btnManageProfiles;
-//    private Button btnRides;
-//    private Button btnLogOut;
-//    private int resultCode2 = 1;
-//    private int resultCodeChoosePassengers = 2;
-//
-//    private String fuelPrice;
-//
-//    private DatabaseConnector databaseConnector;
-//    private ArrayList<Passenger> passengerList;
-//    private String fuelConsuption;
+    private Button btnCarProfile;
+    private Button btnDebtSettlement;
+    private Button btnStartCarpool;
+    private Button btnManageProfiles;
+    private Button btnRides;
+    private Button btnLogOut;
+    private int resultCode2 = 1;
+    private int resultCodeChoosePassengers = 2;
+
+    private String fuelPrice;
+
+    private DatabaseConnector databaseConnector;
+    private ArrayList<Passenger> passengerList;
+    private String fuelConsuption;
 
     private DatabaseReference myRef;
     private String userID;
@@ -75,10 +75,12 @@ public class Dashboard extends NavigationDrawer{
 
         getAllRidesFromDatabase();
 
-    }
 
-//        databaseConnector = new DatabaseConnector();
-//        databaseConnector.initializePassengerList();
+
+        databaseConnector = new DatabaseConnector();
+        databaseConnector.initializePassengerList();
+
+    }
 //
 //
 //
@@ -225,61 +227,61 @@ public class Dashboard extends NavigationDrawer{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
-//        //super.onActivityResult(requestCode, resultCode, data);
-//
-//        //tady budu switchovat akce podle toho ze ktery aktivity se vracim
-//        switch (resultCode) {
-//            //pokud je akce zrusena uzivatelem
-//            case 0:
-//                Toast.makeText(this,"action was cancelled", Toast.LENGTH_SHORT).show();
-//                break;
-//            //Vraceni z CarChooser
-//            case 100:
-//                fuelConsuption = data.getStringExtra("car");
-//
-//                //zahajeni dalsi aktivity po vyberu vozidla
-//                ArrayList<Passenger> listPass = new ArrayList<>();
-//                Intent intentSelectPassengers = new Intent(Dashboard.this, PassengerChooser.class);
-//                intentSelectPassengers.putExtra("arg_key", listPass);
-//                startActivityForResult(intentSelectPassengers, resultCodeChoosePassengers);
-//                break;
-//
-//            //Vraceni z CarChooser
-//            case 200:
-//                //vytahne objekt z intentu
-//                passengerList = (ArrayList<Passenger>) data.getSerializableExtra("arg_key");
-//
-//                Intent intentSetFuelPrice = new Intent(Dashboard.this, FuelPrice.class);
-//                startActivityForResult(intentSetFuelPrice, resultCode);
-//
-//                break;
-//
-//                //vraceni z fuelPrice aktivity
-//            case 400:
-//
-//                fuelPrice = data.getStringExtra("fuelPrice");
-//                Intent intentStartPool = new Intent(Dashboard.this, MapsActivity.class);
-//                startActivityForResult(intentStartPool, resultCode);
-//
-//                break;
-//
-//                //vraceni z maps activity
-//            case 300:
-//                //vytahne objekt z intentu
-//                ArrayList<LocationModel> listPosition = new ArrayList<>();
-//                String distance = data.getStringExtra("distance");
-//                String rideTime = data.getStringExtra("base");
-//                listPosition = (ArrayList<LocationModel>) data.getSerializableExtra("positionList");
-//                for (LocationModel locationModel: listPosition){
-//                    Log.d("TAG", "v locmodelu je " + locationModel.getLatitude());
-//                }
-//                long drivingTime = Long.valueOf(rideTime);
-//
-//
-//                databaseConnector.saveRide(distance, drivingTime, passengerList, Double.valueOf(fuelPrice), Double.valueOf(fuelConsuption), listPosition);
-//
-//                break;
-//        }
+        //super.onActivityResult(requestCode, resultCode, data);
+
+        //tady budu switchovat akce podle toho ze ktery aktivity se vracim
+        switch (resultCode) {
+            //pokud je akce zrusena uzivatelem
+            case 0:
+                Toast.makeText(this,"action was cancelled", Toast.LENGTH_SHORT).show();
+                break;
+            //Vraceni z CarChooser
+            case 100:
+                fuelConsuption = data.getStringExtra("car");
+
+                //zahajeni dalsi aktivity po vyberu vozidla
+                ArrayList<Passenger> listPass = new ArrayList<>();
+                Intent intentSelectPassengers = new Intent(Dashboard.this, PassengerChooser.class);
+                intentSelectPassengers.putExtra("arg_key", listPass);
+                startActivityForResult(intentSelectPassengers, resultCodeChoosePassengers);
+                break;
+
+            //Vraceni z CarChooser
+            case 200:
+                //vytahne objekt z intentu
+                passengerList = (ArrayList<Passenger>) data.getSerializableExtra("arg_key");
+
+                Intent intentSetFuelPrice = new Intent(Dashboard.this, FuelPrice.class);
+                startActivityForResult(intentSetFuelPrice, resultCode);
+
+                break;
+
+                //vraceni z fuelPrice aktivity
+            case 400:
+
+                fuelPrice = data.getStringExtra("fuelPrice");
+                Intent intentStartPool = new Intent(Dashboard.this, MapsActivity.class);
+                startActivityForResult(intentStartPool, resultCode);
+
+                break;
+
+                //vraceni z maps activity
+            case 300:
+                //vytahne objekt z intentu
+                ArrayList<LocationModel> listPosition = new ArrayList<>();
+                String distance = data.getStringExtra("distance");
+                String rideTime = data.getStringExtra("base");
+                listPosition = (ArrayList<LocationModel>) data.getSerializableExtra("positionList");
+                for (LocationModel locationModel: listPosition){
+                    Log.d("TAG", "v locmodelu je " + locationModel.getLatitude());
+                }
+                long drivingTime = Long.valueOf(rideTime);
+
+
+                databaseConnector.saveRide(distance, drivingTime, passengerList, Double.valueOf(fuelPrice), Double.valueOf(fuelConsuption), listPosition);
+
+                break;
+        }
 
     }
 

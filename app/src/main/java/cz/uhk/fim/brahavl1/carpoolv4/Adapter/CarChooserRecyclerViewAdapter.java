@@ -27,7 +27,7 @@ public class CarChooserRecyclerViewAdapter extends RecyclerView.Adapter<CarChoos
     // Konstruktor  vlozi data, ktera se budou zobrazovat (vola se z aktivity)
     public CarChooserRecyclerViewAdapter( ArrayList<Car> carList) {
         this.carList = carList;
-        Log.d("TAG",String.valueOf(carList.size()));
+
     }
 
     // Prepsat podle holderu dole
@@ -56,7 +56,6 @@ public class CarChooserRecyclerViewAdapter extends RecyclerView.Adapter<CarChoos
     // Potrebuje to vedet jak velky pole to bude - upravit nazvy
     @Override
     public int getItemCount() {
-        Log.d("TAG", String.valueOf(carList.size()));
         return carList.size();
     }
 

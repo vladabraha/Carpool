@@ -195,6 +195,18 @@ public class NavigationDrawer extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
+        Log.d("TAG", "prisel zpatky resulkod " + resultCode);
+        Log.d("TAG", "prisel zpatky request " + requestCode);
+
+//        if(requestCode == 1){
+//            fuelConsuption = data.getStringExtra("car");
+//
+//            //zahajeni dalsi aktivity po vyberu vozidla
+//            ArrayList<Passenger> listPass = new ArrayList<>();
+//            Intent intentSelectPassengers = new Intent(NavigationDrawer.this, PassengerChooser.class);
+//            intentSelectPassengers.putExtra("arg_key", listPass);
+//            startActivityForResult(intentSelectPassengers, 2);
+//        }
 
         //tady budu switchovat akce podle toho ze ktery aktivity se vracim
         switch (resultCode) {

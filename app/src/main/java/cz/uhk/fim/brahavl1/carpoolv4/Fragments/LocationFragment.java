@@ -63,12 +63,13 @@ public class LocationFragment extends Fragment {
 
 //        editKilometres = view.findViewById(R.id.editKilometres);
         textViewKilometres = view.findViewById(R.id.textKilometres);
-        textViewKilometres.setText("0");
+        textViewKilometres.setText("");
 
         textViewMetresOrKilometresInformation = view.findViewById(R.id.textKmM);
-        textViewMetresOrKilometresInformation.setText("metres");
+        textViewMetresOrKilometresInformation.setText("");
 
         chronometer = view.findViewById(R.id.chronometer);
+        chronometer.setText("");
 
         btnStartTracking = view.findViewById(R.id.btnStartTracking);
 
